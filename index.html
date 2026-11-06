@@ -1,453 +1,629 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101827">
-<meta name="description" content="私人影视中心：正版免费电影、电视剧、纪录片和国际双语新闻">
+<meta name="theme-color" content="#080d18">
+<meta name="description" content="Personal Film Center - 个人影视与国际资讯中心">
 <title>Personal Film Center｜私人影视中心</title>
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+
 <style>
-:root{
-  --bg:#0b1220;
-  --panel:#131f31;
-  --panel2:#1a2a40;
-  --line:#263950;
-  --text:#edf3fa;
-  --muted:#9aabc0;
-  --gold:#e8b969;
-  --blue:#80baff;
-  --green:#79d6ad;
-  --radius:18px;
+:root {
+  --bg:#080d18;
+  --panel:#111a2b;
+  --panel2:#172238;
+  --text:#edf2fa;
+  --muted:#98a8bf;
+  --gold:#e8b75a;
+  --line:rgba(255,255,255,.09);
+  --blue:#75aaff;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;
-  background:var(--bg);
+  background:
+    radial-gradient(ellipse at 15% 0%,rgba(36,67,112,.25),transparent 40%),
+    linear-gradient(180deg,#080d18,#0b1220 60%,#080d18);
   color:var(--text);
-  font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  min-height:100vh;
 }
+a{color:inherit;text-decoration:none}
 button,input{font:inherit}
 button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-.shell{max-width:1200px;margin:auto;padding:0 20px}
+.hidden{display:none!important}
+
 header{
-  position:sticky;top:0;z-index:10;
-  background:rgba(11,18,32,.94);
-  backdrop-filter:blur(16px);
+  padding:26px 20px 18px;
   border-bottom:1px solid var(--line);
+  background:rgba(8,13,24,.88);
 }
-.topbar{
-  min-height:70px;display:flex;align-items:center;
-  justify-content:space-between;gap:16px;
+.header-inner{max-width:1250px;margin:auto}
+.brand-line{
+  display:flex;align-items:center;gap:12px;
 }
-.brand{display:flex;align-items:center;gap:11px;font-weight:800}
-.logo{
-  width:42px;height:42px;border-radius:14px;
+.brand-icon{
+  width:43px;height:43px;border-radius:13px;
   display:grid;place-items:center;
-  background:linear-gradient(145deg,#f2cf8a,#a96b30);
-  color:#18202d;font-size:22px;
+  background:linear-gradient(135deg,#e8b75a,#9c6722);
+  color:#101522;font-size:22px;font-weight:900;
+  box-shadow:0 5px 25px rgba(232,183,90,.18);
 }
-.brand-name{font-size:17px;letter-spacing:.3px}
-.brand-sub{font-size:10px;color:var(--muted);letter-spacing:2px}
-.install-btn,.primary-btn{
-  border:0;border-radius:12px;padding:10px 15px;
-  background:var(--gold);color:#18202d;font-weight:750;
+.brand-title{font-size:23px;font-weight:800;letter-spacing:.3px}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:2px;margin-top:4px}
+.header-note{
+  margin-top:17px;color:var(--muted);font-size:13px;line-height:1.7;
 }
-nav{
-  display:flex;gap:8px;overflow-x:auto;padding:0 0 12px;
-  scrollbar-width:none;
-}
-nav::-webkit-scrollbar{display:none}
-.nav-btn{
-  flex:0 0 auto;background:transparent;color:var(--muted);
-  border:1px solid transparent;border-radius:12px;
-  padding:9px 14px;font-size:14px;
-}
-.nav-btn.active,.nav-btn:hover{
-  color:var(--gold);background:#1c2a3e;border-color:#35445a;
-}
-.hero{padding:35px 0 24px}
-.hero-box{
-  min-height:240px;border-radius:25px;padding:30px;
-  display:flex;align-items:center;position:relative;overflow:hidden;
+main{max-width:1250px;margin:auto;padding:22px 20px 60px}
+
+.hero{
+  min-height:210px;
+  border:1px solid rgba(232,183,90,.18);
+  border-radius:20px;
+  padding:30px;
+  display:flex;flex-direction:column;justify-content:center;
   background:
-    radial-gradient(circle at 80% 20%,rgba(232,185,105,.23),transparent 30%),
-    linear-gradient(115deg,#1c3049,#101b2c 70%);
-  border:1px solid #34465d;
+    linear-gradient(100deg,rgba(8,13,24,.97),rgba(12,25,46,.82)),
+    radial-gradient(circle at 80% 40%,#31517a,transparent 45%);
+  position:relative;overflow:hidden;
+  margin-bottom:22px;
 }
-.hero-box:after{
-  content:"▶";position:absolute;right:8%;top:15%;
-  font-size:160px;color:rgba(255,255,255,.045);
+.hero:after{
+  content:"FILM · CULTURE · WORLD";
+  position:absolute;right:25px;bottom:20px;
+  color:rgba(232,183,90,.18);font-size:clamp(16px,3vw,30px);
+  font-weight:900;letter-spacing:3px;
 }
-.hero-content{position:relative;z-index:1;max-width:650px}
-.eyebrow{color:var(--gold);font-size:11px;letter-spacing:3px;font-weight:800}
-h1{font-size:clamp(30px,5vw,48px);line-height:1.15;margin:12px 0}
-.hero p{color:#c1cede;line-height:1.8;margin:0 0 20px}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
-.secondary-btn{
-  padding:10px 15px;border-radius:12px;
-  border:1px solid #64748b;background:#ffffff0b;color:white;
+.hero h1{font-size:clamp(26px,5vw,42px);margin:0 0 12px}
+.hero p{color:#b8c5d7;line-height:1.8;max-width:650px;margin:0;font-size:14px}
+.hero-tag{color:var(--gold);font-size:11px;letter-spacing:3px;margin-bottom:12px}
+
+.search-wrap{margin:20px 0}
+.search-box{position:relative}
+.search-box input{
+  width:100%;padding:16px 50px 16px 18px;
+  border-radius:13px;border:1px solid var(--line);
+  background:#111b2c;color:var(--text);outline:none;
+  font-size:15px;transition:.2s;
 }
-.search-wrap{padding:8px 0 25px}
-.search{
-  width:100%;background:var(--panel);border:1px solid var(--line);
-  border-radius:14px;padding:15px 17px;color:var(--text);outline:none;
+.search-box input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,183,90,.1)}
+.search-icon{
+  position:absolute;right:17px;top:50%;transform:translateY(-50%);
+  color:var(--gold);font-size:20px;pointer-events:none;
 }
-.search:focus{border-color:var(--gold)}
-.section{padding:12px 0 30px}
+.search-hint{font-size:11px;color:var(--muted);margin:9px 3px 0}
+
+nav{
+  display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:8px;margin:20px 0 24px;
+}
+.nav-btn{
+  border:1px solid var(--line);border-radius:11px;
+  padding:12px 7px;background:#111a2a;color:#aebbd0;
+  font-size:13px;min-height:46px;transition:.2s;
+}
+.nav-btn:hover{border-color:rgba(232,183,90,.5);color:#fff}
+.nav-btn.active{
+  background:linear-gradient(135deg,#e8b75a,#bd8537);
+  border-color:transparent;color:#101522;font-weight:800;
+}
+
 .section-head{
   display:flex;align-items:end;justify-content:space-between;
-  gap:12px;margin-bottom:17px;
+  gap:12px;margin:28px 0 15px;
 }
-.section-head h2{font-size:22px;margin:0}
-.section-head p{font-size:12px;color:var(--muted);margin:5px 0 0}
-.count{font-size:12px;color:var(--muted)}
-.grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;
+.section-head h2{font-size:20px;margin:0}
+.section-head p{color:var(--muted);font-size:12px;margin:6px 0 0}
+.count{color:var(--gold);font-size:12px;white-space:nowrap}
+
+.card-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
 }
 .card{
-  background:linear-gradient(145deg,var(--panel),#101a29);
-  border:1px solid var(--line);border-radius:var(--radius);
-  padding:17px;min-width:0;display:flex;flex-direction:column;
-  gap:11px;transition:.2s;
+  background:linear-gradient(145deg,#152137,#101827);
+  border:1px solid var(--line);border-radius:15px;
+  padding:18px;min-width:0;display:flex;flex-direction:column;
+  transition:transform .2s,border-color .2s,background .2s;
 }
-.card:hover{transform:translateY(-3px);border-color:#53677f}
-.card-top{display:flex;align-items:center;gap:12px}
-.card-icon{
-  width:48px;height:48px;flex:0 0 48px;
-  display:grid;place-items:center;border-radius:15px;
-  background:var(--panel2);font-size:24px;
+.card:hover{transform:translateY(-3px);border-color:rgba(232,183,90,.35)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.card h3{font-size:16px;margin:0 0 8px;line-height:1.4}
+.card p{font-size:13px;color:#aab8cc;line-height:1.7;margin:0 0 14px}
+.card-category{
+  display:inline-block;font-size:10px;color:var(--gold);
+  border:1px solid rgba(232,183,90,.25);
+  border-radius:20px;padding:4px 8px;margin-bottom:10px;
 }
-.card h3{font-size:16px;margin:0}
-.card small{color:var(--muted);font-size:11px}
-.card p{color:#bdc9d8;font-size:13px;line-height:1.65;margin:0;flex:1}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{
-  border-radius:7px;padding:4px 7px;font-size:10px;
-  background:#25364b;color:#c8d7e8;
+.card-actions{display:flex;align-items:center;gap:9px;margin-top:auto}
+.visit{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#e8b75a,#c18a3d);
+  color:#111827;font-size:12px;font-weight:800;
+  padding:9px 14px;border-radius:8px;
 }
-.tag.free{color:var(--green);background:#17372f}
-.tag.region{color:#f2ca83;background:#3a3020}
-.card-actions{display:flex;align-items:center;gap:8px;margin-top:3px}
-.open-link{
-  flex:1;text-align:center;padding:9px 10px;border-radius:10px;
-  background:#263a52;color:#eaf2fb;font-size:12px;font-weight:700;
+.favorite{
+  border:1px solid var(--line);background:#1a2940;
+  color:#d6dfec;border-radius:8px;padding:8px 11px;font-size:12px;
 }
-.open-link:hover{background:#36516e}
-.fav{
-  width:38px;height:36px;border-radius:10px;
-  border:1px solid var(--line);background:transparent;color:#aab8c9;
+.favorite.saved{color:var(--gold);border-color:rgba(232,183,90,.4)}
+.card-tags{font-size:10px;color:#74869f;margin:0 0 13px;line-height:1.7}
+
+.info-note{
+  background:rgba(117,170,255,.07);
+  border:1px solid rgba(117,170,255,.15);
+  color:#aebdd1;border-radius:12px;padding:13px 15px;
+  font-size:12px;line-height:1.8;margin:20px 0;
 }
-.fav.saved{color:#ffd27e;border-color:#8d6b36;background:#352b1b}
-.notice{
-  border:1px solid #34465c;background:#142238;
-  padding:14px 16px;border-radius:14px;color:#bdcadd;
-  font-size:12px;line-height:1.7;margin:8px 0 22px;
+.warning-note{
+  background:rgba(232,183,90,.07);
+  border:1px solid rgba(232,183,90,.17);
+  color:#c8b894;border-radius:12px;padding:13px 15px;
+  font-size:12px;line-height:1.8;margin:18px 0;
 }
-.notice strong{color:var(--gold)}
-.hidden{display:none!important}
+
+#searchResults{margin-top:20px}
+.search-summary{color:var(--muted);font-size:13px;margin:10px 0 20px}
+.search-group{margin-bottom:25px}
 .empty{
-  padding:35px;text-align:center;color:var(--muted);
-  border:1px dashed var(--line);border-radius:16px;
+  text-align:center;padding:45px 15px;color:var(--muted);
+  border:1px dashed var(--line);border-radius:15px;line-height:1.9;
 }
+.empty strong{display:block;color:#e1e8f2;font-size:17px;margin-bottom:8px}
+
 footer{
-  border-top:1px solid var(--line);padding:25px 0 35px;
-  color:var(--muted);font-size:11px;line-height:1.8;text-align:center;
+  border-top:1px solid var(--line);padding:25px 20px;
+  color:#718198;text-align:center;font-size:11px;line-height:1.8;
 }
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){
-  .shell{padding:0 14px}
-  .topbar{min-height:62px}
-  .brand-name{font-size:14px}
-  .install-btn{font-size:12px;padding:9px 11px}
-  .hero{padding-top:19px}
-  .hero-box{min-height:220px;padding:23px 19px}
-  .hero-box:after{font-size:110px;right:3%}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .card{padding:12px;gap:9px;border-radius:15px}
-  .card-top{align-items:flex-start;gap:8px}
-  .card-icon{width:38px;height:38px;flex-basis:38px;font-size:20px;border-radius:12px}
-  .card h3{font-size:13px;line-height:1.4}
-  .card small{font-size:10px}
-  .card p{font-size:11px;line-height:1.55}
-  .tag{font-size:9px;padding:4px 5px}
-  .open-link{font-size:11px;padding:8px 5px}
-  .fav{width:32px;height:32px}
-  .section-head h2{font-size:19px}
+footer a{color:var(--gold)}
+
+@media(max-width:900px){
+  nav{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+  header{padding:20px 15px 15px}
+  main{padding:17px 13px 45px}
+  .brand-title{font-size:20px}
+  .hero{padding:23px 19px;min-height:190px}
+  .hero:after{font-size:13px;right:15px}
+  nav{gap:7px}
+  .nav-btn{font-size:12px;padding:10px 4px;min-height:43px}
+  .card-grid{grid-template-columns:1fr;gap:10px}
+  .card{padding:16px}
+  .section-head h2{font-size:18px}
 }
 </style>
 </head>
+
 <body>
 <header>
-  <div class="shell">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo">▶</div>
-        <div>
-          <div class="brand-name">PERSONAL FILM CENTER</div>
-          <div class="brand-sub">私人影视中心</div>
-        </div>
+  <div class="header-inner">
+    <div class="brand-line">
+      <div class="brand-icon">P</div>
+      <div>
+        <div class="brand-title">Personal Film Center</div>
+        <div class="brand-sub">私人影视 · 国际资讯 · 文化探索</div>
       </div>
-      <button class="install-btn" id="installBtn" hidden>安装到设备</button>
     </div>
-    <nav id="nav">
-      <button class="nav-btn active" data-section="home">首页</button>
-      <button class="nav-btn" data-section="movies">电影</button>
-      <button class="nav-btn" data-section="series">剧集 / 纪录片</button>
-      <button class="nav-btn" data-section="news">国际新闻</button>
-      <button class="nav-btn" data-section="live">官方直播</button>
-      <button class="nav-btn" data-section="subtitles">字幕中心</button>
-      <button class="nav-btn" data-section="favorites">我的收藏</button>
-    </nav>
+    <div class="header-note">
+      一个属于自己的影视与国际资讯入口。探索电影、纪录片、世界新闻与文化内容。
+    </div>
   </div>
 </header>
 
-<main class="shell">
+<main>
   <section class="hero" id="homeHero">
-    <div class="hero-box">
-      <div class="hero-content">
-        <div class="eyebrow">YOUR PRIVATE DIGITAL CINEMA</div>
-        <h1>发现好电影，<br>打开更大的世界。</h1>
-        <p>正版免费影视 · 国际双语新闻 · 纪录片 · 官方直播<br>
-        一个属于自己的私人数字媒体中心。</p>
-        <div class="hero-actions">
-          <button class="primary-btn" onclick="showSection('movies')">探索免费电影</button>
-          <button class="secondary-btn" onclick="showSection('news')">进入国际新闻</button>
-        </div>
-      </div>
-    </div>
+    <div class="hero-tag">YOUR PERSONAL MEDIA SPACE</div>
+    <h1>发现好电影，了解真实世界。</h1>
+    <p>精选影视平台、纪录片、国际新闻和官方直播入口。以正版来源为主，让阅读与观看更简单。</p>
   </section>
 
   <div class="search-wrap">
-    <input class="search" id="search" type="search"
-      placeholder="搜索平台、电影类型、新闻媒体或字幕资源……">
+    <div class="search-box">
+      <input id="search" type="search" placeholder="全站搜索：电影、纪录片、BBC、Reuters、字幕……" autocomplete="off">
+      <span class="search-icon">⌕</span>
+    </div>
+    <div class="search-hint">搜索范围：电影、剧集、纪录片、国际新闻、官方直播、字幕中心及收藏。</div>
   </div>
 
-  <div class="notice">
-    <strong>正版免费说明：</strong>
-    本站只提供正规平台和机构的官方入口，不托管影视文件。
-    “免费”不代表所有地区、所有影片都免费；部分平台有广告、地区限制或单片付费。
-    请以平台实际页面的版权和播放说明为准。
+  <nav id="mainNav">
+    <button class="nav-btn active" data-section="home">首页</button>
+    <button class="nav-btn" data-section="movies">电影</button>
+    <button class="nav-btn" data-section="series">剧集</button>
+    <button class="nav-btn" data-section="documentaries">纪录片</button>
+    <button class="nav-btn" data-section="news">国际新闻</button>
+    <button class="nav-btn" data-section="live">官方直播</button>
+    <button class="nav-btn" data-section="subtitles">字幕中心</button>
+    <button class="nav-btn" data-section="favorites">我的收藏</button>
+  </nav>
+
+  <div id="normalView">
+    <section id="homeSection" class="content-section">
+      <div class="section-head">
+        <div><h2>欢迎来到私人影视中心</h2><p>从下方栏目开始探索</p></div>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <span class="card-category">MOVIES</span>
+          <h3>电影精选</h3>
+          <p>探索免费、广告支持或公共领域电影资源。</p>
+          <div class="card-actions"><button class="visit" data-go="movies">进入电影栏目</button></div>
+        </article>
+        <article class="card">
+          <span class="card-category">DOCUMENTARY</span>
+          <h3>纪录片世界</h3>
+          <p>了解科学、历史、自然、社会与世界文化。</p>
+          <div class="card-actions"><button class="visit" data-go="documentaries">进入纪录片</button></div>
+        </article>
+        <article class="card">
+          <span class="card-category">WORLD NEWS</span>
+          <h3>国际新闻</h3>
+          <p>通过多家国际媒体了解全球动态与不同视角。</p>
+          <div class="card-actions"><button class="visit" data-go="news">进入国际新闻</button></div>
+        </article>
+      </div>
+      <div class="info-note">提示：本网站是影视与媒体入口导航，不直接托管视频，也不保证第三方网站在所有国家和地区均可访问。</div>
+    </section>
+
+    <section id="movies" class="content-section hidden">
+      <div class="section-head"><div><h2>电影 · Movies</h2><p>免费资源、广告支持平台及公共领域电影</p></div></div>
+      <div id="moviesGrid" class="card-grid"></div>
+      <div class="warning-note">免费政策、片库和播放地区会变化。部分平台需要注册，部分内容可能仅在特定国家或地区提供。</div>
+    </section>
+
+    <section id="series" class="content-section hidden">
+      <div class="section-head"><div><h2>剧集 · Series</h2><p>官方剧集、文化节目与公共媒体内容</p></div></div>
+      <div id="seriesGrid" class="card-grid"></div>
+    </section>
+
+    <section id="documentaries" class="content-section hidden">
+      <div class="section-head"><div><h2>纪录片 · Documentaries</h2><p>科学、自然、历史、社会与文化</p></div></div>
+      <div id="documentariesGrid" class="card-grid"></div>
+    </section>
+
+    <section id="news" class="content-section hidden">
+      <div class="section-head"><div><h2>国际新闻 · World News</h2><p>中英文国际媒体入口，不收录 CCTV 新闻和 CGTN 新闻</p></div></div>
+      <div id="newsGrid" class="card-grid"></div>
+      <div class="info-note">本栏目提供媒体官网入口，并非实时新闻聚合器。建议对重大事件交叉查阅多家媒体的报道、原始文件和现场资料。</div>
+    </section>
+
+    <section id="live" class="content-section hidden">
+      <div class="section-head"><div><h2>官方直播 · Live</h2><p>国际媒体官方直播与视频频道</p></div></div>
+      <div id="liveGrid" class="card-grid"></div>
+    </section>
+
+    <section id="subtitles" class="content-section hidden">
+      <div class="section-head"><div><h2>字幕中心 · Subtitles</h2><p>字幕检索与本地播放器工具</p></div></div>
+      <div id="subtitlesGrid" class="card-grid"></div>
+      <div class="info-note">请尊重影视作品版权和字幕作者许可。字幕文件应与合法取得的影片配合使用。</div>
+    </section>
+
+    <section id="favorites" class="content-section hidden">
+      <div class="section-head"><div><h2>我的收藏 · Favorites</h2><p>保存在当前设备的浏览器中</p></div></div>
+      <div id="favoritesGrid" class="card-grid"></div>
+    </section>
   </div>
 
-  <section class="section" id="homeSection">
+  <section id="searchResults" class="hidden">
     <div class="section-head">
-      <div><h2>欢迎来到私人影院</h2><p>精选入口，轻松探索全球影视与资讯</p></div>
+      <div><h2>全站搜索结果</h2><p>已搜索所有栏目中的资源</p></div>
     </div>
-    <div class="grid">
-      <article class="card"><div class="card-top"><div class="card-icon">🎬</div><div><h3>免费电影</h3><small>FREE MOVIES</small></div></div><p>探索经典电影、广告支持片库和公共文化馆藏。</p><div class="card-actions"><a class="open-link" href="#" onclick="showSection('movies');return false">浏览电影</a></div></article>
-      <article class="card"><div class="card-top"><div class="card-icon">📺</div><div><h3>剧集与纪录片</h3><small>SERIES & DOCS</small></div></div><p>电视剧、历史、自然、科学与人文纪录片。</p><div class="card-actions"><a class="open-link" href="#" onclick="showSection('series');return false">浏览片库</a></div></article>
-      <article class="card"><div class="card-top"><div class="card-icon">🌍</div><div><h3>国际双语新闻</h3><small>WORLD NEWS</small></div></div><p>中文报道与英文原版并行，重大事件交叉核对。</p><div class="card-actions"><a class="open-link" href="#" onclick="showSection('news');return false">进入新闻中心</a></div></article>
-      <article class="card"><div class="card-top"><div class="card-icon">⭐</div><div><h3>我的收藏</h3><small>MY FAVORITES</small></div></div><p>把常用平台和媒体入口保存在本设备。</p><div class="card-actions"><a class="open-link" href="#" onclick="showSection('favorites');return false">查看收藏</a></div></article>
-    </div>
+    <div id="searchSummary" class="search-summary"></div>
+    <div id="searchGroups"></div>
   </section>
-
-  <section class="section content-section hidden" id="movies">
-    <div class="section-head"><div><h2>🎬 免费电影平台</h2><p>正版片库、经典电影与公共文化馆藏</p></div></div>
-    <div class="grid" id="moviesGrid"></div>
-  </section>
-
-  <section class="section content-section hidden" id="series">
-    <div class="section-head"><div><h2>📺 剧集与纪录片</h2><p>官方平台、纪录片机构与免费内容入口</p></div></div>
-    <div class="grid" id="seriesGrid"></div>
-  </section>
-
-  <section class="section content-section hidden" id="news">
-    <div class="section-head"><div><h2>🌍 国际双语新闻中心</h2><p>中文报道 + English Original · 多来源交叉核对</p></div></div>
-    <div class="notice"><strong>阅读原则：</strong>没有任何一家媒体绝对中立。建议重大事件同时查看通讯社、不同国家媒体和原始文件。此处提供媒体入口，不代表实时新闻聚合。</div>
-    <div class="grid" id="newsGrid"></div>
-  </section>
-
-  <section class="section content-section hidden" id="live">
-    <div class="section-head"><div><h2>📡 国际官方直播</h2><p>仅列官方频道入口，直播可用性以所在地区为准</p></div></div>
-    <div class="grid" id="liveGrid"></div>
-  </section>
-
-  <section class="section content-section hidden" id="subtitles">
-    <div class="section-head"><div><h2>💬 字幕与播放器</h2><p>字幕检索、字幕管理和本地播放工具</p></div></div>
-    <div class="grid" id="subtitleGrid"></div>
-  </section>
-
-  <section class="section content-section hidden" id="favorites">
-    <div class="section-head"><div><h2>⭐ 我的收藏</h2><p>收藏记录保存在当前设备的浏览器中</p></div></div>
-    <div class="grid" id="favoritesGrid"></div>
-    <div class="empty hidden" id="emptyFavorites">还没有收藏内容。点击资源卡片上的 ☆ 即可收藏。</div>
-  </section>
-
-  <div class="empty hidden" id="emptySearch">没有找到相关内容，试试其他关键词。</div>
 </main>
 
 <footer>
-  <div class="shell">
-    PERSONAL FILM CENTER · 私人影视中心<br>
-    本站为正版资源导航，不提供影视文件、破解服务或未经授权的直播源。<br>
-    各平台内容、地区开放范围、广告与收费政策可能随时变化。
-  </div>
+  PERSONAL FILM CENTER · 私人影视中心<br>
+  本站仅提供第三方平台官方入口，不存储、上传或播放影视内容。<br>
+  请遵守当地法律及各平台的服务条款和版权规定。
 </footer>
 
 <script>
+"use strict";
+
 const resources = {
-movies: [
- {id:"plex",icon:"🎞️",name:"Plex",sub:"免费广告支持影视",desc:"电影、电视剧和部分免费直播频道。片库随地区变化。",url:"https://watch.plex.tv/",tags:["免费广告支持","地区限制"]},
- {id:"tubi",icon:"🍿",name:"Tubi",sub:"Free Movies & TV",desc:"广告支持的免费电影和电视剧服务，地区开放范围有限。",url:"https://tubitv.com/",tags:["免费广告支持","海外地区限定"]},
- {id:"archive",icon:"🏛️",name:"Internet Archive",sub:"互联网档案馆",desc:"经典电影、历史影像和公共文化资料。请查看每部作品的版权说明。",url:"https://archive.org/details/movies",tags:["馆藏免费","版权逐项确认"]},
- {id:"loc",icon:"🎥",name:"美国国会图书馆",sub:"National Screening Room",desc:"历史影片与文化影像官方馆藏，部分作品可能有使用限制。",url:"https://www.loc.gov/collections/national-screening-room/",tags:["官方馆藏","免费浏览"]},
- {id:"youtube",icon:"▶️",name:"YouTube Movies",sub:"免费电影专区",desc:"部分地区提供广告支持的免费电影，目录和开放地区有限。",url:"https://www.youtube.com/movies",tags:["官方平台","地区限定"]},
- {id:"nfb",icon:"🇨🇦",name:"加拿大国家电影局",sub:"NFB",desc:"纪录片、动画和短片，提供大量官方免费作品。",url:"https://www.nfb.ca/",tags:["免费官方内容","纪录片"]},
- {id:"bilibili",icon:"📺",name:"哔哩哔哩",sub:"Bilibili",desc:"可查找官方授权电影、纪录片和影视内容，注意区分大会员与免费内容。",url:"https://www.bilibili.com/",tags:["部分免费","需核对授权"]},
- {id:"1905",icon:"🎬",name:"1905电影网",sub:"电影频道",desc:"电影资讯及部分免费正版影片，具体播放权限以页面为准。",url:"https://www.1905.com/",tags:["部分免费","片目变化"]},
- {id:"mango",icon:"🥭",name:"芒果TV",sub:"Mango TV",desc:"电视剧、综艺和电影，免费内容与会员内容并存。",url:"https://www.mgtv.com/",tags:["部分免费","会员内容另计"]},
- {id:"youku",icon:"📽️",name:"优酷",sub:"Youku",desc:"电影、电视剧和纪录片，需留意免费与会员标识。",url:"https://www.youku.com/",tags:["部分免费","会员内容另计"]}
-],
-series: [
- {id:"nfbdoc",icon:"🌿",name:"NFB 纪录片",sub:"加拿大国家电影局",desc:"人文、历史、社会、自然与动画作品。",url:"https://www.nfb.ca/",tags:["官方免费","纪录片"]},
- {id:"dwdoc",icon:"🌐",name:"DW Documentary",sub:"德国之声纪录片",desc:"国际社会、历史、科技、文化和调查类纪录片。",url:"https://www.youtube.com/@DWDocumentary",tags:["官方频道","英文为主"]},
- {id:"arte",icon:"🎭",name:"ARTE",sub:"欧洲文化电视台",desc:"欧洲文化、艺术、历史、纪录片和影视节目，部分内容有地区限制。",url:"https://www.arte.tv/en/",tags:["部分免费","地区限制"]},
- {id:"pbs",icon:"📚",name:"PBS",sub:"美国公共广播服务",desc:"纪录片、科学、历史和公共电视节目，部分视频受地区限制。",url:"https://www.pbs.org/",tags:["部分免费","地区限制"]},
- {id:"nhkdoc",icon:"🗾",name:"NHK World",sub:"日本国际广播",desc:"日本文化、社会、科技与纪录片节目。",url:"https://www3.nhk.or.jp/nhkworld/en/",tags:["官方免费内容","英文"]},
- {id:"bbciplayer",icon:"🇬🇧",name:"BBC iPlayer",sub:"BBC 影视节目",desc:"英国地区服务，通常要求英国电视许可；不作为大陆免费片源承诺。",url:"https://www.bbc.co.uk/iplayer",tags:["地区限定","使用条件"]}
-],
-news: [
- {id:"bbc",icon:"🇬🇧",name:"BBC News",sub:"中文报道 / English",desc:"国际政治、社会、经济与突发事件。官网有英文报道及部分中文内容。",url:"https://www.bbc.com/news",tags:["英文原版","中文内容"]},
- {id:"dwnews",icon:"🇩🇪",name:"DW News",sub:"德国之声",desc:"国际新闻、欧洲事务、政治与社会议题，提供多语言内容。",url:"https://www.dw.com/",tags:["英文原版","多语言"]},
- {id:"reuters",icon:"🌐",name:"Reuters 路透社",sub:"国际通讯社",desc:"国际政治、财经、市场和突发新闻。适合核对事实与原始报道。",url:"https://www.reuters.com/",tags:["英文原版","通讯社"]},
- {id:"ap",icon:"📰",name:"Associated Press",sub:"美联社",desc:"国际新闻通讯社，覆盖美国、国际政治、社会和经济。",url:"https://apnews.com/",tags:["英文原版","通讯社"]},
- {id:"france24",icon:"🇫🇷",name:"France 24",sub:"法国国际新闻",desc:"国际新闻、欧洲、非洲、中东和全球事务，提供多语言报道。",url:"https://www.france24.com/en/",tags:["英文原版","多语言"]},
- {id:"aljazeera",icon:"🌍",name:"Al Jazeera English",sub:"半岛电视台英文频道",desc:"国际新闻，尤其关注中东、全球南方与国际冲突。",url:"https://www.aljazeera.com/",tags:["英文原版","国际视角"]},
- {id:"nhkworld",icon:"🇯🇵",name:"NHK World-Japan",sub:"日本放送协会",desc:"日本、亚太和国际新闻，英文报道为主。",url:"https://www3.nhk.or.jp/nhkworld/en/",tags:["英文原版","亚洲视角"]},
- {id:"cna",icon:"🇸🇬",name:"CNA",sub:"新加坡亚洲新闻台",desc:"亚洲与国际新闻、商业和区域事务。",url:"https://www.channelnewsasia.com/",tags:["英文原版","亚洲视角"]},
- {id:"abcau",icon:"🇦🇺",name:"ABC Australia",sub:"澳大利亚广播公司",desc:"澳大利亚、亚太及国际新闻。",url:"https://www.abc.net.au/news/",tags:["英文原版","亚太视角"]},
- {id:"bbcchinese",icon:"文",name:"BBC 中文",sub:"中文国际新闻",desc:"中文国际新闻报道，可与 BBC 英文原文交叉阅读。",url:"https://www.bbc.com/zhongwen/simp",tags:["中文报道","国际新闻"]},
- {id:"dwzh",icon:"中",name:"DW 中文",sub:"德国之声中文",desc:"国际新闻、德国与欧洲议题的中文报道。",url:"https://www.dw.com/zh/",tags:["中文报道","国际新闻"]},
- {id:"rfachinese",icon:"中",name:"自由亚洲电台中文",sub:"RFA Chinese",desc:"中文新闻与专题报道。阅读时建议与其他通讯社及原始资料交叉核对。",url:"https://www.rfa.org/mandarin/",tags:["中文报道","独立核对"]}
-],
-live: [
- {id:"dwlive",icon:"📡",name:"DW Live TV",sub:"德国之声官方直播",desc:"官方直播入口，能否播放取决于所在地区和网络。",url:"https://www.dw.com/en/live-tv/s-100825",tags:["官方直播","地区可用性不同"]},
- {id:"f24live",icon:"📡",name:"France 24 Live",sub:"法国24小时新闻",desc:"官方直播入口，部分地区可能无法直接访问。",url:"https://www.france24.com/en/live",tags:["官方直播","地区可用性不同"]},
- {id:"ajlive",icon:"📡",name:"Al Jazeera Live",sub:"半岛电视台直播",desc:"官方英文直播入口，实际播放受地区限制。",url:"https://www.aljazeera.com/live",tags:["官方直播","地区可用性不同"]},
- {id:"nhklive",icon:"📡",name:"NHK World Live",sub:"NHK World 官方直播",desc:"日本国际频道官方直播和视频入口。",url:"https://www3.nhk.or.jp/nhkworld/en/live/",tags:["官方直播","亚洲新闻"]},
- {id:"cnavideo",icon:"📺",name:"CNA Watch",sub:"新加坡亚洲新闻台",desc:"官方新闻视频与直播内容入口。",url:"https://www.channelnewsasia.com/watch",tags:["官方视频","亚洲新闻"]},
- {id:"abcvideo",icon:"📺",name:"ABC News Video",sub:"澳大利亚广播公司",desc:"官方新闻视频入口，直播安排以官网为准。",url:"https://www.abc.net.au/news/video/",tags:["官方视频","澳洲新闻"]}
-],
-subtitles: [
- {id:"opensub",icon:"💬",name:"OpenSubtitles",sub:"字幕搜索",desc:"搜索电影和电视剧字幕。用户上传字幕的版权和准确性需自行核实。",url:"https://www.opensubtitles.com/",tags:["字幕检索","多语言"]},
- {id:"subdl",icon:"📝",name:"SubDL",sub:"字幕下载",desc:"多语言字幕检索入口，注意核对版本和字幕来源。",url:"https://subdl.com/",tags:["字幕检索","多语言"]},
- {id:"vlc",icon:"▶️",name:"VLC Media Player",sub:"本地播放器",desc:"支持多种视频格式和外挂字幕，可在本地加载 SRT 字幕。",url:"https://www.videolan.org/vlc/",tags:["免费软件","本地播放"]},
- {id:"mpv",icon:"🎞️",name:"MPV Player",sub:"轻量播放器",desc:"开源跨平台播放器，适合本地视频播放和字幕管理。",url:"https://mpv.io/",tags:["开源免费","本地播放"]}
-]
+  movies: [
+    {name:"Plex",sub:"免费广告支持影视",desc:"提供免费广告支持电影和电视内容，具体片库因地区而异。",url:"https://www.plex.tv/watch-free/",tags:"电影 免费 广告 影视 streaming"},
+    {name:"Tubi",sub:"免费广告支持电影",desc:"拥有大量广告支持的电影和剧集，地区可用性有限。",url:"https://tubitv.com/",tags:"电影 免费 广告 美国 影视"},
+    {name:"Internet Archive",sub:"互联网档案馆",desc:"可检索公共领域及获得授权的历史影像、老电影和视频资料。",url:"https://archive.org/details/movies",tags:"电影 老电影 公共领域 历史 免费"},
+    {name:"Library of Congress",sub:"美国国会图书馆",desc:"National Screening Room，收藏大量历史电影与影像资料。",url:"https://www.loc.gov/collections/national-screening-room/",tags:"电影 历史 免费 公共领域 美国"},
+    {name:"YouTube Movies",sub:"YouTube 电影",desc:"官方电影专区，部分影片免费，其他影片可能需要租赁或购买。",url:"https://www.youtube.com/feed/storefront",tags:"电影 免费 租赁 购买 youtube"},
+    {name:"National Film Board of Canada",sub:"加拿大国家电影局",desc:"提供大量纪录片、动画和加拿大电影作品，部分可免费观看。",url:"https://www.nfb.ca/",tags:"电影 加拿大 免费 动画 纪录片"},
+    {name:"ARTE Cinema",sub:"欧洲文化电影",desc:"欧洲文化电视平台的电影和艺术影像内容，存在地区限制。",url:"https://www.arte.tv/",tags:"电影 欧洲 艺术 文化 免费"},
+    {name:"1905电影网",sub:"中国电影频道官方平台",desc:"电影资讯及部分正版影视内容，具体免费政策以平台页面为准。",url:"https://www.1905.com/",tags:"电影 中文 中国 影视"},
+    {name:"优酷",sub:"影视平台",desc:"含免费与会员内容，播放权限和版权地区以平台规定为准。",url:"https://www.youku.com/",tags:"电影 中文 剧集 会员"},
+    {name:"芒果TV",sub:"影视综艺平台",desc:"提供影视剧与综艺内容，部分免费、部分需要会员。",url:"https://www.mgtv.com/",tags:"电影 中文 综艺 会员"}
+  ],
+  series: [
+    {name:"Plex",sub:"免费剧集",desc:"提供部分广告支持的免费剧集，地区片库可能不同。",url:"https://www.plex.tv/watch-free/",tags:"剧集 电视剧 免费 广告"},
+    {name:"Tubi",sub:"免费电视剧",desc:"免费广告支持剧集与电视内容，地区限制较多。",url:"https://tubitv.com/",tags:"剧集 电视剧 免费 广告"},
+    {name:"PBS",sub:"美国公共广播电视",desc:"纪录节目、文化节目和部分剧集，部分内容受地区限制。",url:"https://www.pbs.org/video/",tags:"剧集 公共电视 美国 文化"},
+    {name:"DW",sub:"德国之声视频",desc:"提供国际新闻、文化、纪录片及系列节目。",url:"https://www.dw.com/",tags:"剧集 德国 欧洲 文化 视频"},
+    {name:"NHK WORLD-JAPAN",sub:"日本国际广播",desc:"日本文化、社会、旅游和专题系列节目。",url:"https://www3.nhk.or.jp/nhkworld/",tags:"剧集 日本 文化 视频"},
+    {name:"ARTE",sub:"欧洲文化频道",desc:"欧洲电影、文化、艺术和系列节目，部分地区受限。",url:"https://www.arte.tv/",tags:"剧集 欧洲 文化 艺术"},
+    {name:"BBC iPlayer",sub:"英国广播公司",desc:"BBC 官方节目平台，主要面向英国地区，通常需要符合当地使用条件。",url:"https://www.bbc.co.uk/iplayer",tags:"剧集 英国 BBC 地区限制"},
+    {name:"National Film Board of Canada",sub:"加拿大国家电影局",desc:"短片、动画、纪录片及系列影像作品。",url:"https://www.nfb.ca/",tags:"剧集 加拿大 动画 纪录片"}
+  ],
+  documentaries: [
+    {name:"DW Documentary",sub:"德国之声纪录片",desc:"国际政治、社会、经济、环境与人物纪录片。",url:"https://www.youtube.com/@DWDocumentary",tags:"纪录片 德国 社会 政治 经济"},
+    {name:"PBS FRONTLINE",sub:"调查纪录片",desc:"美国公共电视调查报道节目，关注国际事务、社会和公共议题。",url:"https://www.pbs.org/wgbh/frontline/",tags:"纪录片 调查 新闻 美国 社会"},
+    {name:"ARTE Documentary",sub:"欧洲纪录片",desc:"欧洲文化、历史、科学、社会和自然纪录片。",url:"https://www.arte.tv/",tags:"纪录片 欧洲 历史 科学 文化"},
+    {name:"NHK WORLD",sub:"日本纪录与文化",desc:"日本社会、科技、历史、自然与文化专题节目。",url:"https://www3.nhk.or.jp/nhkworld/",tags:"纪录片 日本 科技 历史 文化"},
+    {name:"National Film Board of Canada",sub:"加拿大纪录片",desc:"加拿大国家电影局提供的纪录片、动画和社会专题作品。",url:"https://www.nfb.ca/",tags:"纪录片 加拿大 动画 社会"},
+    {name:"Al Jazeera Documentaries",sub:"半岛电视台纪录片",desc:"国际社会、人物、冲突和文化主题纪录片。",url:"https://www.aljazeera.com/documentaries/",tags:"纪录片 国际 社会 人物"},
+    {name:"BBC Reel",sub:"BBC 影像故事",desc:"科学、自然、人文、文化与世界各地的短纪录影像。",url:"https://www.bbc.com/reel",tags:"纪录片 BBC 科学 自然 人文"},
+    {name:"National Geographic",sub:"国家地理",desc:"自然、科学、探索和野生动物内容；部分内容可能需要订阅。",url:"https://www.nationalgeographic.com/",tags:"纪录片 国家地理 自然 科学 动物"}
+  ],
+  news: [
+    {name:"BBC News",sub:"英国广播公司 · 英文",desc:"国际新闻、政治、经济、科技和深度报道。",url:"https://www.bbc.com/news",tags:"新闻 国际 英文 英国 BBC 政治 经济"},
+    {name:"BBC News 中文",sub:"英国广播公司 · 中文",desc:"国际新闻与专题报道中文入口。",url:"https://www.bbc.com/zhongwen/simp",tags:"新闻 国际 中文 BBC"},
+    {name:"Reuters",sub:"路透社 · 英文",desc:"国际通讯社，覆盖全球政治、商业、金融和突发新闻。",url:"https://www.reuters.com/",tags:"新闻 国际 英文 路透社 金融 财经"},
+    {name:"Associated Press",sub:"美联社 · 英文",desc:"全球新闻通讯社，提供国际、美国及突发事件报道。",url:"https://apnews.com/",tags:"新闻 国际 英文 美联社"},
+    {name:"Deutsche Welle",sub:"德国之声 · 英文",desc:"德国国际公共媒体，提供全球新闻与分析。",url:"https://www.dw.com/en/",tags:"新闻 国际 英文 德国 欧洲"},
+    {name:"DW 中文",sub:"德国之声 · 中文",desc:"国际新闻、德国与欧洲事务中文报道。",url:"https://www.dw.com/zh/",tags:"新闻 国际 中文 德国 欧洲"},
+    {name:"France 24",sub:"法国国际新闻 · 英文",desc:"全天候国际新闻、专题与现场报道。",url:"https://www.france24.com/en/",tags:"新闻 国际 英文 法国"},
+    {name:"Al Jazeera English",sub:"半岛电视台 · 英文",desc:"国际新闻，尤其关注中东、非洲及全球南方议题。",url:"https://www.aljazeera.com/",tags:"新闻 国际 英文 中东"},
+    {name:"NHK WORLD-JAPAN",sub:"日本国际广播 · 英文",desc:"日本及亚洲新闻、国际动态和专题报道。",url:"https://www3.nhk.or.jp/nhkworld/",tags:"新闻 国际 英文 日本 亚洲"},
+    {name:"CNA",sub:"新加坡亚洲新闻台 · 英文",desc:"关注亚洲及国际事务的新闻与分析。",url:"https://www.channelnewsasia.com/",tags:"新闻 国际 英文 新加坡 亚洲"},
+    {name:"ABC News Australia",sub:"澳大利亚广播公司 · 英文",desc:"澳大利亚及国际新闻、分析和专题报道。",url:"https://www.abc.net.au/news",tags:"新闻 国际 英文 澳大利亚"},
+    {name:"The Guardian",sub:"卫报 · 英文",desc:"英国媒体，提供国际新闻、评论、调查与专题报道。",url:"https://www.theguardian.com/international",tags:"新闻 国际 英文 英国 评论"}
+  ],
+  live: [
+    {name:"DW Live",sub:"德国之声官方直播",desc:"德国之声官方新闻视频与直播入口。",url:"https://www.dw.com/en/media-center/live-tv/s-100825",tags:"直播 德国 新闻 视频"},
+    {name:"France 24 Live",sub:"法国24台官方直播",desc:"法国国际新闻频道直播入口。",url:"https://www.france24.com/en/live",tags:"直播 法国 新闻 国际"},
+    {name:"Al Jazeera Live",sub:"半岛电视台官方直播",desc:"半岛电视台英文新闻直播。",url:"https://www.aljazeera.com/live",tags:"直播 新闻 国际 英文"},
+    {name:"NHK WORLD Live",sub:"NHK 官方直播",desc:"日本国际广播官方直播与视频内容。",url:"https://www3.nhk.or.jp/nhkworld/en/live/",tags:"直播 日本 新闻 国际"},
+    {name:"CNA Live",sub:"亚洲新闻台",desc:"新加坡 CNA 官方新闻视频与直播入口。",url:"https://www.channelnewsasia.com/watch",tags:"直播 新加坡 亚洲 新闻"},
+    {name:"ABC News Live",sub:"澳大利亚广播公司",desc:"ABC 官方新闻视频入口，直播可用性以当地页面为准。",url:"https://www.abc.net.au/news",tags:"直播 澳大利亚 新闻"}
+  ],
+  subtitles: [
+    {name:"OpenSubtitles",sub:"字幕检索",desc:"多语言字幕搜索平台，请留意字幕授权与使用条件。",url:"https://www.opensubtitles.com/",tags:"字幕 中文字幕 英文字幕 下载"},
+    {name:"SubDL",sub:"字幕搜索",desc:"提供多语言字幕检索服务，具体文件来源和许可需自行核实。",url:"https://subdl.com/",tags:"字幕 中文字幕 英文字幕"},
+    {name:"VLC Media Player",sub:"本地视频播放器",desc:"免费开源播放器，支持加载多种字幕格式。",url:"https://www.videolan.org/vlc/",tags:"字幕 播放器 VLC SRT"},
+    {name:"MPV",sub:"轻量级开源播放器",desc:"支持本地视频与外部字幕文件。",url:"https://mpv.io/",tags:"字幕 播放器 MPV SRT"},
+    {name:"Subtitle Edit",sub:"字幕编辑工具",desc:"用于创建、编辑和同步字幕文件。",url:"https://www.nikse.dk/subtitleedit",tags:"字幕 编辑 同步 工具"}
+  ]
 };
 
-const allResources = Object.values(resources).flat();
-let currentSection = "home";
-let deferredInstall = null;
+const sectionNames = {
+  movies:"电影",
+  series:"剧集",
+  documentaries:"纪录片",
+  news:"国际新闻",
+  live:"官方直播",
+  subtitles:"字幕中心",
+  favorites:"我的收藏"
+};
 
-function getFavorites(){
-  try{return JSON.parse(localStorage.getItem("pfc_favorites")||"[]")}
-  catch(e){return []}
+let currentSection = "home";
+let favorites = loadFavorites();
+
+function loadFavorites(){
+  try{
+    const data = JSON.parse(localStorage.getItem("pfc_favorites") || "[]");
+    return Array.isArray(data) ? data : [];
+  }catch(e){
+    return [];
+  }
 }
-function saveFavorites(list){
-  localStorage.setItem("pfc_favorites",JSON.stringify(list));
+
+function saveFavorites(){
+  try{
+    localStorage.setItem("pfc_favorites",JSON.stringify(favorites));
+  }catch(e){
+    console.warn("无法保存收藏",e);
+  }
 }
-function escapeHTML(s){
-  return String(s).replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[c]);
+
+function allResources(){
+  const list = [];
+  Object.keys(resources).forEach(section=>{
+    resources[section].forEach(item=>{
+      list.push({...item,section});
+    });
+  });
+  return list;
 }
-function cardHTML(item){
-  const saved=getFavorites().includes(item.id);
-  const tags=(item.tags||[]).map(t=>{
-    const cls=/免费|官方/.test(t)?"free":/地区|版权|会员/.test(t)?"region":"";
-    return `<span class="tag ${cls}">${escapeHTML(t)}</span>`;
-  }).join("");
-  return `<article class="card" data-id="${escapeHTML(item.id)}">
-    <div class="card-top">
-      <div class="card-icon">${item.icon}</div>
-      <div><h3>${escapeHTML(item.name)}</h3><small>${escapeHTML(item.sub)}</small></div>
-    </div>
-    <p>${escapeHTML(item.desc)}</p>
-    <div class="tags">${tags}</div>
-    <div class="card-actions">
-      <a class="open-link" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">访问官方网站 ↗</a>
-      <button class="fav ${saved?"saved":""}" title="收藏" aria-label="收藏 ${escapeHTML(item.name)}" onclick="toggleFavorite('${escapeHTML(item.id)}')">${saved?"★":"☆"}</button>
-    </div>
-  </article>`;
+
+function isFavorite(item){
+  return favorites.some(f=>f.name===item.name && f.section===item.section);
 }
-function renderGrid(id,data){
-  const el=document.getElementById(id);
-  if(el)el.innerHTML=data.map(cardHTML).join("");
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[char]);
 }
+
+function createCard(item){
+  const saved = isFavorite(item);
+  const safeName = escapeHTML(item.name);
+  const safeSub = escapeHTML(item.sub);
+  const safeDesc = escapeHTML(item.desc);
+  const safeTags = escapeHTML(item.tags || "");
+  const safeUrl = escapeHTML(item.url);
+
+  return `
+    <article class="card">
+      <div class="card-top">
+        <div>
+          <span class="card-category">${escapeHTML(sectionNames[item.section] || "资源")}</span>
+          <h3>${safeName}</h3>
+        </div>
+      </div>
+      <p><strong>${safeSub}</strong><br>${safeDesc}</p>
+      <div class="card-tags">${safeTags}</div>
+      <div class="card-actions">
+        <a class="visit" href="${safeUrl}" target="_blank" rel="noopener noreferrer">访问官方网站 ↗</a>
+        <button class="favorite ${saved ? "saved" : ""}"
+          data-fav-name="${safeName}"
+          data-fav-section="${item.section}"
+          aria-label="收藏 ${safeName}">
+          ${saved ? "★ 已收藏" : "☆ 收藏"}
+        </button>
+      </div>
+    </article>`;
+}
+
+function renderGrid(section,elementId){
+  const el = document.getElementById(elementId);
+  if(!el)return;
+  el.innerHTML = (resources[section] || []).map(createCard).join("");
+}
+
+function renderFavorites(){
+  const el = document.getElementById("favoritesGrid");
+  if(!el)return;
+  const items = favorites.map(f=>{
+    const found = (resources[f.section] || []).find(item=>item.name===f.name);
+    return found ? {...found,section:f.section} : null;
+  }).filter(Boolean);
+
+  el.innerHTML = items.length
+    ? items.map(createCard).join("")
+    : `<div class="empty" style="grid-column:1/-1"><strong>还没有收藏内容</strong>浏览资源时点击“收藏”，就会出现在这里。</div>`;
+}
+
 function renderAll(){
-  renderGrid("moviesGrid",resources.movies);
-  renderGrid("seriesGrid",resources.series);
-  renderGrid("newsGrid",resources.news);
-  renderGrid("liveGrid",resources.live);
-  renderGrid("subtitleGrid",resources.subtitles);
+  renderGrid("movies","moviesGrid");
+  renderGrid("series","seriesGrid");
+  renderGrid("documentaries","documentariesGrid");
+  renderGrid("news","newsGrid");
+  renderGrid("live","liveGrid");
+  renderGrid("subtitles","subtitlesGrid");
   renderFavorites();
 }
-function renderFavorites(){
-  const ids=getFavorites();
-  const list=allResources.filter(x=>ids.includes(x.id));
-  document.getElementById("favoritesGrid").innerHTML=list.map(cardHTML).join("");
-  document.getElementById("emptyFavorites").classList.toggle("hidden",list.length>0);
-}
-function toggleFavorite(id){
-  let list=getFavorites();
-  list=list.includes(id)?list.filter(x=>x!==id):[...list,id];
-  saveFavorites(list);
-  renderAll();
-}
-function showSection(name){
-  currentSection=name;
-  document.getElementById("homeHero").classList.toggle("hidden",name!=="home");
-  document.getElementById("homeSection").classList.toggle("hidden",name!=="home");
-  document.querySelectorAll(".content-section").forEach(el=>el.classList.add("hidden"));
-  if(name!=="home")document.getElementById(name).classList.remove("hidden");
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.section===name);
+
+function showSection(section){
+  currentSection = section;
+  document.getElementById("search").value = "";
+  document.getElementById("searchResults").classList.add("hidden");
+  document.getElementById("normalView").classList.remove("hidden");
+  document.getElementById("homeHero").classList.toggle("hidden",section!=="home");
+
+  document.querySelectorAll(".content-section").forEach(el=>{
+    el.classList.toggle("hidden",el.id !== (section==="home" ? "homeSection" : section));
   });
-  document.getElementById("search").value="";
-  document.getElementById("emptySearch").classList.add("hidden");
-  document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.section===section);
+  });
+
+  if(section==="favorites")renderFavorites();
   window.scrollTo({top:0,behavior:"smooth"});
 }
-document.querySelectorAll(".nav-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>showSection(btn.dataset.section));
-});
-document.getElementById("search").addEventListener("input",function(){
-  const q=this.value.trim().toLowerCase();
-  let visible=0;
-  const section=document.getElementById(currentSection==="home"?"homeSection":currentSection);
-  if(!section)return;
-  section.querySelectorAll(".card").forEach(card=>{
-    const match=card.innerText.toLowerCase().includes(q);
-    card.classList.toggle("hidden",!match);
-    if(match)visible++;
-  });
-  document.getElementById("emptySearch").classList.toggle("hidden",!q||visible>0);
-});
-renderAll();
 
-if("serviceWorker" in navigator && location.protocol.startsWith("http")){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./sw.js").catch(err=>console.log("Service worker:",err));
-  });
-}
-window.addEventListener("beforeinstallprompt",event=>{
-  event.preventDefault();
-  deferredInstall=event;
-  document.getElementById("installBtn").hidden=false;
-});
-document.getElementById("installBtn").addEventListener("click",async()=>{
-  if(!deferredInstall){
-    alert("请使用浏览器菜单中的“安装应用”或“添加到主屏幕”。iPhone/iPad 请使用 Safari 的分享菜单。");
+function performSearch(){
+  const input = document.getElementById("search");
+  const query = input.value.trim().toLocaleLowerCase("zh-CN");
+  const normalView = document.getElementById("normalView");
+  const resultsView = document.getElementById("searchResults");
+  const groups = document.getElementById("searchGroups");
+  const summary = document.getElementById("searchSummary");
+
+  if(!query){
+    resultsView.classList.add("hidden");
+    normalView.classList.remove("hidden");
+    document.getElementById("homeHero").classList.toggle("hidden",currentSection!=="home");
+    document.querySelectorAll(".content-section").forEach(el=>{
+      el.classList.toggle("hidden",el.id !== (currentSection==="home" ? "homeSection" : currentSection));
+    });
     return;
   }
-  deferredInstall.prompt();
-  await deferredInstall.userChoice;
-  deferredInstall=null;
-  document.getElementById("installBtn").hidden=true;
+
+  normalView.classList.add("hidden");
+  document.getElementById("homeHero").classList.add("hidden");
+  resultsView.classList.remove("hidden");
+
+  const matches = allResources().filter(item=>{
+    const searchable = [
+      item.name,item.sub,item.desc,item.tags,sectionNames[item.section]
+    ].join(" ").toLocaleLowerCase("zh-CN");
+    return searchable.includes(query);
+  });
+
+  summary.textContent = `关键词“${input.value.trim()}” · 找到 ${matches.length} 项资源`;
+
+  if(matches.length===0){
+    groups.innerHTML = `
+      <div class="empty">
+        <strong>没有找到相关资源</strong>
+        试试其他关键词，例如：BBC、电影、纪录片、新闻、字幕、Reuters、NHK。
+      </div>`;
+    return;
+  }
+
+  const grouped = {};
+  matches.forEach(item=>{
+    if(!grouped[item.section])grouped[item.section]=[];
+    grouped[item.section].push(item);
+  });
+
+  groups.innerHTML = Object.keys(grouped).map(section=>`
+    <div class="search-group">
+      <div class="section-head">
+        <div><h2>${escapeHTML(sectionNames[section])}</h2></div>
+        <span class="count">${grouped[section].length} 项</span>
+      </div>
+      <div class="card-grid">${grouped[section].map(createCard).join("")}</div>
+    </div>
+  `).join("");
+}
+
+document.getElementById("mainNav").addEventListener("click",event=>{
+  const btn = event.target.closest("[data-section]");
+  if(btn)showSection(btn.dataset.section);
 });
+
+document.getElementById("search").addEventListener("input",performSearch);
+
+document.addEventListener("click",event=>{
+  const favButton = event.target.closest("[data-fav-name]");
+  if(favButton){
+    const name = favButton.dataset.favName;
+    const section = favButton.dataset.favSection;
+    const index = favorites.findIndex(f=>f.name===name && f.section===section);
+
+    if(index>=0){
+      favorites.splice(index,1);
+    }else{
+      favorites.push({name,section});
+    }
+
+    saveFavorites();
+    renderAll();
+
+    if(document.getElementById("search").value.trim()){
+      performSearch();
+    }
+    return;
+  }
+
+  const goButton = event.target.closest("[data-go]");
+  if(goButton){
+    showSection(goButton.dataset.go);
+  }
+});
+
+renderAll();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js").catch(error=>{
+      console.log("Service Worker 注册失败：",error);
+    });
+  });
+}
 </script>
 </body>
 </html>
