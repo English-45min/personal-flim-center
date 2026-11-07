@@ -1,6 +1,6 @@
 const CACHE_NAME = "personal-film-center-v1";
 
-const FILES_TO_CACHE = [
+const CORE_FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
@@ -9,7 +9,7 @@ const FILES_TO_CACHE = [
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_FILES))
   );
   self.skipWaiting();
 });
@@ -28,26 +28,30 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
+  const request = event.request;
 
-  const url = new URL(event.request.url);
-
-  if (url.origin !== self.location.origin) return;
+  if (
+    request.method !== "GET" ||
+    new URL(request.url).origin !== self.location.origin
+  ) {
+    return;
+  }
 
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      const networkFetch = fetch(event.request)
-        .then(response => {
-          if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, copy);
-            });
-          }
-          return response;
-        });
+    caches.match(request).then(cached => {
+      if (cached) return cached;
 
-      return cached || networkFetch;
+      return fetch(request)
+        .then(response => {
+          const copy = response.clone();
+
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(request, copy);
+          });
+
+          return response;
+        })
+        .catch(() => caches.match("./index.html"));
     })
   );
 });
