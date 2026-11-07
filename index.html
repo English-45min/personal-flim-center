@@ -105,8 +105,6 @@ section{padding:20px 0;scroll-margin-top:65px}
 .engine-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
 .engine-buttons button{flex:1;min-width:105px}
 .engine-buttons .primary{color:#172033}
-.platform-search{display:flex;flex-wrap:wrap;gap:8px}
-.platform-search button{font-size:12px}
 footer{
   border-top:1px solid var(--line);text-align:center;
   color:#8294aa;padding:25px 15px;font-size:12px;margin-top:25px;
@@ -185,7 +183,7 @@ footer{
 
 <section id="movies">
   <h2 class="section-title">🎞️ 电影与剧集搜索</h2>
-  <p class="section-desc">站内片单搜索与互联网搜索分开运行。互联网搜索支持多个搜索引擎及正版平台。</p>
+  <p class="section-desc">可浏览站内精选片单，也可以使用下方搜索引擎检索互联网内容。</p>
 
   <div class="toolbar">
     <input id="movieSearch" type="search" placeholder="输入片名、题材、国家或关键词">
@@ -203,14 +201,7 @@ footer{
     </select>
   </div>
 
-  <div class="toolbar">
-    <button class="primary" onclick="filterMovies()">站内片单搜索</button>
-    <button onclick="searchInternet('google')">Google 搜索</button>
-    <button onclick="tmdbSearch()">TMDB 资料</button>
-    <button onclick="imdbSearch()">IMDb 资料</button>
-  </div>
-
-  <div class="engine-title">🌍 选择互联网搜索引擎</div>
+  <div class="engine-title">🌍 选择搜索</div>
   <div class="engine-buttons">
     <button class="primary" onclick="searchInternet('google')">Google</button>
     <button onclick="searchInternet('yahoo')">Yahoo</button>
@@ -411,7 +402,6 @@ const live=[
 ["Euronews Live","欧洲新闻官方直播","https://www.euronews.com/live"]
 ];
 
-/* 常见中文片名对应英文片名，帮助搜索引擎找到准确作品 */
 const titleAliases={
  "兄弟连":"Band of Brothers",
  "太平洋战争":"The Pacific HBO miniseries",
@@ -442,12 +432,9 @@ function getMovieQuery(){
 function expandMovieQuery(q){
  const trimmed=q.trim();
  if(!trimmed)return "";
-
  const alias=titleAliases[trimmed];
  if(alias)return `"${trimmed}" "${alias}"`;
-
  const lower=trimmed.toLowerCase();
-
  if(lower.includes("越战")||lower.includes("越南战争")||lower.includes("vietnam war")){
   return trimmed+" Vietnam War films movies";
  }
@@ -466,8 +453,6 @@ function expandMovieQuery(q){
  if(lower.includes("日本战争电影")||lower.includes("日本战争片")){
   return "Japanese war films Japanese cinema";
  }
-
- /* 普通片名和关键词优先保持原样，不强加无关词 */
  return trimmed;
 }
 const searchEngines={
@@ -485,8 +470,7 @@ function openSearch(engine,q){
 function searchInternet(engine){
  const q=getMovieQuery();
  if(!q){alert("请先输入影片名称或搜索关键词");return}
- const expanded=expandMovieQuery(q);
- openSearch(engine,expanded);
+ openSearch(engine,expandMovieQuery(q));
 }
 function movieCard(m){
  const saved=getFavorites().includes(m.t);
@@ -508,41 +492,34 @@ function filterMovies(){
   return (!q||text.includes(q))&&(!g||m.g.includes(g))&&(!r||m.r===r||(r==="欧洲"&&["法国","德国","英国"].includes(m.r)));
  });
  document.getElementById("movieCount").textContent=`找到 ${list.length} 部站内片单影片`;
- document.getElementById("movieResults").innerHTML=list.length?list.map(movieCard).join(""):'<div class="empty">没有找到匹配影片。可直接使用上方互联网搜索引擎检索全网内容。</div>';
+ document.getElementById("movieResults").innerHTML=list.length?list.map(movieCard).join(""):'<div class="empty">没有找到匹配影片。可直接使用上方搜索引擎检索全网内容。</div>';
 }
 function searchFreeLegal(platform){
  const input=getMovieQuery();
  let q;
  if(input){
-  const title=expandMovieQuery(input);
-  q=`${title} free legal official streaming`;
+  q=expandMovieQuery(input)+" free legal official streaming";
  }else{
   q="free legal movies full movies official streaming free ad supported public domain films";
  }
  const searches={
-  tubi:{engine:"google",query:q+" site:tubitv.com"},
-  plex:{engine:"google",query:q+" site:watch.plex.tv"},
-  archive:{engine:"google",query:q+" site:archive.org/details/movies"},
-  arte:{engine:"google",query:q+" site:arte.tv"},
-  pbs:{engine:"google",query:q+" site:pbs.org"},
-  nfb:{engine:"google",query:q+" site:nfb.ca"},
-  youtube:{engine:"google",query:q+" official channel full movie"}
+  tubi:{query:q+" site:tubitv.com"},
+  plex:{query:q+" site:watch.plex.tv"},
+  archive:{query:q+" site:archive.org/details/movies"},
+  arte:{query:q+" site:arte.tv"},
+  pbs:{query:q+" site:pbs.org"},
+  nfb:{query:q+" site:nfb.ca"},
+  youtube:{query:q+" official channel full movie"}
  };
  if(platform&&searches[platform]){
-  openSearch(searches[platform].engine,searches[platform].query);
+  openSearch("google",searches[platform].query);
   return;
  }
- openSearch("google",q+" (Tubi OR Plex OR Pluto TV OR Internet Archive OR ARTE OR PBS)");
-}
-function tmdbSearch(){
- const q=getMovieQuery();
- if(!q){alert("请先输入影片名称或关键词");return}
- window.open(searchUrl("https://www.themoviedb.org/search?query=",q),"_blank");
-}
-function imdbSearch(){
- const q=getMovieQuery();
- if(!q){alert("请先输入影片名称或关键词");return}
- window.open(searchUrl("https://www.imdb.com/find/?q=",q),"_blank");
+ if(input){
+  openSearch("google",q);
+ }else{
+  openSearch("google",q+" Tubi Plex Pluto TV Internet Archive ARTE PBS NFB");
+ }
 }
 function mainSearchAction(){
  const q=document.getElementById("mainSearch").value.trim();
@@ -550,7 +527,7 @@ function mainSearchAction(){
  document.getElementById("movieSearch").value=q;
  document.getElementById("movieSearch").scrollIntoView({behavior:"smooth",block:"center"});
  filterMovies();
- searchInternet("google");
+ openSearch("google",expandMovieQuery(q));
 }
 function renderPlatforms(){
  document.getElementById("platformGrid").innerHTML=platforms.map(p=>`
@@ -596,6 +573,11 @@ function clearFavorites(){
  if(!confirm("确定清空当前设备保存的收藏吗？"))return;
  localStorage.removeItem("pfc_favorites");renderFavorites();filterMovies();
 }
+
+document.getElementById("movieSearch").addEventListener("input",filterMovies);
+document.getElementById("genreFilter").addEventListener("change",filterMovies);
+document.getElementById("regionFilter").addEventListener("change",filterMovies);
+
 document.getElementById("movieSearch").addEventListener("keydown",e=>{
  if(e.key==="Enter")searchInternet("google");
 });
