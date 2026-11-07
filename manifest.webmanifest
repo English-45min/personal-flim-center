@@ -1,19 +1,19 @@
 {
-  "name": "Personal Film Center",
-  "short_name": "私人影院",
-  "description": "正版免费影视与国际双语新闻中心",
-  "start_url": "./index.html",
+  "name": "Personal Film Center｜私人影视中心",
+  "short_name": "私人影视中心",
+  "description": "正版免费影视导航、影片搜索与国际新闻",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "background_color": "#080d18",
+  "theme_color": "#080d18",
   "orientation": "any",
-  "background_color": "#0b1220",
-  "theme_color": "#101827",
   "icons": [
     {
-      "src": "./icon.svg",
+      "src": "icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
