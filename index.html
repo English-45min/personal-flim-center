@@ -1,1124 +1,490 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080d18">
-<meta name="description" content="私人影视中心：正版免费影视入口、影片搜索、精选片单与国际新闻。">
+<meta name="description" content="私人影视中心：正版影视入口、电影资料检索、国际新闻、官方直播与字幕工具。">
 <title>Personal Film Center｜私人影视中心</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
-
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
 <style>
 :root{
-  --bg:#080d18;
-  --panel:#101a2b;
-  --panel2:#142137;
-  --line:#253650;
-  --gold:#e8bd70;
-  --gold2:#f5d99d;
-  --blue:#77b8ed;
-  --green:#8bd7b2;
-  --text:#edf2fa;
-  --muted:#9aabc2;
-  --danger:#e9a1a1;
-  --shadow:0 8px 24px rgba(0,0,0,.22);
+  --bg:#080d18;--panel:#101b2c;--panel2:#14233a;
+  --gold:#d8b779;--gold2:#f0d8a5;--text:#edf2fa;
+  --muted:#9aabc2;--line:#263a55;--blue:#8db8ee;
+  --green:#83c9a5;--radius:17px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:60px}
+html{scroll-behavior:smooth}
 body{
-  margin:0;
-  background:
-    radial-gradient(ellipse at 15% 0%,rgba(45,83,130,.22),transparent 40%),
-    radial-gradient(ellipse at 90% 20%,rgba(148,105,43,.10),transparent 35%),
-    var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-  line-height:1.5;
+  margin:0;background:linear-gradient(180deg,#0b1423,#080d18 420px);
+  color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.6;
 }
-a{color:inherit;text-decoration:none}
+a{color:var(--blue);text-decoration:none}
+a:hover{color:var(--gold2)}
 button,input,select{font:inherit}
-button{cursor:pointer}
-.wrap{width:min(1280px,calc(100% - 32px));margin:auto}
-
+button{
+  border:1px solid #52637b;background:#172943;color:var(--text);
+  border-radius:12px;padding:10px 14px;cursor:pointer;
+}
+button:hover{border-color:var(--gold);color:var(--gold2)}
 header{
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  background:rgba(8,13,24,.65);
-}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{
-  width:38px;height:38px;border-radius:11px;
-  display:grid;place-items:center;
-  background:linear-gradient(145deg,#f1d49a,#b9863e);
-  color:#172033;font-size:19px;font-weight:900;
-  box-shadow:0 4px 14px rgba(232,189,112,.2);
-}
-.brand h1{font-size:16px;margin:0;letter-spacing:.2px}
-.brand p{margin:1px 0 0;color:var(--muted);font-size:9px;letter-spacing:1.1px}
-.top-actions{display:flex;gap:7px;align-items:center}
-
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:5px;
-  border:1px solid var(--line);border-radius:8px;padding:8px 11px;
-  background:#142137;color:var(--text);font-size:12px;
-  transition:.2s;white-space:nowrap;
-}
-.btn:hover{border-color:var(--gold);transform:translateY(-1px)}
-.btn.gold{
-  background:linear-gradient(135deg,#f0d49b,#c9954e);
-  color:#172033;border:0;font-weight:750;
-}
-.btn.small{padding:6px 9px;font-size:11px}
-
-.hero{padding:25px 0 18px}
-.eyebrow{color:var(--gold);font-size:10px;letter-spacing:2px;font-weight:800}
-.hero h2{font-size:clamp(25px,4vw,36px);line-height:1.2;margin:7px 0}
-.hero h2 span{color:var(--gold2)}
-.hero p{color:var(--muted);font-size:13px;margin:7px 0 15px}
-
-.search-panel{
-  background:linear-gradient(135deg,rgba(22,37,60,.97),rgba(13,24,41,.97));
-  border:1px solid var(--line);border-radius:14px;padding:13px;
-  box-shadow:var(--shadow);
-}
-.search-row{display:flex;gap:8px}
-input,select{
-  width:100%;min-width:0;
-  background:#091321;border:1px solid #2a3c57;
-  color:var(--text);border-radius:8px;padding:10px 11px;
-  outline:none;font-size:13px;
-}
-input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,189,112,.12)}
-input::placeholder{color:#75869e}
-.search-row input{flex:1}
-.search-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.search-tools select{width:auto;min-width:140px;flex:1}
-.hint{font-size:10px;color:var(--muted);margin-top:8px}
-
-nav{
-  position:sticky;top:0;z-index:20;
-  background:rgba(8,13,24,.96);backdrop-filter:blur(16px);
-  border-top:1px solid rgba(255,255,255,.04);
+  padding:25px 18px 20px;text-align:center;
+  background:radial-gradient(ellipse at top,#1b3554 0%,#0c1728 58%,transparent 100%);
   border-bottom:1px solid var(--line);
 }
-.nav-inner{display:flex;gap:5px;overflow-x:auto;padding:7px 0;scrollbar-width:none}
-.nav-inner::-webkit-scrollbar{display:none}
-.nav-inner a{
-  flex:0 0 auto;padding:7px 10px;border-radius:7px;
-  color:#aebbd0;font-size:11px;white-space:nowrap;
+.brand{font-size:25px;font-weight:800;letter-spacing:.5px;color:var(--gold2)}
+.subtitle{font-size:13px;color:var(--muted);margin-top:5px}
+.header-note{font-size:12px;color:#aebed2;margin-top:12px}
+.wrap{max-width:1100px;margin:auto;padding:16px}
+.searchbox{
+  display:flex;gap:8px;max-width:760px;margin:20px auto 0;
 }
-.nav-inner a:hover{background:#18263b;color:var(--gold2)}
-
-section{padding:23px 0 5px}
-.section-head{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;margin-bottom:12px;
+.searchbox input{
+  flex:1;min-width:0;background:#0a1423;color:white;
+  border:1px solid #40536e;border-radius:13px;padding:13px;
 }
-.section-head h2{font-size:21px;margin:1px 0}
-.section-head p{font-size:11px;color:var(--muted);margin:3px 0 0}
-.section-tag{font-size:9px;color:var(--gold);letter-spacing:1.5px;font-weight:750}
-
-.feature{display:grid;grid-template-columns:1.35fr 1fr;gap:12px}
-.feature-main{
-  min-height:205px;padding:22px;border:1px solid #3c4b62;
-  border-radius:15px;display:flex;flex-direction:column;justify-content:flex-end;
-  background:
-    linear-gradient(90deg,rgba(8,14,25,.95),rgba(8,14,25,.25)),
-    radial-gradient(circle at 80% 25%,#536783,transparent 35%),
-    linear-gradient(135deg,#233954,#101a2a);
+.primary{background:linear-gradient(135deg,#e5c88f,#a9854f);color:#172033;border:0;font-weight:750}
+nav{
+  position:sticky;top:0;z-index:10;background:#0b1423ed;
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+  display:flex;gap:7px;padding:10px 12px;overflow-x:auto;
 }
-.feature-main h3{font-size:23px;margin:6px 0}
-.feature-main p{font-size:12px;color:#c0ccdc;max-width:470px;margin:0 0 12px}
-.feature-side{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.feature-mini{
-  border:1px solid var(--line);border-radius:12px;padding:14px;
-  background:linear-gradient(135deg,#17263d,#101a2a);
-  display:flex;flex-direction:column;justify-content:center;
+nav a{
+  flex-shrink:0;color:#d4deeb;background:#142238;
+  padding:7px 12px;border-radius:20px;font-size:13px;
 }
-.feature-mini h3{font-size:16px;margin:5px 0}
-.feature-mini p{font-size:11px;color:var(--muted);margin:0 0 12px}
-.feature-mini .btn{align-self:flex-start}
-
+nav a:hover{background:#293d59;color:var(--gold2)}
+section{padding:20px 0;scroll-margin-top:65px}
+.section-title{
+  font-size:19px;color:var(--gold2);font-weight:750;
+  margin:0 0 5px;
+}
+.section-desc{font-size:13px;color:var(--muted);margin:0 0 14px}
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;
 }
-
-/* 资源卡片统一高度和内部对齐 */
-.resource-card,.movie-card,.news-card{
-  background:linear-gradient(145deg,rgba(20,33,54,.96),rgba(13,23,39,.96));
-  border:1px solid var(--line);border-radius:12px;
-  min-width:0;transition:.2s;overflow:hidden;
+.card{
+  background:linear-gradient(145deg,#14233a,#0e192a);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:15px;min-width:0;
 }
-.resource-card,.news-card{
-  padding:13px;
-  display:flex;
-  flex-direction:column;
-  min-height:205px;
+.card h3{font-size:16px;margin:0 0 6px;color:#f1d8a4}
+.card p{font-size:13px;color:var(--muted);margin:5px 0 10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tag{
+  font-size:11px;padding:3px 8px;border:1px solid #40536e;
+  color:#b9c9dc;border-radius:20px;
 }
-.resource-card:hover,.movie-card:hover,.news-card:hover{
-  transform:translateY(-3px);border-color:#64738b;
-  box-shadow:var(--shadow);
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.links a,.small-link{
+  display:inline-block;background:#1b304c;border:1px solid #38516e;
+  padding:7px 10px;border-radius:10px;font-size:12px;
 }
-.card-top{display:flex;align-items:center;gap:9px}
-.resource-icon{
-  flex:0 0 38px;width:38px;height:38px;border-radius:10px;
-  display:grid;place-items:center;background:#243650;color:var(--gold2);
-  font-size:14px;font-weight:800;
+.links a:hover,.small-link:hover{border-color:var(--gold)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.toolbar input,.toolbar select{
+  min-width:0;flex:1;background:#0a1423;color:white;
+  border:1px solid #40536e;border-radius:11px;padding:10px;
 }
-.card-top h3{font-size:13px;margin:0;line-height:1.35}
-.card-top small{font-size:9px;color:var(--muted)}
-.resource-card p,.news-card p{
-  font-size:11px;color:var(--muted);margin:10px 0;
-  line-height:1.55;min-height:50px;
+.result-count{font-size:12px;color:var(--muted);margin:8px 0}
+.movie-card{display:flex;flex-direction:column}
+.movie-card .links{margin-top:auto;padding-top:8px}
+.movie-card h3{font-size:16px}
+.empty{color:var(--muted);font-size:13px;padding:15px}
+.notice{
+  border-left:3px solid var(--gold);padding:10px 13px;
+  background:#142238;border-radius:0 10px 10px 0;
+  color:#c5d1df;font-size:13px;margin:12px 0;
 }
-.card-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
-.card-actions .btn{flex:1}
-.sub-search{display:flex;gap:6px;margin-top:auto;padding-top:10px}
-.sub-search input{padding:8px 9px;font-size:11px}
-.sub-search button{flex:0 0 auto}
-
-/* 大陆影视：6家，电脑3列 */
-#mainlandGrid{
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-
-/* 国际影视：12家，电脑4列 */
-#worldGrid{
-  grid-template-columns:repeat(4,minmax(0,1fr));
-}
-
-/* 国际新闻：9家，电脑3列 */
-#newsGrid{
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-#newsGrid .news-card{
-  min-height:215px;
-}
-#newsGrid .news-card p{
-  min-height:58px;
-}
-.news-card h3{font-size:13px;margin:0}
-.news-card .source{font-size:9px;color:var(--gold);margin-top:3px;letter-spacing:.7px}
-.news-card .btn{width:100%}
-
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}
-.filters select{flex:1;min-width:130px}
-
-.movie-card{padding:0;display:flex;flex-direction:column}
-.movie-cover{
-  height:105px;padding:12px;
-  display:flex;align-items:flex-end;
-  background:
-    linear-gradient(0deg,rgba(4,10,20,.9),rgba(4,10,20,.05)),
-    linear-gradient(135deg,#40516a,#17263d);
-}
-.movie-card:nth-child(4n+2) .movie-cover{
-  background:linear-gradient(0deg,rgba(4,10,20,.9),rgba(4,10,20,.05)),linear-gradient(135deg,#765b4d,#25344b);
-}
-.movie-card:nth-child(4n+3) .movie-cover{
-  background:linear-gradient(0deg,rgba(4,10,20,.9),rgba(4,10,20,.05)),linear-gradient(135deg,#3e706b,#172c3d);
-}
-.movie-card:nth-child(4n) .movie-cover{
-  background:linear-gradient(0deg,rgba(4,10,20,.9),rgba(4,10,20,.05)),linear-gradient(135deg,#68567c,#26334d);
-}
-.movie-cover span{font-size:10px;color:#f4dcae;letter-spacing:.5px}
-.movie-content{padding:12px;display:flex;flex-direction:column;flex:1}
-.movie-content h3{font-size:14px;margin:0 0 3px}
-.movie-content .en{font-size:10px;color:#9eb1c9;min-height:16px}
-.movie-content p{font-size:11px;color:var(--muted);margin:8px 0;line-height:1.5;flex:1}
-.movie-meta{display:flex;gap:5px;flex-wrap:wrap}
-.pill{
-  border:1px solid #34455f;border-radius:20px;padding:3px 7px;
-  color:#b7c6d9;font-size:9px;
-}
-.movie-actions{display:flex;gap:6px;margin-top:10px}
-.movie-actions .btn{flex:1;padding:7px 4px;font-size:10px}
-
-.empty{
-  grid-column:1/-1;text-align:center;color:var(--muted);
-  border:1px dashed #34455f;border-radius:10px;padding:20px;font-size:12px;
-}
-.inline-search{display:flex;gap:7px;margin:0 0 9px}
-.inline-search input{flex:1}
-#externalBing,#externalGoogle,#externalIMDb{min-width:0}
-
-.adult-box{
-  border:1px solid #57423d;
-  background:linear-gradient(135deg,rgba(45,30,31,.8),rgba(18,24,37,.95));
-  border-radius:14px;padding:17px;
-}
-.adult-title{display:flex;align-items:center;gap:9px}
-.adult-title .adult-mark{
-  background:#693e42;color:#ffe1d8;border-radius:7px;
-  padding:4px 9px;font-weight:900;font-size:12px;
-}
-.adult-box h3{margin:0;font-size:15px}
-.adult-box .intro{font-size:12px;color:#b6aeb0;margin:9px 0 13px}
-.adult-form{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
-}
-.field label{display:block;font-size:10px;color:#c2b8b8;margin:0 0 5px}
-.field.full{grid-column:1/-1}
-.adult-results{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
-.adult-results a{flex:1;min-width:130px}
-.age-note{font-size:10px;color:#a99b9b;margin-top:10px}
-
 footer{
-  margin-top:30px;border-top:1px solid var(--line);
-  padding:20px 0 25px;color:var(--muted);font-size:10px;text-align:center;line-height:1.8;
+  border-top:1px solid var(--line);text-align:center;
+  color:#8294aa;padding:25px 15px;font-size:12px;margin-top:25px;
 }
-footer strong{color:var(--gold2)}
-
-.modal{
-  position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:100;
-  display:none;align-items:center;justify-content:center;padding:16px;
-}
-.modal.show{display:flex}
-.modal-box{
-  max-width:420px;width:100%;padding:22px;border-radius:14px;
-  background:#111c2e;border:1px solid #52617a;text-align:center;
-  box-shadow:var(--shadow);
-}
-.modal-box h2{font-size:20px;margin:0 0 8px}
-.modal-box p{font-size:13px;color:var(--muted)}
-.modal-actions{display:flex;gap:8px;margin-top:14px}
-.modal-actions button{flex:1}
-.toast{
-  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
-  background:#e8bd70;color:#172033;border-radius:8px;
-  padding:9px 14px;font-size:12px;font-weight:700;
-  z-index:200;display:none;box-shadow:var(--shadow);
-}
-.toast.show{display:block}
-.hidden{display:none!important}
-
-/* 平板 */
-@media(max-width:1000px){
-  .wrap{width:calc(100% - 24px)}
-  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  #mainlandGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  #worldGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  #newsGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .feature{grid-template-columns:1.2fr 1fr}
-  .adult-form{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-
-/* 手机 */
+#installBtn{display:none}
 @media(max-width:600px){
-  .wrap{width:calc(100% - 20px)}
-  header{padding:8px 0}
-  .logo{width:34px;height:34px}
-  .brand h1{font-size:14px}
-  .brand p{font-size:7px}
-  .hero{padding:18px 0 13px}
-  .hero h2{font-size:24px}
-  .hero p{font-size:11px;margin-bottom:11px}
-  .search-panel{padding:9px}
-  .search-row{gap:5px}
-  .search-row .btn{padding:8px}
-  .search-tools{gap:5px}
-  .search-tools select{min-width:0;font-size:11px}
-  .hint{font-size:9px}
-  .feature{grid-template-columns:1fr}
-  .feature-main{min-height:150px;padding:15px}
-  .feature-main h3{font-size:19px}
-  .feature-side{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .feature-mini{padding:10px}
-  .feature-mini h3{font-size:13px}
-  .feature-mini p{font-size:10px}
-  section{padding:18px 0 4px}
-  .section-head h2{font-size:18px}
-  .section-head p{font-size:10px}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  #mainlandGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  #worldGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  #newsGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  #newsGrid .news-card{min-height:220px;padding:10px}
-  #newsGrid .news-card p{font-size:10px;min-height:58px}
-  #newsGrid .card-top{gap:7px}
-  #newsGrid .resource-icon{width:32px;height:32px;flex-basis:32px}
-  #newsGrid .card-top h3{font-size:11px}
-  #newsGrid .news-card .btn{font-size:10px}
-  /* 9家媒体在双列布局时，最后一家居中 */
-  #newsGrid > :last-child:nth-child(odd){
-    grid-column:1/-1;
-    width:calc(50% - 4px);
-    justify-self:center;
-  }
-  .resource-card,.news-card{padding:9px;min-height:195px}
-  .resource-card p,.news-card p{font-size:10px;min-height:48px}
-  .resource-icon{width:32px;height:32px;flex-basis:32px;font-size:12px}
-  .card-top h3{font-size:11px}
-  .card-top small{font-size:8px}
-  .sub-search{gap:4px}
-  .sub-search input{font-size:10px;padding:7px 5px}
-  .sub-search .btn{font-size:9px;padding:6px}
-  .card-actions{gap:5px}
-  .card-actions .btn{font-size:10px}
-  .movie-cover{height:80px}
-  .movie-content{padding:9px}
-  .movie-content h3{font-size:12px}
-  .movie-content .en{font-size:9px}
-  .movie-content p{font-size:10px}
-  .movie-actions{gap:4px}
-  .movie-actions .btn{font-size:9px;padding:6px 2px}
-  .filters{gap:5px}
-  .filters select{min-width:0;padding:8px 5px;font-size:10px}
-  .inline-search input{font-size:11px}
-  .nav-inner{padding:5px 0}
-  .nav-inner a{padding:6px 8px;font-size:10px}
-  .adult-box{padding:12px}
-  .adult-form{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .adult-form input,.adult-form select{font-size:11px;padding:8px}
-  .adult-box h3{font-size:13px}
-  .adult-box .intro{font-size:10px}
-  .field label{font-size:9px}
-  .adult-results a{min-width:100px}
-  footer{font-size:9px}
+  .brand{font-size:22px}
+  .wrap{padding:13px}
+  .searchbox{flex-wrap:wrap}
+  .searchbox input{flex-basis:100%}
+  .searchbox button{flex:1}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .card{padding:12px}
+  .card h3{font-size:14px}
+  .card p{font-size:12px}
 }
-
-/* 小屏手机 */
-@media(max-width:380px){
-  .wrap{width:calc(100% - 14px)}
-  .brand h1{font-size:12px}
-  .brand p{font-size:6px}
-  .logo{width:30px;height:30px}
-  .top-actions .btn{padding:5px 6px;font-size:9px}
-  .hero h2{font-size:21px}
-  .search-row{gap:3px}
-  .search-row .btn{padding:7px 5px;font-size:10px}
-  .search-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .search-tools select{width:100%;min-width:0}
-  .search-tools .btn{grid-column:1/-1}
-  .feature-side{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .grid{gap:5px}
-  #newsGrid{gap:5px}
-  #newsGrid > :last-child:nth-child(odd){width:calc(50% - 3px)}
-  .resource-card,.news-card{padding:7px}
-  .card-top{gap:5px}
-  .resource-icon{width:28px;height:28px;flex-basis:28px;font-size:10px}
-  .card-top h3{font-size:10px}
-  .resource-card p,.news-card p{font-size:9px}
-  .sub-search input{font-size:9px}
-  .sub-search .btn{font-size:8px}
-  .movie-meta .pill{font-size:7px;padding:2px 4px}
-  .movie-actions .btn{font-size:8px}
-  .adult-form{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .field.full{grid-column:1/-1}
-}
+@media(max-width:370px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
+
 <header>
-  <div class="wrap topbar">
-    <div class="brand">
-      <div class="logo">▶</div>
-      <div>
-        <h1>Personal Film Center</h1>
-        <p>PRIVATE CINEMA · GLOBAL CULTURE</p>
-      </div>
-    </div>
-    <div class="top-actions">
-      <a class="btn small" href="#favorites">♡ 收藏 <span id="favCount">0</span></a>
-      <button class="btn small" id="installBtn" style="display:none">＋ 安装</button>
-    </div>
+  <div class="brand">✦ Personal Film Center</div>
+  <div class="subtitle">私人影视中心 · 电影 · 纪录片 · 国际新闻 · 字幕</div>
+  <div class="header-note">正版资源导航｜国际视野｜个人收藏</div>
+  <div class="searchbox">
+    <input id="mainSearch" type="search" placeholder="搜索电影、电视剧、纪录片或新闻关键词">
+    <button class="primary" onclick="mainSearch()">开始搜索</button>
+    <button id="installBtn" onclick="installApp()">安装应用</button>
   </div>
 </header>
 
-<main>
-<div class="wrap">
-  <div class="hero">
-    <div class="eyebrow">YOUR PERSONAL STREAMING GUIDE</div>
-    <h2>发现好电影，<span>连接世界。</span></h2>
-    <p>正版影视入口 · 精选片单 · 国际新闻 · 多语种内容</p>
+<nav>
+  <a href="#home">首页</a>
+  <a href="#movies">电影搜索</a>
+  <a href="#platforms">正版影视</a>
+  <a href="#news">国际新闻</a>
+  <a href="#live">官方直播</a>
+  <a href="#subtitles">字幕中心</a>
+  <a href="#adult">18+专区</a>
+  <a href="#favorites">我的收藏</a>
+</nav>
 
-    <div class="search-panel">
-      <div class="search-row">
-        <input id="mainSearch" type="search" placeholder="搜索影片名称、外文名、国家、题材……">
-        <button class="btn gold" onclick="runMainSearch()">搜索影片</button>
-      </div>
-      <div class="search-tools">
-        <select id="mainCategory">
-          <option value="all">全部类型</option>
-          <option value="war">战争历史</option>
-          <option value="spy">间谍谍战</option>
-          <option value="drama">剧情电影</option>
-          <option value="romance">爱情电影</option>
-          <option value="documentary">纪录片</option>
-          <option value="series">电视剧集</option>
-        </select>
-        <select id="mainRegion">
-          <option value="all">全部地区</option>
-          <option value="US">美国</option>
-          <option value="UK">英国</option>
-          <option value="Europe">欧洲</option>
-          <option value="Japan">日本</option>
-          <option value="China">中国</option>
-          <option value="Other">其他</option>
-        </select>
-        <button class="btn" onclick="resetMainSearch()">重置</button>
-      </div>
-      <div class="hint">站内目录筛选＋外部资料检索。外部网站的播放权、地区限制和字幕情况请以平台页面为准。</div>
+<main class="wrap">
+
+<section id="home">
+  <h2 class="section-title">欢迎来到私人影视中心</h2>
+  <p class="section-desc">把电影资料检索、正版观看入口、国际新闻和字幕工具集中在一个页面。</p>
+  <div class="grid">
+    <div class="card">
+      <h3>🎬 电影与剧集</h3>
+      <p>战争、谍战、历史、反恐、爱情、日韩及欧洲电影。</p>
+      <a class="small-link" href="#movies">进入电影搜索</a>
+    </div>
+    <div class="card">
+      <h3>🌍 国际新闻</h3>
+      <p>关注国际主流媒体，提供媒体官网及关键词检索。</p>
+      <a class="small-link" href="#news">查看新闻媒体</a>
+    </div>
+    <div class="card">
+      <h3>📺 官方直播</h3>
+      <p>国际新闻频道官方直播与视频入口。</p>
+      <a class="small-link" href="#live">进入直播中心</a>
+    </div>
+    <div class="card">
+      <h3>💬 字幕工具</h3>
+      <p>寻找字幕文件，并了解如何在播放器中加载字幕。</p>
+      <a class="small-link" href="#subtitles">进入字幕中心</a>
     </div>
   </div>
+  <div class="notice">
+    提示：不同国家和地区的版权授权、免费政策及播放范围不同。平台入口不代表每部影片都能免费观看。
+  </div>
+</section>
 
-  <nav>
-    <div class="wrap nav-inner">
-      <a href="#home">首页</a>
-      <a href="#search">影片搜索</a>
-      <a href="#mainland">大陆资源</a>
-      <a href="#world">国际资源</a>
-      <a href="#collections">题材片单</a>
-      <a href="#news">国际新闻</a>
-      <a href="#favorites">我的收藏</a>
-      <a href="#adult">18+专区</a>
-    </div>
-  </nav>
+<section id="movies">
+  <h2 class="section-title">🎞️ 电影与剧集搜索</h2>
+  <p class="section-desc">先筛选本站片单；也可以一键跳转外部电影数据库和网络检索。</p>
+  <div class="toolbar">
+    <input id="movieSearch" type="search" placeholder="输入片名、题材、国家或关键词">
+    <select id="genreFilter">
+      <option value="">全部题材</option>
+      <option>战争</option><option>二战</option><option>越战</option>
+      <option>间谍</option><option>反恐</option><option>历史</option>
+      <option>爱情</option><option>剧情</option><option>纪录片</option>
+    </select>
+    <select id="regionFilter">
+      <option value="">全部地区</option>
+      <option>美国</option><option>英国</option><option>法国</option>
+      <option>德国</option><option>日本</option><option>韩国</option>
+      <option>欧洲</option><option>国际</option>
+    </select>
+  </div>
+  <div class="toolbar">
+    <button class="primary" onclick="filterMovies()">站内片单搜索</button>
+    <button onclick="externalMovieSearch()">互联网搜索</button>
+    <button onclick="tmdbSearch()">TMDB资料检索</button>
+    <button onclick="imdbSearch()">IMDb检索</button>
+  </div>
+  <div class="notice">
+    说明：站内片单是预先整理的影片资料，不是实时互联网数据库。外部检索按钮会打开相应网站的搜索结果。
+  </div>
+  <div class="result-count" id="movieCount">片单载入中</div>
+  <div class="grid" id="movieResults"></div>
+</section>
 
-  <section id="home">
-    <div class="feature">
-      <div class="feature-main">
-        <div class="section-tag">EDITOR'S SELECTION</div>
-        <h3>好内容，值得慢慢寻找。</h3>
-        <p>从战争历史、间谍谍战到欧洲剧情电影和世界纪录片，探索值得观看的影视作品。</p>
-        <div><a class="btn gold" href="#collections">探索精选片单 →</a></div>
-      </div>
-      <div class="feature-side">
-        <div class="feature-mini">
-          <div class="section-tag">WORLD CINEMA</div>
-          <h3>国际正版影视</h3>
-          <p>欧美、日本及欧洲公共文化影视资源。</p>
-          <a class="btn small" href="#world">浏览国际资源 →</a>
-        </div>
-        <div class="feature-mini">
-          <div class="section-tag">WORLD NEWS</div>
-          <h3>国际新闻视角</h3>
-          <p>路透社、美联社、BBC 等国际媒体。</p>
-          <a class="btn small" href="#news">阅读国际新闻 →</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<section id="platforms">
+  <h2 class="section-title">🎥 正版影视平台</h2>
+  <p class="section-desc">优先列出官方平台、公共媒体及具有免费内容的合法来源。</p>
+  <div class="grid" id="platformGrid"></div>
+</section>
 
-  <section id="search">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">DISCOVER</div>
-        <h2>影片搜索</h2>
-        <p>搜索本站精选目录，也可以直接跳转外部影视资料库。</p>
-      </div>
-    </div>
-    <div class="inline-search">
-      <input id="catalogSearch" type="search" placeholder="搜索片名、英文名、国家、年份或类型">
-      <button class="btn gold" onclick="renderMovies()">搜索</button>
-    </div>
-    <div class="filters">
-      <select id="catalogType" onchange="renderMovies()">
-        <option value="all">所有题材</option>
-        <option value="war">战争历史</option>
-        <option value="spy">间谍谍战</option>
-        <option value="drama">剧情电影</option>
-        <option value="romance">爱情电影</option>
-        <option value="documentary">纪录片</option>
-        <option value="series">电视剧集</option>
-      </select>
-      <select id="catalogRegion" onchange="renderMovies()">
-        <option value="all">所有地区</option>
-        <option value="US">美国</option>
-        <option value="UK">英国</option>
-        <option value="Europe">欧洲</option>
-        <option value="Japan">日本</option>
-        <option value="China">中国</option>
-        <option value="Other">其他</option>
-      </select>
-      <select id="catalogYear" onchange="renderMovies()">
-        <option value="all">所有年代</option>
-        <option value="2020">2020年以后</option>
-        <option value="2010">2010—2019</option>
-        <option value="2000">2000—2009</option>
-        <option value="old">2000年以前</option>
-      </select>
-    </div>
-    <div class="grid" id="movieGrid"></div>
-    <div class="card-actions">
-      <a class="btn" id="externalBing" target="_blank" rel="noopener">Bing 外部检索</a>
-      <a class="btn" id="externalGoogle" target="_blank" rel="noopener">Google 外部检索</a>
-      <a class="btn" id="externalIMDb" target="_blank" rel="noopener">IMDb 资料库</a>
-    </div>
-  </section>
+<section id="news">
+  <h2 class="section-title">🌐 国际新闻媒体</h2>
+  <p class="section-desc">不收录 CCTV、CGTN。建议对重大事件交叉阅读不同媒体的报道。</p>
+  <div class="toolbar">
+    <input id="newsSearch" type="search" placeholder="输入国际事件或新闻关键词">
+    <button class="primary" onclick="searchNews()">搜索各媒体</button>
+  </div>
+  <div class="grid" id="newsGrid"></div>
+</section>
 
-  <section id="mainland">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">MAINLAND PLATFORMS</div>
-        <h2>大陆影视资源</h2>
-        <p>正版平台入口。每个平台都可以独立搜索。</p>
-      </div>
-    </div>
-    <div class="grid" id="mainlandGrid"></div>
-  </section>
+<section id="live">
+  <h2 class="section-title">📡 国际官方直播</h2>
+  <p class="section-desc">打开媒体官方直播或视频页面。部分频道可能因地区授权而无法播放。</p>
+  <div class="grid" id="liveGrid"></div>
+</section>
 
-  <section id="world">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">INTERNATIONAL CINEMA</div>
-        <h2>国际影视资源</h2>
-        <p>欧美、欧洲、日本及公共文化影视资源。</p>
-      </div>
+<section id="subtitles">
+  <h2 class="section-title">💬 字幕中心</h2>
+  <p class="section-desc">字幕搜索、字幕格式及播放器使用说明。</p>
+  <div class="grid">
+    <div class="card">
+      <h3>OpenSubtitles</h3>
+      <p>多语种字幕资料检索，具体下载和使用遵循网站规则。</p>
+      <div class="links"><a href="https://www.opensubtitles.com/" target="_blank" rel="noopener">官方网站</a></div>
     </div>
-    <div class="grid" id="worldGrid"></div>
-  </section>
+    <div class="card">
+      <h3>SubDL</h3>
+      <p>电影和电视剧字幕搜索入口。</p>
+      <div class="links"><a href="https://subdl.com/" target="_blank" rel="noopener">官方网站</a></div>
+    </div>
+    <div class="card">
+      <h3>VLC 播放器</h3>
+      <p>支持外挂字幕。常见字幕格式包括 SRT、ASS、SSA。</p>
+      <div class="links"><a href="https://www.videolan.org/vlc/" target="_blank" rel="noopener">VLC 官网</a></div>
+    </div>
+    <div class="card">
+      <h3>字幕加载方法</h3>
+      <p>将视频和字幕文件放在同一文件夹，并尽量使用相同文件名；播放时选择字幕轨道或手动加载字幕。</p>
+    </div>
+  </div>
+  <div class="notice">
+    示例：电影文件为 Film.mkv，字幕文件可命名为 Film.srt。字幕应与影片版本、剪辑长度和帧率相匹配。
+  </div>
+</section>
 
-  <section id="collections">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">CURATED COLLECTIONS</div>
-        <h2>题材片单</h2>
-        <p>按题材浏览，也可以直接搜索片名、国家和年代。</p>
-      </div>
+<section id="adult">
+  <h2 class="section-title">🔞 18+ 成人分级电影资料检索</h2>
+  <p class="section-desc">仅提供成人分级剧情电影及欧洲情色电影的资料检索入口，不提供盗版影片或未经授权的在线播放。</p>
+  <div class="notice">
+    本专区仅面向成年人。请遵守当地法律、平台年龄要求及内容规定。此提示不是身份或年龄验证。
+  </div>
+  <div class="toolbar">
+    <input id="adultSearch" type="search" placeholder="输入电影名称、国家、导演或类型">
+    <button class="primary" onclick="adultSearch()">检索电影资料</button>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>IMDb 成人分级资料</h3>
+      <p>查看影片分级、演职人员和评论资料。</p>
+      <a class="small-link" href="https://www.imdb.com/" target="_blank" rel="noopener">IMDb 官网</a>
     </div>
-    <div class="inline-search">
-      <input id="collectionSearch" type="search" placeholder="搜索片单：例如二战、越战、间谍、法国、日本……">
-      <button class="btn gold" onclick="renderCollections()">搜索片单</button>
+    <div class="card">
+      <h3>TMDB 电影资料</h3>
+      <p>查询电影简介、国家、类型及海报等公开资料。</p>
+      <a class="small-link" href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB 官网</a>
     </div>
-    <div class="filters">
-      <select id="collectionType" onchange="renderCollections()">
-        <option value="all">全部题材</option>
-        <option value="war">战争历史</option>
-        <option value="spy">间谍谍战</option>
-        <option value="drama">剧情电影</option>
-        <option value="romance">爱情电影</option>
-        <option value="documentary">纪录片</option>
-        <option value="series">电视剧集</option>
-      </select>
-      <select id="collectionRegion" onchange="renderCollections()">
-        <option value="all">全部国家地区</option>
-        <option value="US">美国</option>
-        <option value="UK">英国</option>
-        <option value="Europe">欧洲</option>
-        <option value="Japan">日本</option>
-        <option value="China">中国</option>
-        <option value="Other">其他</option>
-      </select>
-    </div>
-    <div class="grid" id="collectionGrid"></div>
-  </section>
+  </div>
+</section>
 
-  <section id="news">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">INTERNATIONAL NEWS</div>
-        <h2>国际新闻</h2>
-        <p>9家国际媒体独立搜索，不收录 CCTV、CGTN。</p>
-      </div>
-    </div>
-    <div class="inline-search">
-      <input id="newsSearch" type="search" placeholder="搜索国际新闻：国际政治、经济、战争、科技……">
-      <button class="btn gold" onclick="runNewsSearch()">搜索新闻</button>
-    </div>
-    <div class="grid" id="newsGrid"></div>
-  </section>
+<section id="favorites">
+  <h2 class="section-title">⭐ 我的收藏</h2>
+  <p class="section-desc">收藏保存在当前设备浏览器中，不会自动同步到其他设备。</p>
+  <div id="favoriteResults" class="grid"></div>
+  <button onclick="clearFavorites()">清空本机收藏</button>
+</section>
 
-  <section id="favorites">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">YOUR COLLECTION</div>
-        <h2>我的收藏</h2>
-        <p>收藏的影片保存在当前设备浏览器中。</p>
-      </div>
-      <button class="btn small" onclick="clearFavorites()">清空收藏</button>
-    </div>
-    <div class="grid" id="favoriteGrid"></div>
-  </section>
-
-  <section id="adult">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">ADULT CLASSIFICATION</div>
-        <h2>18+ 成人分级电影检索</h2>
-        <p>仅限成年人使用，提供合法授权作品的资料检索。</p>
-      </div>
-    </div>
-    <div class="adult-box">
-      <div class="adult-title">
-        <span class="adult-mark">18+</span>
-        <h3>欧洲成人分级剧情电影与情色电影资料搜索</h3>
-      </div>
-      <p class="intro">
-        可按关键词、演员、国家、类型、年代任意组合搜索。
-        本专区不提供盗版播放、未授权资源或露骨内容。
-      </p>
-      <div class="adult-form">
-        <div class="field full">
-          <label for="adultKeyword">影片关键词 / 外文片名 / 主题</label>
-          <input id="adultKeyword" placeholder="例如：European adult drama film">
-        </div>
-        <div class="field">
-          <label for="adultActor">演员（可选）</label>
-          <input id="adultActor" placeholder="演员姓名">
-        </div>
-        <div class="field">
-          <label for="adultCountry">国家或地区</label>
-          <select id="adultCountry">
-            <option value="">不限国家</option>
-            <option value="France">法国</option>
-            <option value="Italy">意大利</option>
-            <option value="Germany">德国</option>
-            <option value="Spain">西班牙</option>
-            <option value="United Kingdom">英国</option>
-            <option value="Netherlands">荷兰</option>
-            <option value="Denmark">丹麦</option>
-            <option value="Sweden">瑞典</option>
-            <option value="Europe">欧洲其他地区</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="adultType">作品类型</label>
-          <select id="adultType">
-            <option value="">不限类型</option>
-            <option value="adult-rated drama film">成人分级剧情电影</option>
-            <option value="erotic cinema">欧洲情色电影</option>
-            <option value="art house erotic film">艺术剧情与情色电影</option>
-            <option value="romantic drama">爱情剧情电影</option>
-            <option value="independent cinema">欧洲独立电影</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="adultYear">年代</label>
-          <select id="adultYear">
-            <option value="">不限年代</option>
-            <option value="2020..2026">2020—2026</option>
-            <option value="2010..2019">2010—2019</option>
-            <option value="2000..2009">2000—2009</option>
-            <option value="1990..1999">1990—1999</option>
-            <option value="1980..1989">1980—1989</option>
-            <option value="before 1980">1980年以前</option>
-          </select>
-        </div>
-      </div>
-      <div class="card-actions">
-        <button class="btn gold" onclick="runAdultSearch()">开始检索</button>
-        <button class="btn" onclick="resetAdultSearch()">清空条件</button>
-      </div>
-      <div class="adult-results" id="adultResults"></div>
-      <div class="age-note">
-        仅限18周岁及以上成年人。搜索结果来自外部网站，本站不托管或提供成人影片播放。
-        请自行核实影片分级、合法授权、当地法律及平台规则。
-      </div>
-    </div>
-  </section>
-</div>
 </main>
 
 <footer>
-  <div class="wrap">
-    <strong>Personal Film Center</strong> · 私人影视中心<br>
-    本站为影视与新闻资源导航及资料检索工具，不托管影视内容。<br>
-    请遵守所在地法律法规，并以内容平台实际授权和可播放地区为准。
-  </div>
+  Personal Film Center｜私人影视中心<br>
+  仅提供公开合法资源导航与资料检索入口。请遵守当地法律和各平台使用规则。<br>
+  © 2026 Personal Film Center
 </footer>
 
-<div class="modal" id="ageModal">
-  <div class="modal-box">
-    <div class="adult-mark" style="display:inline-block;margin-bottom:12px">18+</div>
-    <h2>成年人专区确认</h2>
-    <p>本专区仅供年满18周岁的成年人访问。是否已年满18周岁？</p>
-    <div class="modal-actions">
-      <button class="btn" onclick="leaveAdult()">未满18岁</button>
-      <button class="btn gold" onclick="confirmAdult()">已满18岁</button>
-    </div>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
-
 <script>
-"use strict";
-
-const mainlandResources=[
- {name:"1905电影网",icon:"影",desc:"电影资讯、正版影视及专题内容。",url:"https://www.1905.com/",search:"https://www.1905.com/search/?q="},
- {name:"哔哩哔哩",icon:"B",desc:"纪录片、影视、知识与多元创作内容。",url:"https://www.bilibili.com/",search:"https://search.bilibili.com/all?keyword="},
- {name:"爱奇艺",icon:"爱",desc:"电影、电视剧、纪录片及正版内容。",url:"https://www.iqiyi.com/",search:"https://so.iqiyi.com/so/q_"},
- {name:"腾讯视频",icon:"腾",desc:"电影、电视剧、纪录片与专题节目。",url:"https://v.qq.com/",search:"https://v.qq.com/x/search/?q="},
- {name:"优酷",icon:"优",desc:"电影、剧集、纪录片及影视内容。",url:"https://www.youku.com/",search:"https://so.youku.com/search_video/q_"},
- {name:"芒果TV",icon:"芒",desc:"影视剧集、综艺与纪录片。",url:"https://www.mgtv.com/",search:"https://so.mgtv.com/so?k="}
+const movies = [
+{t:"兄弟连",e:"Band of Brothers",r:"美国",g:["战争","二战"],y:2001},
+{t:"拯救大兵瑞恩",e:"Saving Private Ryan",r:"美国",g:["战争","二战"],y:1998},
+{t:"血战钢锯岭",e:"Hacksaw Ridge",r:"美国",g:["战争","二战"],y:2016},
+{t:"敦刻尔克",e:"Dunkirk",r:"英国",g:["战争","二战"],y:2017},
+{t:"细细的红线",e:"The Thin Red Line",r:"美国",g:["战争","二战"],y:1998},
+{t:"现代启示录",e:"Apocalypse Now",r:"美国",g:["战争","越战"],y:1979},
+{t:"野战排",e:"Platoon",r:"美国",g:["战争","越战"],y:1986},
+{t:"全金属外壳",e:"Full Metal Jacket",r:"英国",g:["战争","越战"],y:1987},
+{t:"西线无战事",e:"All Quiet on the Western Front",r:"德国",g:["战争","历史"],y:2022},
+{t:"兵临城下",e:"Enemy at the Gates",r:"英国",g:["战争","二战"],y:2001},
+{t:"锅匠裁缝士兵间谍",e:"Tinker Tailor Soldier Spy",r:"英国",g:["间谍","剧情"],y:2011},
+{t:"慕尼黑",e:"Munich",r:"美国",g:["间谍","历史"],y:2005},
+{t:"谍影重重",e:"The Bourne Identity",r:"美国",g:["间谍","反恐"],y:2002},
+{t:"窃听风暴",e:"The Lives of Others",r:"德国",g:["间谍","剧情"],y:2006},
+{t:"第三人",e:"The Third Man",r:"英国",g:["间谍","剧情"],y:1949},
+{t:"天堂电影院",e:"Cinema Paradiso",r:"法国",g:["爱情","剧情"],y:1988},
+{t:"天使爱美丽",e:"Amélie",r:"法国",g:["爱情","剧情"],y:2001},
+{t:"燃烧女子的肖像",e:"Portrait of a Lady on Fire",r:"法国",g:["爱情","剧情"],y:2019},
+{t:"驾驶我的车",e:"Drive My Car",r:"日本",g:["剧情"],y:2021},
+{t:"小偷家族",e:"Shoplifters",r:"日本",g:["剧情"],y:2018},
+{t:"海边的曼彻斯特",e:"Manchester by the Sea",r:"美国",g:["剧情"],y:2016},
+{t:"海洋",e:"Oceans",r:"法国",g:["纪录片"],y:2009},
+{t:"他们已不再变老",e:"They Shall Not Grow Old",r:"英国",g:["纪录片","战争","一战"],y:2018},
+{t:"五人归来",e:"Five Came Back",r:"美国",g:["纪录片","二战"],y:2017},
+{t:"我们的星球",e:"Our Planet",r:"英国",g:["纪录片"],y:2019},
+{t:"太极旗飘扬",e:"Taegukgi",r:"韩国",g:["战争","历史"],y:2004},
+{t:"共同警备区",e:"Joint Security Area",r:"韩国",g:["剧情","历史"],y:2000},
+{t:"辩护人",e:"The Attorney",r:"韩国",g:["剧情","历史"],y:2013},
+{t:"出租车司机",e:"A Taxi Driver",r:"韩国",g:["剧情","历史"],y:2017},
+{t:"鸣梁海战",e:"The Admiral",r:"韩国",g:["战争","历史"],y:2014},
+{t:"狼嚎",e:"The Wolf's Call",r:"法国",g:["反恐","剧情"],y:2019},
+{t:"刺杀盖世太保",e:"The Man with the Iron Heart",r:"法国",g:["战争","历史"],y:2017},
+{t:"窃听大阴谋",e:"The Conversation",r:"美国",g:["间谍","剧情"],y:1974},
+{t:"间谍之桥",e:"Bridge of Spies",r:"美国",g:["间谍","历史"],y:2015},
+{t:"慕尼黑：战争边缘",e:"Munich: The Edge of War",r:"英国",g:["间谍","历史"],y:2021},
+{t:"敦刻尔克大撤退",e:"The Key to Rebecca",r:"英国",g:["战争","二战"],y:1985},
+{t:"西部前线",e:"The Front Line",r:"韩国",g:["战争","历史"],y:2011},
+{t:"太白山脉",e:"The Taebaek Mountains",r:"韩国",g:["战争","历史"],y:1994},
+{t:"情书",e:"Love Letter",r:"日本",g:["爱情","剧情"],y:1995},
+{t:"小森林",e:"Little Forest",r:"日本",g:["剧情"],y:2014},
+{t:"入殓师",e:"Departures",r:"日本",g:["剧情"],y:2008},
+{t:"花样年华",e:"In the Mood for Love",r:"法国",g:["爱情","剧情"],y:2000}
 ];
 
-const worldResources=[
- {name:"Plex",icon:"P",desc:"免费广告支持影视及个人媒体服务，地区内容有所不同。",url:"https://www.plex.tv/watch-free/",search:"https://www.google.com/search?q=site%3Aplex.tv%2Fwatch-free%2F+"},
- {name:"Tubi",icon:"T",desc:"免费广告支持影视平台，部分地区可能无法访问。",url:"https://tubitv.com/",search:"https://www.google.com/search?q=site%3Atubitv.com+"},
- {name:"Internet Archive",icon:"IA",desc:"公共领域及获授权的历史影像资料。",url:"https://archive.org/details/movies",search:"https://archive.org/search?query="},
- {name:"NFB 加拿大国家电影局",icon:"N",desc:"纪录片、动画及加拿大电影文化资源。",url:"https://www.nfb.ca/",search:"https://www.nfb.ca/search/?q="},
- {name:"PBS",icon:"PBS",desc:"纪录片、历史、文化与公共电视节目。",url:"https://www.pbs.org/",search:"https://www.pbs.org/search/?q="},
- {name:"ARTE",icon:"A",desc:"法国与德国公共文化频道，含电影和纪录片。",url:"https://www.arte.tv/",search:"https://www.google.com/search?q=site%3Aarte.tv+"},
- {name:"RTVE Play",icon:"R",desc:"西班牙公共广播电视影视及纪录片。",url:"https://www.rtve.es/play/",search:"https://www.google.com/search?q=site%3Artve.es%2Fplay+"},
- {name:"RaiPlay",icon:"RAI",desc:"意大利公共广播电视影视与文化节目。",url:"https://www.raiplay.it/",search:"https://www.google.com/search?q=site%3Araiplay.it+"},
- {name:"NHK World",icon:"NHK",desc:"日本国际频道，新闻、文化与纪录片。",url:"https://www3.nhk.or.jp/nhkworld/",search:"https://www.google.com/search?q=site%3Anhk.or.jp%2Fnhkworld+"},
- {name:"DW",icon:"DW",desc:"德国之声纪录片、国际报道与文化节目。",url:"https://www.dw.com/",search:"https://www.google.com/search?q=site%3Adw.com+"},
- {name:"YouTube 官方频道",icon:"▶",desc:"可检索电影公司、电视台和公共机构官方内容。",url:"https://www.youtube.com/",search:"https://www.youtube.com/results?search_query="},
- {name:"Pluto TV",icon:"P",desc:"免费广告支持电视及影视服务，受地区限制。",url:"https://pluto.tv/",search:"https://www.google.com/search?q=site%3Apluto.tv+"}
+const platforms=[
+["Plex","免费影视与个人媒体服务，片库和广告政策因地区而异。","https://watch.plex.tv/"],
+["Tubi","提供广告支持的免费影视，地区限制较明显。","https://tubitv.com/"],
+["Pluto TV","免费广告支持影视与频道，按地区开放。","https://pluto.tv/"],
+["Internet Archive","公共领域及获授权的历史影像资料，需核对单片版权。","https://archive.org/details/movies"],
+["National Film Board of Canada","加拿大国家电影局纪录片及电影。","https://www.nfb.ca/"],
+["PBS","美国公共媒体纪录片与节目。","https://www.pbs.org/video/"],
+["ARTE","法国与德国公共文化频道，含纪录片和电影节目。","https://www.arte.tv/"],
+["RTVE Play","西班牙公共广播电视平台。","https://www.rtve.es/play/"],
+["RaiPlay","意大利公共广播电视平台。","https://www.raiplay.it/"],
+["NHK World","日本公共媒体国际节目与纪录片。","https://www3.nhk.or.jp/nhkworld/"],
+["DW","德国之声纪录片及专题节目。","https://www.dw.com/"],
+["YouTube 官方频道","可检索电影制片方、电视台及公共机构官方频道。","https://www.youtube.com/"]
 ];
 
-const newsResources=[
- {name:"Reuters 路透社",icon:"R",desc:"国际政治、经济、商业与全球突发新闻。",url:"https://www.reuters.com/",search:"https://www.reuters.com/site-search/?query="},
- {name:"AP 美联社",icon:"AP",desc:"国际新闻、调查报道及全球现场新闻。",url:"https://apnews.com/",search:"https://apnews.com/search?q="},
- {name:"BBC News",icon:"BBC",desc:"国际新闻、深度报道与专题分析。",url:"https://www.bbc.com/news",search:"https://www.bbc.com/search?q="},
- {name:"DW 德国之声",icon:"DW",desc:"欧洲、国际政治、经济与文化报道。",url:"https://www.dw.com/en/",search:"https://www.google.com/search?q=site%3Adw.com+"},
- {name:"France 24",icon:"24",desc:"法国国际新闻频道，多语种报道。",url:"https://www.france24.com/en/",search:"https://www.google.com/search?q=site%3Afrance24.com+"},
- {name:"Al Jazeera",icon:"AJ",desc:"中东、国际事务与全球新闻报道。",url:"https://www.aljazeera.com/",search:"https://www.aljazeera.com/search/"},
- {name:"NHK World",icon:"NHK",desc:"日本及亚太地区国际新闻与专题。",url:"https://www3.nhk.or.jp/nhkworld/",search:"https://www.google.com/search?q=site%3Anhk.or.jp%2Fnhkworld+"},
- {name:"The Guardian 卫报",icon:"G",desc:"英国独立新闻媒体，关注国际政治、社会、经济与文化。",url:"https://www.theguardian.com/world",search:"https://www.google.com/search?q=site%3Atheguardian.com+"},
- {name:"Euronews 欧洲新闻台",icon:"E",desc:"欧洲国际新闻媒体，报道欧洲事务、全球政治与经济动态。",url:"https://www.euronews.com/",search:"https://www.google.com/search?q=site%3Aeuronews.com+"}
+const news=[
+["Reuters 路透社","国际通讯社","https://www.reuters.com/"],
+["Associated Press 美联社","国际通讯社","https://apnews.com/"],
+["BBC News","英国公共媒体","https://www.bbc.com/news"],
+["DW 德国之声","德国国际媒体","https://www.dw.com/"],
+["France 24","法国国际新闻","https://www.france24.com/"],
+["Al Jazeera 半岛电视台","国际新闻媒体","https://www.aljazeera.com/"],
+["NHK World","日本国际新闻","https://www3.nhk.or.jp/nhkworld/"],
+["The Guardian 卫报","英国新闻媒体","https://www.theguardian.com/international"],
+["Euronews","欧洲新闻媒体","https://www.euronews.com/"]
 ];
 
-const movies=[
- {title:"兄弟连",en:"Band of Brothers",year:2001,region:"US",country:"美国",type:"war",tags:"二战 美国 HBO 电视剧 战争 历史",desc:"二战欧洲战场美军空降兵题材剧集。"},
- {title:"拯救大兵瑞恩",en:"Saving Private Ryan",year:1998,region:"US",country:"美国",type:"war",tags:"二战 诺曼底 美国",desc:"以诺曼底登陆及救援任务为背景。"},
- {title:"血战钢锯岭",en:"Hacksaw Ridge",year:2016,region:"US",country:"美国",type:"war",tags:"二战 太平洋战场",desc:"二战冲绳战役背景的战争剧情片。"},
- {title:"敦刻尔克",en:"Dunkirk",year:2017,region:"UK",country:"英国",type:"war",tags:"二战 英国 欧洲",desc:"敦刻尔克大撤退题材电影。"},
- {title:"细细的红线",en:"The Thin Red Line",year:1998,region:"US",country:"美国",type:"war",tags:"二战 太平洋战争",desc:"以瓜达尔卡纳尔岛战役为背景。"},
- {title:"现代启示录",en:"Apocalypse Now",year:1979,region:"US",country:"美国",type:"war",tags:"越战 越南战争 美国",desc:"以越南战争为背景的经典剧情片。"},
- {title:"野战排",en:"Platoon",year:1986,region:"US",country:"美国",type:"war",tags:"越战 越南战争",desc:"越战经历与士兵心理的战争电影。"},
- {title:"全金属外壳",en:"Full Metal Jacket",year:1987,region:"UK",country:"英国",type:"war",tags:"越战 越南战争",desc:"从训练营到越南战场的战争电影。"},
- {title:"西线无战事",en:"All Quiet on the Western Front",year:2022,region:"Europe",country:"德国",type:"war",tags:"一战 德国 欧洲",desc:"第一次世界大战题材电影。"},
- {title:"兵临城下",en:"Enemy at the Gates",year:2001,region:"Europe",country:"欧洲",type:"war",tags:"二战 苏德战争 斯大林格勒",desc:"斯大林格勒战役背景的战争电影。"},
- {title:"锅匠裁缝士兵间谍",en:"Tinker Tailor Soldier Spy",year:2011,region:"UK",country:"英国",type:"spy",tags:"间谍 冷战 英国 谍战",desc:"冷战时期英国情报机构的间谍故事。"},
- {title:"慕尼黑",en:"Munich",year:2005,region:"US",country:"美国",type:"spy",tags:"间谍 情报 政治",desc:"围绕国际事件展开的政治惊悚片。"},
- {title:"谍影重重",en:"The Bourne Identity",year:2002,region:"US",country:"美国",type:"spy",tags:"间谍 特工 动作",desc:"失忆特工追寻身份的间谍动作片。"},
- {title:"窃听风暴",en:"The Lives of Others",year:2006,region:"Europe",country:"德国",type:"drama",tags:"德国 东德 监控 剧情",desc:"东德时期监控体系背景下的剧情片。"},
- {title:"第三人",en:"The Third Man",year:1949,region:"UK",country:"英国",type:"spy",tags:"悬疑 黑色电影 欧洲",desc:"战后维也纳背景的经典悬疑电影。"},
- {title:"天堂电影院",en:"Cinema Paradiso",year:1988,region:"Europe",country:"意大利",type:"drama",tags:"意大利 欧洲 剧情 电影",desc:"关于电影、成长与记忆的意大利电影。"},
- {title:"天使爱美丽",en:"Amélie",year:2001,region:"Europe",country:"法国",type:"romance",tags:"法国 爱情 浪漫 喜剧",desc:"巴黎背景的法国浪漫电影。"},
- {title:"燃烧女子的肖像",en:"Portrait of a Lady on Fire",year:2019,region:"Europe",country:"法国",type:"romance",tags:"法国 欧洲 爱情 剧情",desc:"法国历史背景下的爱情剧情片。"},
- {title:"驾驶我的车",en:"Drive My Car",year:2021,region:"Japan",country:"日本",type:"drama",tags:"日本 剧情 文学",desc:"改编自村上春树小说的日本电影。"},
- {title:"小偷家族",en:"Shoplifters",year:2018,region:"Japan",country:"日本",type:"drama",tags:"日本 家庭 剧情",desc:"日本家庭与社会关系题材电影。"},
- {title:"海边的曼彻斯特",en:"Manchester by the Sea",year:2016,region:"US",country:"美国",type:"drama",tags:"美国 剧情 家庭",desc:"关于失落、家庭与重新生活的剧情片。"},
- {title:"海洋",en:"Oceans",year:2009,region:"Europe",country:"法国",type:"documentary",tags:"纪录片 自然 海洋 法国",desc:"聚焦海洋生态与海洋生物。"},
- {title:"他们已不再变老",en:"They Shall Not Grow Old",year:2018,region:"UK",country:"英国",type:"documentary",tags:"纪录片 一战 历史",desc:"利用历史影像呈现第一次世界大战。"},
- {title:"五人归来",en:"Five Came Back",year:2017,region:"US",country:"美国",type:"documentary",tags:"纪录片 二战 电影历史",desc:"二战时期好莱坞导演与战争纪录影像。"},
- {title:"我们的星球",en:"Our Planet",year:2019,region:"UK",country:"英国",type:"documentary",tags:"纪录片 自然 环境",desc:"全球自然生态纪录片系列。"}
+const live=[
+["France 24 Live","法国国际新闻直播","https://www.france24.com/en/live"],
+["DW Live","德国之声直播","https://www.dw.com/en/live-tv/s-100825"],
+["Al Jazeera Live","半岛电视台直播","https://www.aljazeera.com/live"],
+["NHK World Live","NHK World 官方视频","https://www3.nhk.or.jp/nhkworld/en/live/"],
+["Sky News Live","英国 Sky News 官方直播","https://news.sky.com/watch-live"],
+["Euronews Live","欧洲新闻官方直播","https://www.euronews.com/live"]
 ];
 
-const typeNames={
- war:"战争历史",spy:"间谍谍战",drama:"剧情电影",
- romance:"爱情电影",documentary:"纪录片",series:"电视剧集"
-};
-
-const regionNames={
- US:"美国",UK:"英国",Europe:"欧洲",Japan:"日本",China:"中国",Other:"其他"
-};
-
-let favorites=loadFavorites();
-let pendingInstall=null;
-
-function loadFavorites(){
- try{return JSON.parse(localStorage.getItem("pfc_favorites")||"[]")}
- catch(e){return []}
+function esc(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
-function saveFavorites(){
- localStorage.setItem("pfc_favorites",JSON.stringify(favorites));
- updateFavoriteCount();
+function searchUrl(base,q){return base+encodeURIComponent(q);}
+function movieCard(m){
+ const saved=getFavorites().includes(m.t);
+ return `<article class="card movie-card">
+ <h3>${esc(m.t)}</h3><p>${esc(m.e)} · ${m.y}</p>
+ <div class="tags">${m.g.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}<span class="tag">${esc(m.r)}</span></div>
+ <div class="links">
+ <a href="${searchUrl("https://www.google.com/search?q=",m.t+" "+m.y+" film official streaming")}" target="_blank" rel="noopener">查找观看入口</a>
+ <a href="${searchUrl("https://www.imdb.com/find/?q=",m.e)}" target="_blank" rel="noopener">IMDb</a>
+ <button onclick="toggleFavorite('${esc(m.t)}')">${saved?"★ 已收藏":"☆ 收藏"}</button>
+ </div></article>`;
 }
-function updateFavoriteCount(){
- document.getElementById("favCount").textContent=favorites.length;
+function filterMovies(){
+ const q=document.getElementById("movieSearch").value.trim().toLowerCase();
+ const g=document.getElementById("genreFilter").value;
+ const r=document.getElementById("regionFilter").value;
+ const list=movies.filter(m=>{
+  const text=(m.t+" "+m.e+" "+m.r+" "+m.g.join(" ")).toLowerCase();
+  return (!q||text.includes(q))&&(!g||m.g.includes(g))&&(!r||m.r===r||(r==="欧洲"&&["法国","德国","英国"].includes(m.r)));
+ });
+ document.getElementById("movieCount").textContent=`找到 ${list.length} 部站内片单影片`;
+ document.getElementById("movieResults").innerHTML=list.length?list.map(movieCard).join(""):'<div class="empty">没有找到匹配影片。试试“二战”“越战”“间谍”“韩国”或使用互联网搜索。</div>';
 }
-function toast(message){
- const el=document.getElementById("toast");
- el.textContent=message;
- el.classList.add("show");
- setTimeout(()=>el.classList.remove("show"),2100);
+function externalMovieSearch(){
+ const q=document.getElementById("movieSearch").value||document.getElementById("mainSearch").value;
+ if(!q.trim()){alert("请先输入影片名称或关键词");return;}
+ window.open(searchUrl("https://www.google.com/search?q=",q+" movie film"),"_blank","noopener");
 }
-function esc(value){
- return String(value??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+function tmdbSearch(){
+ const q=document.getElementById("movieSearch").value||document.getElementById("mainSearch").value;
+ if(!q.trim()){alert("请先输入影片名称或关键词");return;}
+ window.open(searchUrl("https://www.themoviedb.org/search?query=",q),"_blank","noopener");
 }
-function searchUrl(query){
- return "https://www.google.com/search?q="+encodeURIComponent(query);
+function imdbSearch(){
+ const q=document.getElementById("movieSearch").value||document.getElementById("mainSearch").value;
+ if(!q.trim()){alert("请先输入影片名称或关键词");return;}
+ window.open(searchUrl("https://www.imdb.com/find/?q=",q),"_blank","noopener");
 }
-function renderResources(items,target){
- const el=document.getElementById(target);
- el.innerHTML=items.map((r,i)=>`
-  <article class="resource-card">
-   <div class="card-top">
-    <div class="resource-icon">${esc(r.icon)}</div>
-    <div><h3>${esc(r.name)}</h3><small>正版平台 / 官方入口</small></div>
-   </div>
-   <p>${esc(r.desc)}</p>
-   <div class="card-actions">
-    <a class="btn small" href="${r.url}" target="_blank" rel="noopener">官方网站 ↗</a>
-   </div>
-   <form class="sub-search" onsubmit="return resourceSearch(event,${JSON.stringify(target)},${i})">
-    <input id="${target}-q-${i}" placeholder="在此平台搜索……" aria-label="搜索${esc(r.name)}">
-    <button class="btn small gold" type="submit">搜索</button>
-   </form>
-  </article>
- `).join("");
+function mainSearch(){
+ const q=document.getElementById("mainSearch").value.trim();
+ if(!q){alert("请输入搜索关键词");return;}
+ document.getElementById("movieSearch").value=q;
+ document.getElementById("movieSearch").scrollIntoView({behavior:"smooth",block:"center"});
+ filterMovies();
 }
-function resourceSearch(event,target,index){
- event.preventDefault();
- const list=target==="mainlandGrid"?mainlandResources:worldResources;
- const item=list[index];
- const q=document.getElementById(target+"-q-"+index).value.trim();
- if(!q){toast("请输入搜索内容");return false}
- let url=item.search+encodeURIComponent(q);
- if(item.name==="Plex"||item.name==="Tubi"||item.name==="ARTE"||
- item.name==="RTVE Play"||item.name==="RaiPlay"||item.name==="NHK World"||
- item.name==="DW"||item.name==="Pluto TV"){
-  url=item.search+encodeURIComponent(q);
- }
- window.open(url,"_blank","noopener");
- return false;
+function renderPlatforms(){
+ document.getElementById("platformGrid").innerHTML=platforms.map(p=>`
+ <div class="card"><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p>
+ <div class="links"><a href="${p[2]}" target="_blank" rel="noopener">官方平台入口</a></div></div>`).join("");
 }
 function renderNews(){
- document.getElementById("newsGrid").innerHTML=newsResources.map((n,i)=>`
-  <article class="news-card">
-   <div class="card-top">
-    <div class="resource-icon">${esc(n.icon)}</div>
-    <div><h3>${esc(n.name)}</h3><div class="source">INTERNATIONAL MEDIA</div></div>
-   </div>
-   <p>${esc(n.desc)}</p>
-   <div class="card-actions">
-    <a class="btn small" href="${n.url}" target="_blank" rel="noopener">打开官网 ↗</a>
-   </div>
-   <form class="sub-search" onsubmit="return newsSourceSearch(event,${i})">
-    <input id="news-source-${i}" placeholder="搜索该媒体内容……">
-    <button class="btn small gold" type="submit">搜索</button>
-   </form>
-  </article>
- `).join("");
+ document.getElementById("newsGrid").innerHTML=news.map(n=>`
+ <div class="card"><h3>${esc(n[0])}</h3><p>${esc(n[1])}</p>
+ <div class="links"><a href="${n[2]}" target="_blank" rel="noopener">媒体官网</a>
+ <a href="${searchUrl("https://www.google.com/search?q=", "site:"+new URL(n[2]).hostname+" " +(document.getElementById("newsSearch").value||"latest news"))}" target="_blank" rel="noopener">站内检索</a></div></div>`).join("");
 }
-function newsSourceSearch(event,index){
- event.preventDefault();
- const n=newsResources[index];
- const q=document.getElementById("news-source-"+index).value.trim();
- if(!q){toast("请输入新闻关键词");return false}
- let url;
- if(n.name==="Reuters")url=n.search+encodeURIComponent(q);
- else if(n.name==="AP 美联社")url=n.search+encodeURIComponent(q);
- else if(n.name==="BBC News")url=n.search+encodeURIComponent(q);
- else url=n.search+encodeURIComponent(q);
- window.open(url,"_blank","noopener");
- return false;
+function searchNews(){
+ const q=document.getElementById("newsSearch").value.trim();
+ if(!q){alert("请输入新闻关键词");return;}
+ news.forEach(n=>window.open(searchUrl("https://www.google.com/search?q=","site:"+new URL(n[2]).hostname+" "+q),"_blank","noopener"));
 }
-function matchesMovie(m,q,type,region,year){
- const hay=(m.title+" "+m.en+" "+m.country+" "+m.year+" "+m.tags+" "+m.desc+" "+typeNames[m.type]).toLowerCase();
- if(q&&!hay.includes(q.toLowerCase()))return false;
- if(type!=="all"&&m.type!==type)return false;
- if(region!=="all"&&m.region!==region)return false;
- if(year==="2020"&&m.year<2020)return false;
- if(year==="2010"&&(m.year<2010||m.year>2019))return false;
- if(year==="2000"&&(m.year<2000||m.year>2009))return false;
- if(year==="old"&&m.year>=2000)return false;
- return true;
+function renderLive(){
+ document.getElementById("liveGrid").innerHTML=live.map(x=>`
+ <div class="card"><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p>
+ <div class="links"><a href="${x[2]}" target="_blank" rel="noopener">打开官方直播</a></div></div>`).join("");
 }
-function movieCard(m){
- const saved=favorites.includes(m.title);
- return `
- <article class="movie-card">
-  <div class="movie-cover"><span>${esc(m.country)} · ${m.year}</span></div>
-  <div class="movie-content">
-   <h3>${esc(m.title)}</h3>
-   <div class="en">${esc(m.en)}</div>
-   <p>${esc(m.desc)}</p>
-   <div class="movie-meta">
-    <span class="pill">${esc(typeNames[m.type])}</span>
-    <span class="pill">${esc(m.country)}</span>
-    <span class="pill">${m.year}</span>
-   </div>
-   <div class="movie-actions">
-    <button class="btn small" onclick="searchMovie('${encodeURIComponent(m.title)}')">查找影片</button>
-    <button class="btn small" onclick="toggleFavorite('${encodeURIComponent(m.title)}')">${saved?"★ 已收藏":"♡ 收藏"}</button>
-   </div>
-  </div>
- </article>`;
+function adultSearch(){
+ const q=document.getElementById("adultSearch").value.trim();
+ if(!q){alert("请输入检索关键词");return;}
+ window.open(searchUrl("https://www.google.com/search?q=",q+" film movie database rating"),"_blank","noopener");
 }
-function renderMovies(){
- const q=document.getElementById("catalogSearch").value.trim();
- const type=document.getElementById("catalogType").value;
- const region=document.getElementById("catalogRegion").value;
- const year=document.getElementById("catalogYear").value;
- const result=movies.filter(m=>matchesMovie(m,q,type,region,year));
- document.getElementById("movieGrid").innerHTML=result.length?
- result.map(movieCard).join(""):`<div class="empty">没有找到符合条件的片目。试试更换关键词或筛选条件。</div>`;
- const query=q||typeNames[type]||"电影";
- document.getElementById("externalBing").href="https://www.bing.com/search?q="+encodeURIComponent(query+" 电影 正版 在线观看");
- document.getElementById("externalGoogle").href="https://www.google.com/search?q="+encodeURIComponent(query+" film legal streaming");
- document.getElementById("externalIMDb").href="https://www.imdb.com/find/?q="+encodeURIComponent(q||"film");
+function getFavorites(){
+ try{return JSON.parse(localStorage.getItem("pfc_favorites")||"[]")}catch(e){return []}
 }
-function searchMovie(encoded){
- const name=decodeURIComponent(encoded);
- window.open("https://www.google.com/search?q="+encodeURIComponent(name+" official streaming legal availability"),"_blank","noopener");
-}
-function toggleFavorite(encoded){
- const name=decodeURIComponent(encoded);
- if(favorites.includes(name)){
-  favorites=favorites.filter(x=>x!==name);
-  toast("已取消收藏");
- }else{
-  favorites.push(name);
-  toast("已加入收藏");
- }
- saveFavorites();
- renderMovies();
- renderFavorites();
- renderCollections();
+function toggleFavorite(title){
+ let a=getFavorites();
+ a=a.includes(title)?a.filter(x=>x!==title):[...a,title];
+ localStorage.setItem("pfc_favorites",JSON.stringify(a));
+ renderFavorites();filterMovies();
 }
 function renderFavorites(){
- const list=movies.filter(m=>favorites.includes(m.title));
- document.getElementById("favoriteGrid").innerHTML=list.length?
- list.map(movieCard).join(""):`<div class="empty">你还没有收藏影片。可以在影片卡片上点击“收藏”。</div>`;
+ const a=getFavorites();
+ const list=a.map(t=>movies.find(m=>m.t===t)).filter(Boolean);
+ document.getElementById("favoriteResults").innerHTML=list.length?list.map(movieCard).join(""):'<div class="empty">暂时没有收藏影片。</div>';
 }
 function clearFavorites(){
- if(!favorites.length){toast("收藏夹已经是空的");return}
- if(confirm("确定清空全部收藏吗？")){
-  favorites=[];
-  saveFavorites();
-  renderFavorites();
-  renderMovies();
-  renderCollections();
-  toast("收藏已清空");
- }
+ if(!confirm("确定清空当前设备保存的收藏吗？"))return;
+ localStorage.removeItem("pfc_favorites");renderFavorites();filterMovies();
 }
-function renderCollections(){
- const q=document.getElementById("collectionSearch").value.trim().toLowerCase();
- const type=document.getElementById("collectionType").value;
- const region=document.getElementById("collectionRegion").value;
- const list=movies.filter(m=>{
-  const hay=(m.title+" "+m.en+" "+m.country+" "+m.year+" "+m.tags+" "+typeNames[m.type]).toLowerCase();
-  return (!q||hay.includes(q))&&
-   (type==="all"||m.type===type)&&
-   (region==="all"||m.region===region);
- });
- document.getElementById("collectionGrid").innerHTML=list.length?
- list.map(movieCard).join(""):`<div class="empty">没有找到符合条件的片单内容，请尝试其他关键词。</div>`;
-}
-function runMainSearch(){
- const q=document.getElementById("mainSearch").value.trim();
- if(!q){toast("请输入影片名称或搜索关键词");return}
- document.getElementById("catalogSearch").value=q;
- document.getElementById("catalogType").value=document.getElementById("mainCategory").value;
- document.getElementById("catalogRegion").value=document.getElementById("mainRegion").value;
- renderMovies();
- document.getElementById("search").scrollIntoView({behavior:"smooth"});
-}
-function resetMainSearch(){
- document.getElementById("mainSearch").value="";
- document.getElementById("mainCategory").value="all";
- document.getElementById("mainRegion").value="all";
- document.getElementById("catalogSearch").value="";
- document.getElementById("catalogType").value="all";
- document.getElementById("catalogRegion").value="all";
- document.getElementById("catalogYear").value="all";
- renderMovies();
-}
-function runNewsSearch(){
- const q=document.getElementById("newsSearch").value.trim();
- if(!q){toast("请输入新闻关键词");return}
- window.open("https://www.google.com/search?q="+encodeURIComponent(q+" site:reuters.com OR site:apnews.com OR site:bbc.com/news OR site:dw.com OR site:france24.com OR site:aljazeera.com OR site:nhk.or.jp/nhkworld"),"_blank","noopener");
-}
-function adultTerms(){
- const fields=[
-  document.getElementById("adultKeyword").value.trim(),
-  document.getElementById("adultActor").value.trim(),
-  document.getElementById("adultCountry").value,
-  document.getElementById("adultType").value,
-  document.getElementById("adultYear").value
- ].filter(Boolean);
- return fields.join(" ");
-}
-function runAdultSearch(){
- const query=adultTerms();
- if(!query){toast("请至少填写或选择一个搜索条件");return}
- if(localStorage.getItem("pfc_adult_ok")!=="yes"){
-  document.getElementById("ageModal").classList.add("show");
-  return;
- }
- showAdultLinks(query);
-}
-function showAdultLinks(query){
- const safe=encodeURIComponent(query+" legal authorized adult-rated film cinema");
- const terms=encodeURIComponent(query);
- const urls=[
-  ["Google 资料检索","https://www.google.com/search?q="+safe],
-  ["Bing 资料检索","https://www.bing.com/search?q="+safe],
-  ["IMDb 影片资料","https://www.imdb.com/find/?q="+terms],
-  ["TMDB 影片资料","https://www.themoviedb.org/search?query="+terms],
-  ["欧洲电影资料检索","https://www.google.com/search?q="+encodeURIComponent(query+" European cinema film database")],
-  ["合法发行与授权信息","https://www.google.com/search?q="+encodeURIComponent(query+" official distributor licensed streaming")]
- ];
- document.getElementById("adultResults").innerHTML=urls.map(x=>
-  `<a class="btn small" href="${x[1]}" target="_blank" rel="noopener">${x[0]} ↗</a>`
- ).join("");
-}
-function resetAdultSearch(){
- ["adultKeyword","adultActor"].forEach(id=>document.getElementById(id).value="");
- ["adultCountry","adultType","adultYear"].forEach(id=>document.getElementById(id).value="");
- document.getElementById("adultResults").innerHTML="";
-}
-function confirmAdult(){
- localStorage.setItem("pfc_adult_ok","yes");
- document.getElementById("ageModal").classList.remove("show");
- const query=adultTerms();
- if(query)showAdultLinks(query);
-}
-function leaveAdult(){
- document.getElementById("ageModal").classList.remove("show");
- document.getElementById("adultResults").innerHTML="";
- document.getElementById("adult").scrollIntoView({behavior:"smooth"});
-}
-function enterAdultSection(){
- if(localStorage.getItem("pfc_adult_ok")!=="yes"){
-  document.getElementById("ageModal").classList.add("show");
- }
-}
-document.querySelector('a[href="#adult"]').addEventListener("click",()=>{
- enterAdultSection();
-});
-document.getElementById("adultKeyword").addEventListener("keydown",e=>{
- if(e.key==="Enter")runAdultSearch();
-});
-document.getElementById("mainSearch").addEventListener("keydown",e=>{
- if(e.key==="Enter")runMainSearch();
-});
-document.getElementById("catalogSearch").addEventListener("input",renderMovies);
-document.getElementById("collectionSearch").addEventListener("input",renderCollections);
-document.getElementById("newsSearch").addEventListener("keydown",e=>{
- if(e.key==="Enter")runNewsSearch();
-});
+document.getElementById("movieSearch").addEventListener("keydown",e=>{if(e.key==="Enter")filterMovies()});
+document.getElementById("mainSearch").addEventListener("keydown",e=>{if(e.key==="Enter")mainSearch()});
+document.getElementById("newsSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchNews()});
+renderPlatforms();renderNews();renderLive();filterMovies();renderFavorites();
 
-renderResources(mainlandResources,"mainlandGrid");
-renderResources(worldResources,"worldGrid");
-renderNews();
-renderMovies();
-renderCollections();
-renderFavorites();
-updateFavoriteCount();
-
+let installPrompt=null;
 window.addEventListener("beforeinstallprompt",e=>{
- e.preventDefault();
- pendingInstall=e;
- document.getElementById("installBtn").style.display="inline-flex";
+ e.preventDefault();installPrompt=e;document.getElementById("installBtn").style.display="inline-block";
 });
-document.getElementById("installBtn").addEventListener("click",async()=>{
- if(!pendingInstall){
-  toast("可通过浏览器菜单选择“添加到主屏幕”或“安装应用”");
-  return;
- }
- pendingInstall.prompt();
- await pendingInstall.userChoice;
- pendingInstall=null;
+async function installApp(){
+ if(!installPrompt){alert("如未出现安装提示，请使用浏览器菜单中的“添加到主屏幕”或“安装应用”。");return;}
+ installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;
  document.getElementById("installBtn").style.display="none";
-});
-if("serviceWorker" in navigator && location.protocol.startsWith("http")){
- window.addEventListener("load",()=>{
-  navigator.serviceWorker.register("./sw.js").catch(()=>{});
- });
+}
+if("serviceWorker" in navigator){
+ window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(err=>console.log("Service Worker:",err)));
 }
 </script>
 </body>
