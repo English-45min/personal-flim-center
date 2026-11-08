@@ -463,13 +463,13 @@ footer a{color:var(--gold2)}
       </div>
     </div>
 
-    <div class="card" data-platform="1958电影网" data-domain="" data-url="">
-      <div class="platform-label">第三方 · 待核验</div>
-      <h3>1958电影网</h3>
-      <p>通过搜索引擎查找该站相关影片。具体版权与播放授权需自行核验。</p>
+    <div class="card" data-platform="西影网" data-domain="1958xy.com" data-url="https://www.1958xy.com/channel/index">
+      <div class="platform-label">中国 · 西部电影集团</div>
+      <h3>西影网（1958）</h3>
+      <p>西部电影集团旗下影视平台，提供电影、剧集、纪录片及影视资讯。</p>
       <div class="card-actions">
         <button onclick="platformSearch(this)">搜索影片</button>
-        <a href="https://www.google.com/search?q=1958%E7%94%B5%E5%BD%B1%E7%BD%91" target="_blank" rel="noopener">查找网站</a>
+        <a href="https://www.1958xy.com/channel/index" target="_blank" rel="noopener">官方网站</a>
       </div>
     </div>
 
@@ -634,6 +634,15 @@ footer a{color:var(--gold2)}
       <div class="card-actions">
         <a class="primary-link" href="https://www.euronews.com/" target="_blank" rel="noopener">官方网站</a>
         <a href="https://www.google.com/search?q=site%3Aeuronews.com+news" target="_blank" rel="noopener">新闻搜索</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>端传媒 Initium Media</h3>
+      <p>香港创办的中文数字媒体，关注中港台、国际时事、调查报道与深度专题，提供简体及繁体中文内容。</p>
+      <div class="card-actions">
+        <a class="primary-link" href="https://theinitium.com/" target="_blank" rel="noopener">官方网站</a>
+        <a href="https://www.google.com/search?q=site%3Atheinitium.com+%E5%9B%BD%E9%99%85%E6%96%B0%E9%97%BB" target="_blank" rel="noopener">新闻搜索</a>
       </div>
     </div>
   </div>
@@ -876,8 +885,8 @@ function platformSearch(button){
   }
 
   let query;
-  if(platform==="1958电影网"){
-    query='"'+keyword+'" "1958电影网"';
+  if(platform==="西影网"){
+    query='site:1958xy.com "'+keyword+'"';
   }else if(domain){
     query='site:'+domain+' "'+keyword+'"';
   }else{
