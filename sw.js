@@ -1,10 +1,12 @@
-const CACHE_NAME = "personal-film-center-v2";
+
+const CACHE_NAME = "personal-film-center-v3";
 
 const CORE_FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icon.svg"
+  "./icon.svg",
+  "./apple-touch-icon.png"
 ];
 
 self.addEventListener("install", event => {
