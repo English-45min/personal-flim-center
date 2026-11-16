@@ -1,9 +1,9 @@
 
 {
   "id": "./",
-  "name": "Personal Film Center｜私人影视中心",
-  "short_name": "私人影视",
-  "description": "正版影视导航、电影资料检索、国际新闻、官方直播与字幕工具",
+  "name": "WorldScope · 环球视界",
+  "short_name": "环球视界",
+  "description": "全球影视综合搜索、正版视频平台、国际新闻、官方直播与字幕工具",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -12,13 +12,13 @@
   "orientation": "any",
   "icons": [
     {
-      "src": "./icon.svg?v=3",
+      "src": "./icon.svg?v=4",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "./apple-touch-icon.png?v=3",
+      "src": "./apple-touch-icon.png?v=4",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
