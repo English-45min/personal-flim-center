@@ -1,11 +1,10 @@
-
-const CACHE_NAME = "worldscope-v4";
-
+const CACHE_NAME = "escape-v5";
 const CORE_FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icon.svg",
+  "./icon-192.png",
+  "./icon-512.png",
   "./apple-touch-icon.png"
 ];
 
@@ -30,7 +29,6 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) return;
-
   event.respondWith(
     fetch(request)
       .then(response => {
