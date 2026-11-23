@@ -2,173 +2,139 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#06143b">
-<meta name="description" content="ESCAPE：全球影视搜索、正版观看入口、国际新闻、官方直播与字幕资源。">
+<meta name="description" content="ESCAPE：全球影视搜索与个人影视管理中心。">
 <title>ESCAPE</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon-192.png" type="image/png">
-<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <style>
 :root{--bg:#050d25;--panel:#0c1b3b;--panel2:#102750;--line:#1d477d;--blue:#168bff;--cyan:#40dfff;--text:#eef6ff;--muted:#9bb4d4;--radius:16px}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse at 50% -15%,#123d8c 0,#071638 42%,var(--bg) 78%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;font-size:14px;line-height:1.55}
-button,input,select{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{cursor:pointer}
-header{padding:20px 14px 17px;text-align:center;background:linear-gradient(180deg,rgba(10,49,120,.48),rgba(5,13,37,.12));border-bottom:1px solid #173e76}
-.brand{font-size:clamp(25px,6vw,36px);font-weight:900;font-style:italic;letter-spacing:1.5px;color:#f7fbff;text-shadow:0 0 18px #28aaff,0 2px 2px #00143c}
-.brand-line{width:min(280px,70%);height:3px;margin:9px auto 0;border-radius:100%;background:linear-gradient(90deg,transparent,#168bff,#8df5ff,#168bff,transparent);box-shadow:0 0 13px #16bfff}
-nav{position:sticky;top:0;z-index:20;display:flex;gap:7px;padding:9px 12px;overflow-x:auto;white-space:nowrap;background:rgba(4,12,32,.96);border-bottom:1px solid var(--line);scrollbar-width:none}
-nav::-webkit-scrollbar{display:none}nav a{flex-shrink:0;padding:7px 12px;border-radius:20px;background:#0d2044;color:#d4e8ff;font-size:12px;border:1px solid #1c477d}
-nav a:hover,nav a:focus{background:#164a8b;color:white}
-main{width:min(1120px,100%);margin:auto;padding:16px 13px 36px}
-section{margin:0 0 24px;scroll-margin-top:68px}
-.section-title{display:flex;align-items:center;gap:9px;margin:0 0 10px;color:#dff8ff;font-size:17px;font-weight:800}
-.section-title:before{content:"";width:4px;height:19px;background:linear-gradient(#7af5ff,#168bff);border-radius:5px;box-shadow:0 0 10px #168bff}
-.section-desc{margin:-4px 0 12px;color:var(--muted);font-size:12px}
-.panel,.card{background:linear-gradient(145deg,rgba(15,39,80,.96),rgba(8,23,52,.98));border:1px solid var(--line);border-radius:var(--radius)}
-.panel{padding:13px;margin-bottom:12px}.search-panel{background:linear-gradient(145deg,#12356e,#0a1a3c);border:1px solid #2867a8;border-radius:18px;padding:15px;box-shadow:0 8px 28px #00102d88}
-.search-row{display:flex;gap:7px}.search-row input{flex:1;min-width:0;padding:12px;color:var(--text);background:#06132d;border:1px solid #2b5b91;border-radius:10px;outline:none}
-.search-row input:focus,.input-full:focus{border-color:var(--cyan);box-shadow:0 0 0 2px #24cfff22}
-.primary-btn,.small-btn{border:0;border-radius:9px;padding:10px 13px;background:linear-gradient(110deg,#1476e8,#39d9f4);color:#04132f;font-weight:850}.primary-btn{white-space:nowrap}.small-btn{padding:6px 9px;font-size:11px}
-.secondary-btn,.card-actions a,.card-actions button{padding:7px 9px;border:1px solid #2b5b91;border-radius:8px;background:#102b55;color:#e0f2ff;font-size:11px}
-.danger-btn{padding:7px 10px;border:1px solid #814b68;border-radius:8px;background:#3b1c3a;color:#ffd9ee;font-size:11px}
-.search-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}
-.search-options select,.input-full{width:100%;min-width:0;padding:10px;background:#06132d;border:1px solid #2b5b91;border-radius:9px;color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.card{min-width:0;padding:11px}.card h3{margin:0 0 4px;color:#e4f7ff;font-size:13px;line-height:1.4}.card p{margin:0 0 9px;color:var(--muted);font-size:11px;line-height:1.5}
-.card-actions{display:flex;flex-wrap:wrap;gap:6px}.card-actions a,.card-actions button{display:inline-flex;align-items:center;justify-content:center}
-.card-actions a.primary-link{background:linear-gradient(110deg,#1476e8,#39d9f4);border-color:#35cafa;color:#04132f;font-weight:850}
-.platform-label{color:#65dfff;font-size:10px;margin-bottom:4px}
-.notice{padding:11px 12px;border:1px solid #28558c;border-radius:11px;background:#0b2042;color:#c0d8f2;font-size:11px;line-height:1.65}.notice strong{color:#80eaff}
-.divider{height:1px;background:var(--line);margin:13px 0}.inline-form{display:flex;gap:7px}.inline-form input{flex:1;min-width:0}
-.empty{padding:17px;border:1px dashed #37608e;border-radius:11px;text-align:center;color:var(--muted);font-size:12px}
-.toolbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px}.toolbar button{flex:1 1 auto}
-.result-note{margin-top:10px;color:var(--muted);font-size:11px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#123d8c 0,#071638 42%,var(--bg) 78%);color:var(--text);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif}
+button,input,select,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{cursor:pointer}
+header{padding:20px 14px 17px;text-align:center;background:linear-gradient(180deg,#0a317878,#050d251f);border-bottom:1px solid #173e76}.brand{font-size:clamp(25px,6vw,36px);font-weight:900;font-style:italic;letter-spacing:1.5px;color:#f7fbff;text-shadow:0 0 18px #28aaff,0 2px 2px #00143c}.brand-line{width:min(280px,70%);height:3px;margin:9px auto 0;border-radius:100%;background:linear-gradient(90deg,transparent,#168bff,#8df5ff,#168bff,transparent)}
+nav{position:sticky;top:0;z-index:20;display:flex;gap:7px;padding:9px 12px;overflow-x:auto;white-space:nowrap;background:#040c20f5;border-bottom:1px solid var(--line);scrollbar-width:none}nav::-webkit-scrollbar{display:none}nav a{flex-shrink:0;padding:7px 12px;border-radius:20px;background:#0d2044;color:#d4e8ff;font-size:12px;border:1px solid #1c477d}
+main{width:min(1120px,100%);margin:auto;padding:16px 13px 36px}section{margin:0 0 24px;scroll-margin-top:68px}.section-title{display:flex;align-items:center;gap:9px;margin:0 0 10px;color:#dff8ff;font-size:17px;font-weight:800}.section-title:before{content:"";width:4px;height:19px;background:linear-gradient(#7af5ff,#168bff);border-radius:5px;box-shadow:0 0 10px #168bff}.section-desc{margin:-4px 0 12px;color:var(--muted);font-size:12px}
+.panel,.card{background:linear-gradient(145deg,#0f2750f5,#081734fa);border:1px solid var(--line);border-radius:var(--radius)}.panel{padding:13px;margin-bottom:12px}.search-panel{background:linear-gradient(145deg,#12356e,#0a1a3c);border:1px solid #2867a8;border-radius:18px;padding:15px;box-shadow:0 8px 28px #00102d88}
+.search-row{display:flex;gap:7px}.search-row input{flex:1;min-width:0;padding:12px;color:var(--text);background:#06132d;border:1px solid #2b5b91;border-radius:10px;outline:none}.search-row input:focus,.input-full:focus,textarea:focus,select:focus{border-color:var(--cyan);outline:0;box-shadow:0 0 0 2px #24cfff22}
+.primary-btn,.small-btn{border:0;border-radius:9px;padding:10px 13px;background:linear-gradient(110deg,#1476e8,#39d9f4);color:#04132f;font-weight:850}.primary-btn{white-space:nowrap}.small-btn{padding:6px 9px;font-size:11px}.secondary-btn,.card-actions a,.card-actions button{padding:7px 9px;border:1px solid #2b5b91;border-radius:8px;background:#102b55;color:#e0f2ff;font-size:11px}.danger-btn{padding:7px 10px;border:1px solid #814b68;border-radius:8px;background:#3b1c3a;color:#ffd9ee;font-size:11px}
+.search-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}.search-options select,.input-full,select,textarea{width:100%;min-width:0;padding:10px;background:#06132d;border:1px solid #2b5b91;border-radius:9px;color:var(--text)}textarea{min-height:75px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{min-width:0;padding:11px}.card h3{margin:0 0 4px;color:#e4f7ff;font-size:13px;line-height:1.4}.card p{margin:0 0 9px;color:var(--muted);font-size:11px;line-height:1.5}.card-actions{display:flex;flex-wrap:wrap;gap:6px}.card-actions a,.card-actions button{display:inline-flex;align-items:center;justify-content:center}.card-actions a.primary-link{background:linear-gradient(110deg,#1476e8,#39d9f4);border-color:#35cafa;color:#04132f;font-weight:850}
+.platform-label{color:#65dfff;font-size:10px;margin-bottom:4px}.notice{padding:11px 12px;border:1px solid #28558c;border-radius:11px;background:#0b2042;color:#c0d8f2;font-size:11px;line-height:1.65}.notice strong{color:#80eaff}.divider{height:1px;background:var(--line);margin:13px 0}.inline-form{display:flex;gap:7px}.inline-form input{flex:1;min-width:0}.empty{padding:17px;border:1px dashed #37608e;border-radius:11px;text-align:center;color:var(--muted);font-size:12px}.toolbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px}.toolbar button{flex:1 1 auto}.result-note{margin-top:10px;color:var(--muted);font-size:11px}
+.movie-card{overflow:hidden;padding:0}.movie-card .poster{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:#08142b}.movie-body{padding:10px}.movie-meta{font-size:10px;color:#8db6df;margin:3px 0 7px}.movie-actions{display:flex;flex-wrap:wrap;gap:5px}.movie-actions button{font-size:10px;padding:6px 7px}
+.tabs{display:flex;gap:6px;overflow:auto;padding:2px 0 9px}.tabs button{white-space:nowrap}.status{font-size:11px;color:#9bb4d4;margin-top:8px;min-height:18px}.field-label{display:block;color:#a9c7e8;font-size:11px;margin:8px 0 5px}
 footer{padding:22px 15px 35px;text-align:center;color:#8da9ca;font-size:11px;border-top:1px solid var(--line)}
 @media(min-width:700px){main{padding:22px 20px 45px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.search-panel{padding:20px}}
-@media(max-width:390px){main{padding-left:9px;padding-right:9px}.grid{gap:7px}.card{padding:9px}.search-options{grid-template-columns:1fr}.search-row{flex-wrap:wrap}.search-row input{flex-basis:100%}.primary-btn{flex:1}}
+@media(max-width:390px){main{padding-left:9px;padding-right:9px}.grid{gap:7px}.card{padding:9px}.movie-card{padding:0}.search-options{grid-template-columns:1fr}.search-row{flex-wrap:wrap}.search-row input{flex-basis:100%}.primary-btn{flex:1}}
 </style>
 </head>
 <body>
 <header><div class="brand">ESCAPE</div><div class="brand-line"></div></header>
 <nav>
-<a href="#search">影视综合搜索</a><a href="#platforms">影视平台</a><a href="#news">国际新闻</a><a href="#live">官方直播</a><a href="#subtitles">字幕中心</a><a href="#adult">18+资料</a><a href="#favorites">我的收藏</a>
+<a href="#search">影视综合搜索</a><a href="#discover">影视发现</a><a href="#platforms">影视平台</a><a href="#news">国际新闻</a><a href="#live">官方直播</a><a href="#subtitles">字幕中心</a><a href="#library">个人片库</a><a href="#adult">18+资料</a>
 </nav>
 <main>
 <section id="search">
-<h2 class="section-title">影视综合搜索</h2>
-<p class="section-desc">检索全球影视资料、正版观看来源、影评评分、演员导演与相关作品。</p>
+<h2 class="section-title">影视综合搜索</h2><p class="section-desc">站内影视数据库检索与全球搜索引擎并行，真实影视资料需配置 TMDB API Key。</p>
 <div class="search-panel">
-<div class="search-row"><input id="movieKeyword" type="search" placeholder="输入片名、英文原名、演员、导演、国家、年份或题材"><button class="primary-btn" onclick="searchMovies()">开始搜索</button></div>
-<div class="search-options">
-<select id="searchEngine" aria-label="搜索引擎"><option value="google">Google</option><option value="bing">Bing</option><option value="yahoo">Yahoo</option><option value="ecosia">Ecosia</option><option value="duck">DuckDuckGo</option><option value="brave">Brave Search</option><option value="startpage">Startpage</option></select>
-<select id="searchType" aria-label="资料类型"><option value="all">全部影视资料</option><option value="watch">正版观看入口</option><option value="review">影评与评分</option><option value="behind">导演、演员与幕后资料</option><option value="related">同类影片与相关作品</option><option value="subtitle">字幕与语言版本</option><option value="background">历史背景与真实事件</option></select>
+<div class="search-row"><input id="movieKeyword" type="search" placeholder="输入片名、英文原名、演员、导演、国家、年份或题材"><button class="primary-btn" onclick="searchTMDB()">站内搜索</button></div>
+<div class="search-options"><select id="searchEngine" aria-label="搜索引擎"><option value="google">Google</option><option value="bing">Bing</option><option value="yahoo">Yahoo</option><option value="ecosia">Ecosia</option><option value="duck">DuckDuckGo</option><option value="brave">Brave Search</option><option value="startpage">Startpage</option></select>
+<select id="searchType" aria-label="资料类型"><option value="all">全部影视资料</option><option value="watch">正版观看入口</option><option value="review">影评与评分</option><option value="behind">导演、演员与幕后资料</option><option value="related">同类影片与相关作品</option><option value="subtitle">字幕与语言版本</option><option value="background">历史背景与真实事件</option></select></div>
+<div class="toolbar"><button class="secondary-btn" onclick="externalSearch()">使用所选引擎</button><button class="secondary-btn" onclick="searchAllEngines()">全部搜索引擎并行搜索</button><button class="secondary-btn" onclick="searchFilmDatabases()">IMDb / TMDB / JustWatch</button></div>
+<div class="result-note">七大搜索引擎：Google、Bing、Yahoo、Ecosia、DuckDuckGo、Brave Search、Startpage。搜索类型保留七类。</div>
+<div class="result-note">站内海报、评分、简介、详情等由 TMDB API 提供；观看平台仅作地区线索，实际授权以平台页面为准。</div>
+<div id="tmdbStatus" class="status">TMDB 尚未配置。可在下方“数据源设置”填写个人 API Key，或配置自己的安全 API Worker。</div>
 </div>
-<div class="toolbar"><button class="secondary-btn" onclick="searchMovies()">使用所选引擎</button><button class="secondary-btn" onclick="searchAllEngines()">全部搜索引擎并行搜索</button><button class="secondary-btn" onclick="searchFilmDatabases()">影视数据库专项检索</button></div>
-<div class="result-note">支持 Google、Bing、Yahoo、Ecosia、DuckDuckGo、Brave Search、Startpage 七个搜索引擎。可选择资料类型，也可同时打开多个搜索引擎检索。</div>
-<div class="result-note">影视数据库专项检索覆盖 IMDb、TMDB、JustWatch 等资料来源。搜索结果由外部网站提供，播放授权和地区限制以平台页面为准。</div>
-</div>
+<div id="searchResults" class="grid"></div>
 </section>
-<section id="platforms"><h2 class="section-title">正版影视平台 · 搜索与访问</h2><p class="section-desc">输入片名后，可定向搜索平台内容；也可直接访问平台官网。</p><div class="grid" id="platformGrid"></div>
-<div class="notice" style="margin-top:11px"><strong>正版与地区限制：</strong>搜索结果只是查找线索，不代表影片一定免费或获得授权。版权地区、免费政策和字幕支持可能变化，请以平台实际页面为准。</div></section>
+
+<section id="discover"><h2 class="section-title">影视发现中心</h2><p class="section-desc">热门电影、热门剧集及高评分纪录片发现。数据来自 TMDB。</p>
+<div class="tabs"><button class="secondary-btn" onclick="discover('movie','popular')">热门电影</button><button class="secondary-btn" onclick="discover('tv','popular')">热门剧集</button><button class="secondary-btn" onclick="discover('movie','top_rated')">高评分电影</button><button class="secondary-btn" onclick="discover('tv','top_rated')">高评分剧集</button><button class="secondary-btn" onclick="discover('movie','documentary')">纪录片</button></div><div id="discoverResults" class="grid"></div>
+</section>
+
+<section id="dataSettings"><h2 class="section-title">数据源设置</h2><div class="panel">
+<p class="section-desc">优先填写个人 TMDB API Key，或填写已部署的 ESCAPE API Worker 地址。API Key 仅保存在当前浏览器，不要在公共设备使用。</p>
+<label class="field-label" for="tmdbKey">TMDB API Read Access Token / API Key</label><input id="tmdbKey" class="input-full" type="password" autocomplete="off" placeholder="粘贴 TMDB API Key（v3）或 Read Access Token">
+<label class="field-label" for="apiWorker">可选：自建 API Worker 地址</label><input id="apiWorker" class="input-full" type="url" placeholder="https://你的-worker.example.workers.dev">
+<div class="toolbar"><button class="primary-btn" onclick="saveAPISettings()">保存设置</button><button class="secondary-btn" onclick="testTMDB()">测试数据源</button><button class="danger-btn" onclick="clearAPISettings()">清除设置</button></div><div id="apiSettingStatus" class="status"></div>
+<div class="notice">说明：本版可直接调用 TMDB API（需个人 Key）；Worker 代理入口为预留兼容接口。尚未部署并配置对应 Worker 路由时，不能使用云端代理。TMDB 的观看渠道、地区可用性与实际价格请以流媒体平台为准。</div>
+</div></section>
+
+<section id="platforms"><h2 class="section-title">正版影视平台 · 搜索与访问</h2><p class="section-desc">输入片名后，可定向搜索平台内容；也可直接访问平台官网。</p><div class="grid" id="platformGrid"></div><div class="notice" style="margin-top:11px"><strong>正版与地区限制：</strong>搜索结果只是查找线索，不代表影片一定免费或获得授权。版权地区、免费政策和字幕支持可能变化，请以平台实际页面为准。</div></section>
 <section id="news"><h2 class="section-title">国际新闻</h2><p class="section-desc">国际媒体官方网站及定向新闻检索。</p><div class="grid" id="newsGrid"></div></section>
 <section id="live"><h2 class="section-title">国际官方直播</h2><p class="section-desc">优先提供媒体官方直播页面或官方频道。</p><div class="grid" id="liveGrid"></div></section>
 <section id="subtitles"><h2 class="section-title">字幕中心</h2><p class="section-desc">查找多语言字幕资源，并使用本地播放器加载字幕文件。</p><div class="grid" id="subtitleGrid"></div></section>
-<section id="adult">
-<h2 class="section-title">18+ 成人分级电影资料</h2><p class="section-desc">查找合法发行的成人分级剧情电影资料和官方发行信息。</p>
+
+<section id="library"><h2 class="section-title">我的个人片库</h2><p class="section-desc">五个独立清单，数据保存在当前浏览器；支持完整导入和导出。</p>
+<div class="tabs" id="libraryTabs">
+<button class="secondary-btn" onclick="showList('favorites')">我的收藏</button><button class="secondary-btn" onclick="showList('watchlist')">稍后再看</button><button class="secondary-btn" onclick="showList('watched')">已经看过</button><button class="secondary-btn" onclick="showList('records')">观影记录</button><button class="secondary-btn" onclick="showList('history')">搜索历史</button>
+</div>
+<div class="panel">
+<div id="manualAdd" class="inline-form"><input id="manualTitle" class="input-full" placeholder="添加片名到当前清单"><button class="primary-btn" onclick="addManual()">添加</button></div>
+<div id="recordEditor" hidden><label class="field-label">观影日期</label><input id="recordDate" class="input-full" type="date"><label class="field-label">个人评分（1–10）</label><input id="recordRating" class="input-full" type="number" min="1" max="10" step="0.5" placeholder="例如 8.5"><label class="field-label">观后感</label><textarea id="recordNote" placeholder="记录观影感受、值得回味的细节……"></textarea></div>
+<div class="toolbar"><button class="secondary-btn" onclick="exportLibrary()">导出全部片库</button><button class="secondary-btn" onclick="document.getElementById('importLibraryFile').click()">导入片库备份</button><input id="importLibraryFile" type="file" accept="application/json,.json" hidden onchange="importLibrary(event)"><button class="danger-btn" onclick="clearCurrentList()">清空当前清单</button></div>
+<div class="divider"></div><div id="libraryCount" class="status"></div><div id="libraryResults" class="grid"></div>
+</div></section>
+
+<section id="adult"><h2 class="section-title">18+ 成人分级电影资料</h2><p class="section-desc">仅提供合法发行的成人分级剧情电影资料和官方发行信息检索入口。</p>
 <div class="notice"><strong>内容说明：</strong>本专区提供影片资料、分级、影评及合法发行渠道的检索入口，不提供盗版下载或未经授权的在线播放链接。请遵守所在地法律及平台年龄要求。</div>
 <div class="panel" style="margin-top:10px"><div class="search-row"><input id="adultKeyword" type="search" placeholder="输入影片、导演、演员或国家"><button class="primary-btn" onclick="adultSearch()">搜索资料</button></div><div class="divider"></div><div class="card-actions"><a href="https://www.imdb.com/" target="_blank" rel="noopener">IMDb 影片资料</a><a href="https://www.bbfc.co.uk/" target="_blank" rel="noopener">BBFC 分级资料</a><a href="https://www.filmratings.com/" target="_blank" rel="noopener">美国电影分级</a></div></div>
 </section>
-<section id="favorites">
-<h2 class="section-title">我的收藏</h2><p class="section-desc">收藏保存在当前浏览器。可导出文件，在其他设备导入恢复。</p>
-<div class="panel"><div class="inline-form"><input id="favoriteInput" class="input-full" type="text" placeholder="输入片名、剧集、导演或演员名称"><button class="primary-btn" onclick="addFavorite()">添加收藏</button></div>
-<div class="toolbar"><button class="secondary-btn" onclick="favoriteCurrentSearch()">收藏当前搜索</button><button class="secondary-btn" onclick="exportFavorites()">导出收藏备份</button><button class="secondary-btn" onclick="document.getElementById('importFavoritesFile').click()">导入收藏备份</button><input id="importFavoritesFile" type="file" accept="application/json,.json" hidden onchange="importFavorites(event)"></div>
-<div class="divider"></div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px"><span id="favoriteCount" style="color:var(--muted);font-size:12px">已收藏内容</span><button class="danger-btn" onclick="clearFavorites()">清空收藏</button></div><div id="favoriteGrid" class="grid"></div></div>
-</section>
 </main>
-<footer>ESCAPE<br>全球影视搜索与个人影视管理入口<br><span style="color:#6385ad">© 2026 ESCAPE</span></footer>
+<footer>ESCAPE<br>全球影视搜索与个人影视管理中心<br><span style="color:#6385ad">© 2026 ESCAPE</span></footer>
+
 <script>
-const FAVORITE_KEY="pfc_favorites";
-const ENGINES={
- google:q=>"https://www.google.com/search?q="+encodeURIComponent(q),
- bing:q=>"https://www.bing.com/search?q="+encodeURIComponent(q),
- yahoo:q=>"https://search.yahoo.com/search?p="+encodeURIComponent(q),
- ecosia:q=>"https://www.ecosia.org/search?q="+encodeURIComponent(q),
- duck:q=>"https://duckduckgo.com/?q="+encodeURIComponent(q),
- brave:q=>"https://search.brave.com/search?q="+encodeURIComponent(q),
- startpage:q=>"https://www.startpage.com/sp/search?query="+encodeURIComponent(q)
-};
+"use strict";
+const DB_KEY="escape_library_v1",FAVORITE_KEY="pfc_favorites",HISTORY_LIMIT=100;
+const ENGINES={google:q=>"https://www.google.com/search?q="+encodeURIComponent(q),bing:q=>"https://www.bing.com/search?q="+encodeURIComponent(q),yahoo:q=>"https://search.yahoo.com/search?p="+encodeURIComponent(q),ecosia:q=>"https://www.ecosia.org/search?q="+encodeURIComponent(q),duck:q=>"https://duckduckgo.com/?q="+encodeURIComponent(q),brave:q=>"https://search.brave.com/search?q="+encodeURIComponent(q),startpage:q=>"https://www.startpage.com/sp/search?query="+encodeURIComponent(q)};
 const TYPES={all:"",watch:' ("official streaming" OR "official watch" OR "where to watch") -pirated',review:" (review OR rating OR critics OR Metacritic)",behind:" (director OR cast OR actor OR screenplay OR production)",related:" (similar films OR related movies OR filmography)",subtitle:" (subtitles OR subtitle languages OR SRT)",background:" (historical background OR based on true events OR history)"};
+const LISTS={favorites:"我的收藏",watchlist:"稍后再看",watched:"已经看过",records:"观影记录",history:"搜索历史"};
+let activeList="favorites",lastSearch="";
 const platforms=[
-["爱奇艺 iQIYI","中国 · 视频平台","电影、电视剧、纪录片及正版影视内容。","iqiyi.com","https://www.iqiyi.com/"],
-["腾讯视频","中国 · 视频平台","电影、剧集、纪录片及部分免费内容。","v.qq.com","https://v.qq.com/"],
-["优酷 Youku","中国 · 视频平台","电影、电视剧、纪录片及经典影视。","youku.com","https://www.youku.com/"],
-["哔哩哔哩 Bilibili","中国 · 视频平台","纪录片、影视解说、电影及创作者内容。","bilibili.com","https://www.bilibili.com/"],
-["1905电影网","中国 · 电影平台","电影资料、影讯及部分正版影视内容。","1905.com","https://www.1905.com/"],
-["芒果TV Mango TV","中国 · 视频平台","电视剧、综艺、电影及芒果TV自制内容。","mgtv.com","https://www.mgtv.com/"],
-["YouTube","国际 · 视频平台","官方电影频道、纪录片、正版免费影视及国际内容。","youtube.com","https://www.youtube.com/"],
-["Tubi","国际 · 免费广告支持","免费广告支持影视平台，存在地区限制。","tubitv.com","https://tubitv.com/"],
-["Plex","国际 · 免费影视","免费影视、电视节目及个人媒体服务。","watch.plex.tv","https://watch.plex.tv/"],
-["Pluto TV","国际 · 免费电视","免费广告支持影视与直播频道，存在地区限制。","pluto.tv","https://pluto.tv/"],
-["Internet Archive","国际 · 公共数字档案","公共领域及其他可合法访问的历史影像资料，需核对单项版权。","archive.org","https://archive.org/details/movies"],
-["ARTE","欧洲 · 公共文化电视","欧洲电影、文化节目、历史纪录片与艺术内容。","arte.tv","https://www.arte.tv/"],
-["PBS","美国 · 公共电视","历史、战争、社会与自然纪录片，部分内容有地区限制。","pbs.org","https://www.pbs.org/"],
-["National Film Board of Canada","加拿大 · 国家电影局","加拿大纪录片、动画、历史影像及部分免费影片。","nfb.ca","https://www.nfb.ca/"]
-];
-const news=[
-["Reuters 路透社","国际新闻、政治、经济、商业与全球事件。","https://www.reuters.com/","reuters.com"],
-["Associated Press 美联社","全球新闻报道与现场新闻图片。","https://apnews.com/","apnews.com"],
-["BBC News","国际新闻、深度报道与专题分析。","https://www.bbc.com/news","bbc.com/news"],
-["DW 德国之声","欧洲、国际政治、社会与文化报道。","https://www.dw.com/","dw.com"],
-["France 24","法国国际新闻频道，多语种新闻与分析。","https://www.france24.com/","france24.com"],
-["Al Jazeera","中东、亚洲、非洲及国际新闻报道。","https://www.aljazeera.com/","aljazeera.com"],
-["NHK World Japan","日本与亚太地区国际新闻，提供多语种内容。","https://www3.nhk.or.jp/nhkworld/","nhk.or.jp/nhkworld"],
-["The Guardian","国际政治、社会、文化与调查报道。","https://www.theguardian.com/international","theguardian.com"],
-["Euronews","欧洲与全球新闻、经济、科技和社会。","https://www.euronews.com/","euronews.com"],
-["端传媒 Initium Media","中文深度报道、调查报道与国际专题。","https://theinitium.com/","theinitium.com"]
-];
-const lives=[
-["BBC News Live","英国广播公司官方新闻直播与视频。","https://www.bbc.com/news","https://www.youtube.com/@BBCNews/live"],
-["Sky News","英国新闻媒体，提供官方直播入口。","https://news.sky.com/watch-live","https://www.youtube.com/@SkyNews/live"],
-["France 24 Live","法国国际新闻频道直播。","https://www.france24.com/en/live","https://www.youtube.com/@FRANCE24/live"],
-["Al Jazeera Live","半岛电视台官方直播。","https://www.aljazeera.com/live","https://www.youtube.com/@aljazeeraenglish/live"],
-["DW News Live","德国之声国际新闻官方频道。","https://www.dw.com/","https://www.youtube.com/@dwnews/live"],
-["NHK World Live","NHK World Japan 官方国际频道。","https://www3.nhk.or.jp/nhkworld/en/live/","https://www.youtube.com/@NHKWORLDJAPAN/live"]
-];
-function card(title,desc,links,label=""){return `<div class="card">${label?`<div class="platform-label">${label}</div>`:""}<h3>${title}</h3><p>${desc}</p><div class="card-actions">${links}</div></div>`}
-function renderDirectories(){
- document.getElementById("platformGrid").innerHTML=platforms.map(p=>card(p[0],p[2],`<button onclick="platformSearch('${p[3]}')">搜索影片</button><a class="primary-link" href="${p[4]}" target="_blank" rel="noopener">官方网站</a>`,p[1])).join("");
- document.getElementById("newsGrid").innerHTML=news.map(n=>card(n[0],n[1],`<a class="primary-link" href="${n[2]}" target="_blank" rel="noopener">官方网站</a><a href="https://www.google.com/search?q=${encodeURIComponent("site:"+n[3]+" world news")}" target="_blank" rel="noopener">新闻搜索</a>`)).join("");
- document.getElementById("liveGrid").innerHTML=lives.map(x=>card(x[0],x[1],`<a class="primary-link" href="${x[2]}" target="_blank" rel="noopener">打开直播</a><a href="${x[3]}" target="_blank" rel="noopener">官方频道</a>`)).join("");
- const subs=[["OpenSubtitles","多语言电影与电视剧字幕检索。","https://www.opensubtitles.com/","打开字幕网站"],["SubDL","电影和剧集字幕搜索。","https://subdl.com/","打开字幕网站"],["VLC Media Player","电脑、手机均可使用的媒体播放器。","https://www.videolan.org/vlc/","官方下载"],["字幕加载方法","下载 SRT 字幕后，在播放器中选择“字幕 / 添加字幕文件”。","https://www.google.com/search?q=VLC+Android+load+SRT+subtitle+official+guide","查看操作说明"]];
- document.getElementById("subtitleGrid").innerHTML=subs.map(s=>card(s[0],s[1],`<a class="primary-link" href="${s[2]}" target="_blank" rel="noopener">${s[3]}</a>`)).join("");
-}
-function val(id){return document.getElementById(id).value.trim()}
-function selectedEngine(){return document.getElementById("searchEngine").value}
-function queryFor(type){return val("movieKeyword")+(TYPES[type]??"")}
-function openOne(engine,q){window.open((ENGINES[engine]||ENGINES.google)(q),"_blank","noopener")}
-function searchMovies(){const k=val("movieKeyword");if(!k){alert("请先输入影视关键词。");document.getElementById("movieKeyword").focus();return}openOne(selectedEngine(),queryFor(document.getElementById("searchType").value))}
-function searchAllEngines(){const k=val("movieKeyword");if(!k){alert("请先输入影视关键词。");return}const q=queryFor(document.getElementById("searchType").value);Object.keys(ENGINES).forEach((e,i)=>setTimeout(()=>openOne(e,q),i*180))}
-function searchFilmDatabases(){const k=val("movieKeyword");if(!k){alert("请先输入影视关键词。");return}const qs=[`site:imdb.com "${k}" film cast director`,`site:themoviedb.org "${k}" movie TV`,`site:justwatch.com "${k}" streaming`,`"${k}" filmography review rating`];qs.forEach((q,i)=>setTimeout(()=>openOne(selectedEngine(),q),i*180))}
-function platformSearch(domain){const k=val("movieKeyword");if(!k){alert("请先在影视综合搜索框输入片名或关键词。");document.getElementById("movieKeyword").focus();return}openOne(selectedEngine(),`site:${domain} "${k}"`)}
-function adultSearch(){const k=val("adultKeyword");if(!k){alert("请输入影片、导演、演员或国家。");return}openOne(selectedEngine(),k+" film official release review classification")}
-function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function loadFavorites(){try{const a=JSON.parse(localStorage.getItem(FAVORITE_KEY)||"[]");return Array.isArray(a)?a.map(x=>typeof x==="string"?{name:x,query:x,createdAt:""}:{name:String(x.name||x.query||""),query:String(x.query||x.name||""),createdAt:x.createdAt||""}).filter(x=>x.name):[]}catch(e){return []}}
-function saveFavorites(a){localStorage.setItem(FAVORITE_KEY,JSON.stringify(a))}
-function addFavorite(nameOverride){const input=document.getElementById("favoriteInput");const name=(nameOverride||input.value).trim();if(!name){alert("请输入要收藏的影视名称或关键词。");return}const a=loadFavorites();if(a.some(x=>x.name.toLowerCase()===name.toLowerCase())){alert("这个内容已经收藏过了。");return}a.unshift({name,query:name,createdAt:new Date().toISOString()});saveFavorites(a);if(!nameOverride)input.value="";renderFavorites()}
-function favoriteCurrentSearch(){const k=val("movieKeyword");if(!k){alert("请先输入搜索关键词。");return}addFavorite(k)}
-function renderFavorites(){const a=loadFavorites(),box=document.getElementById("favoriteGrid");document.getElementById("favoriteCount").textContent=`已收藏 ${a.length} 项`;if(!a.length){box.innerHTML='<div class="empty" style="grid-column:1/-1">收藏夹暂时为空。搜索影片后，可点击“收藏当前搜索”。</div>';return}box.innerHTML=a.map((x,i)=>`<div class="card"><h3>${escapeHTML(x.name)}</h3><p>收藏关键词 · ${escapeHTML((x.createdAt||"").slice(0,10)||"本地收藏")}</p><div class="card-actions"><button onclick="searchFavorite(${i})">重新搜索</button><button onclick="removeFavorite(${i})">取消收藏</button></div></div>`).join("")}
-function searchFavorite(i){const x=loadFavorites()[i];if(!x)return;document.getElementById("movieKeyword").value=x.query;document.getElementById("searchType").value="all";document.getElementById("search").scrollIntoView({behavior:"smooth"});setTimeout(searchMovies,150)}
-function removeFavorite(i){const a=loadFavorites();a.splice(i,1);saveFavorites(a);renderFavorites()}
-function clearFavorites(){const a=loadFavorites();if(!a.length){alert("收藏夹已经是空的。");return}if(confirm("确定清空全部收藏吗？建议先导出备份。")){saveFavorites([]);renderFavorites()}}
-function exportFavorites(){const data={app:"ESCAPE",version:1,exportedAt:new Date().toISOString(),favorites:loadFavorites()};const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="escape-favorites.json";a.click();URL.revokeObjectURL(url)}
-function importFavorites(ev){const f=ev.target.files&&ev.target.files[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result),incoming=Array.isArray(parsed)?parsed:parsed.favorites;if(!Array.isArray(incoming))throw new Error("格式不正确");const merged=loadFavorites();incoming.forEach(x=>{const v=typeof x==="string"?{name:x,query:x}:{name:String(x.name||x.query||""),query:String(x.query||x.name||""),createdAt:x.createdAt||""};if(v.name&&!merged.some(y=>y.name.toLowerCase()===v.name.toLowerCase()))merged.push(v)});saveFavorites(merged);renderFavorites();alert("收藏导入完成。")}catch(e){alert("导入失败：文件格式不正确。")} };reader.readAsText(f);ev.target.value=""}
-document.getElementById("movieKeyword").addEventListener("keydown",e=>{if(e.key==="Enter")searchMovies()});
-document.getElementById("favoriteInput").addEventListener("keydown",e=>{if(e.key==="Enter")addFavorite()});
-document.getElementById("adultKeyword").addEventListener("keydown",e=>{if(e.key==="Enter")adultSearch()});
-renderDirectories();renderFavorites();
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(e=>console.log("Service Worker registration failed:",e)));
+["爱奇艺 iQIYI","中国 · 视频平台","电影、电视剧、纪录片及正版影视内容。","iqiyi.com","https://www.iqiyi.com/"],["腾讯视频","中国 · 视频平台","电影、剧集、纪录片及部分免费内容。","v.qq.com","https://v.qq.com/"],["优酷 Youku","中国 · 视频平台","电影、电视剧、纪录片及经典影视。","youku.com","https://www.youku.com/"],["哔哩哔哩 Bilibili","中国 · 视频平台","纪录片、影视解说、电影及创作者内容。","bilibili.com","https://www.bilibili.com/"],["1905电影网","中国 · 电影平台","电影资料、影讯及部分正版影视内容。","1905.com","https://www.1905.com/"],["芒果TV Mango TV","中国 · 视频平台","电视剧、综艺、电影及芒果TV自制内容。","mgtv.com","https://www.mgtv.com/"],["YouTube","国际 · 视频平台","官方电影频道、纪录片、正版免费影视及国际内容。","youtube.com","https://www.youtube.com/"],["Tubi","国际 · 免费广告支持","免费广告支持影视平台，存在地区限制。","tubitv.com","https://tubitv.com/"],["Plex","国际 · 免费影视","免费影视、电视节目及个人媒体服务。","watch.plex.tv","https://watch.plex.tv/"],["Pluto TV","国际 · 免费电视","免费广告支持影视与直播频道，存在地区限制。","pluto.tv","https://pluto.tv/"],["Internet Archive","国际 · 公共数字档案","公共领域及其他可合法访问的历史影像资料，需核对单项版权。","archive.org","https://archive.org/details/movies"],["ARTE","欧洲 · 公共文化电视","欧洲电影、文化节目、历史纪录片与艺术内容。","arte.tv","https://www.arte.tv/"],["PBS","美国 · 公共电视","历史、战争、社会与自然纪录片，部分内容有地区限制。","pbs.org","https://www.pbs.org/"],["National Film Board of Canada","加拿大 · 国家电影局","加拿大纪录片、动画、历史影像及部分免费影片。","nfb.ca","https://www.nfb.ca/"]];
+const news=[["Reuters 路透社","国际新闻、政治、经济、商业与全球事件。","https://www.reuters.com/","reuters.com"],["Associated Press 美联社","全球新闻报道与现场新闻图片。","https://apnews.com/","apnews.com"],["BBC News","国际新闻、深度报道与专题分析。","https://www.bbc.com/news","bbc.com/news"],["DW 德国之声","欧洲、国际政治、社会与文化报道。","https://www.dw.com/","dw.com"],["France 24","法国国际新闻频道，多语种新闻与分析。","https://www.france24.com/","france24.com"],["Al Jazeera","中东、亚洲、非洲及国际新闻报道。","https://www.aljazeera.com/","aljazeera.com"],["NHK World Japan","日本与亚太地区国际新闻，提供多语种内容。","https://www3.nhk.or.jp/nhkworld/","nhk.or.jp/nhkworld"],["The Guardian","国际政治、社会、文化与调查报道。","https://www.theguardian.com/international","theguardian.com"],["Euronews","欧洲与全球新闻、经济、科技和社会。","https://www.euronews.com/","euronews.com"],["端传媒 Initium Media","中文深度报道、调查报道与国际专题。","https://theinitium.com/","theinitium.com"]];
+const lives=[["BBC News Live","英国广播公司官方新闻直播与视频。","https://www.bbc.com/news","https://www.youtube.com/@BBCNews/live"],["Sky News","英国新闻媒体，提供官方直播入口。","https://news.sky.com/watch-live","https://www.youtube.com/@SkyNews/live"],["France 24 Live","法国国际新闻频道直播。","https://www.france24.com/en/live","https://www.youtube.com/@FRANCE24/live"],["Al Jazeera Live","半岛电视台官方直播。","https://www.aljazeera.com/live","https://www.youtube.com/@aljazeeraenglish/live"],["DW News Live","德国之声国际新闻官方频道。","https://www.dw.com/","https://www.youtube.com/@dwnews/live"],["NHK World Live","NHK World Japan 官方国际频道。","https://www3.nhk.or.jp/nhkworld/en/live/","https://www.youtube.com/@NHKWORLDJAPAN/live"]];
+function card(title,desc,links,label=""){return `<div class="card">${label?`<div class="platform-label">${esc(label)}</div>`:""}<h3>${esc(title)}</h3><p>${esc(desc)}</p><div class="card-actions">${links}</div></div>`}
+function renderDirectories(){document.getElementById("platformGrid").innerHTML=platforms.map(p=>card(p[0],p[2],`<button onclick="platformSearch('${p[3]}')">搜索影片</button><a class="primary-link" href="${p[4]}" target="_blank" rel="noopener">官方网站</a>`,p[1])).join("");document.getElementById("newsGrid").innerHTML=news.map(n=>card(n[0],n[1],`<a class="primary-link" href="${n[2]}" target="_blank" rel="noopener">官方网站</a><a href="https://www.google.com/search?q=${encodeURIComponent("site:"+n[3]+" world news")}" target="_blank" rel="noopener">新闻搜索</a>`)).join("");document.getElementById("liveGrid").innerHTML=lives.map(x=>card(x[0],x[1],`<a class="primary-link" href="${x[2]}" target="_blank" rel="noopener">打开直播</a><a href="${x[3]}" target="_blank" rel="noopener">官方频道</a>`)).join("");const s=[["OpenSubtitles","多语言电影与电视剧字幕检索。","https://www.opensubtitles.com/","打开字幕网站"],["SubDL","电影和剧集字幕搜索。","https://subdl.com/","打开字幕网站"],["VLC Media Player","电脑、手机均可使用的媒体播放器。","https://www.videolan.org/vlc/","官方下载"],["字幕加载方法","下载 SRT 字幕后，在播放器中选择“字幕 / 添加字幕文件”。","https://www.google.com/search?q=VLC+Android+load+SRT+subtitle+official+guide","查看操作说明"]];document.getElementById("subtitleGrid").innerHTML=s.map(x=>card(x[0],x[1],`<a class="primary-link" href="${x[2]}" target="_blank" rel="noopener">${x[3]}</a>`)).join("")}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function loadDB(){let d;try{d=JSON.parse(localStorage.getItem(DB_KEY)||"{}")}catch(e){d={}}const out={};Object.keys(LISTS).forEach(k=>out[k]=Array.isArray(d[k])?d[k]:[]);if(!out.favorites.length){try{const old=JSON.parse(localStorage.getItem(FAVORITE_KEY)||"[]");if(Array.isArray(old))out.favorites=old.map(x=>typeof x==="string"?{id:uid(),title:x,query:x,createdAt:new Date().toISOString()}:({...x,id:x.id||uid(),title:x.title||x.name||x.query||"",query:x.query||x.name||x.title||""})).filter(x=>x.title)}catch(e){}}return out}
+function saveDB(d){localStorage.setItem(DB_KEY,JSON.stringify(d));localStorage.setItem(FAVORITE_KEY,JSON.stringify(d.favorites.map(x=>({name:x.title,query:x.query||x.title,createdAt:x.createdAt||""}))))}
+function uid(){return "e"+Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function addToList(list,item){const d=loadDB(),id=item.id||uid();if(d[list].some(x=>x.id===id||(x.tmdbId&&item.tmdbId&&x.tmdbId===item.tmdbId))){setStatus("该内容已在「"+LISTS[list]+"」中。");return}d[list].unshift({...item,id,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});saveDB(d);if(activeList===list)renderLibrary();setStatus("已添加到「"+LISTS[list]+"」。")}
+function setStatus(s,id="tmdbStatus"){const el=document.getElementById(id);if(el)el.textContent=s}
+function showList(k){activeList=k;document.getElementById("manualAdd").hidden=k==="history";document.getElementById("recordEditor").hidden=k!=="records";renderLibrary()}
+function renderLibrary(){const d=loadDB(),arr=d[activeList]||[];document.getElementById("libraryCount").textContent=LISTS[activeList]+" · "+arr.length+" 项";const box=document.getElementById("libraryResults");if(!arr.length){box.innerHTML=`<div class="empty" style="grid-column:1/-1">「${LISTS[activeList]}」暂时为空。</div>`;return}box.innerHTML=arr.map((x,i)=>`<div class="card"><h3>${esc(x.title||x.query||"未命名")}</h3><p>${esc(x.year||"")}${x.mediaType?" · "+esc(x.mediaType):""}${x.createdAt?" · "+esc(x.createdAt.slice(0,10)):""}</p>${activeList==="records"?`<p>个人评分：${esc(x.rating||"未评分")}<br>${esc(x.note||"")}</p>`:""}${activeList==="history"?`<p>搜索引擎：${esc(x.engine||"站内")} · ${esc(x.searchType||"")}</p>`:""}<div class="card-actions">${x.tmdbId?`<button onclick="openMovie('${esc(x.tmdbId)}','${esc(x.mediaType||"movie")}')">查看详情</button>`:""}${activeList==="history"?`<button onclick="rerunHistory(${i})">重新搜索</button>`:""}${activeList==="favorites"||activeList==="watchlist"?`<button onclick="moveItem('${activeList}',${i},'watched')">标记已看</button>`:""}<button onclick="deleteItem('${activeList}',${i})">删除</button></div></div>`).join("")}
+function addManual(){const title=document.getElementById("manualTitle").value.trim();if(!title)return alert("请先输入片名。");if(activeList==="records"){const d=loadDB();d.records.unshift({id:uid(),title,date:document.getElementById("recordDate").value||new Date().toISOString().slice(0,10),rating:document.getElementById("recordRating").value,note:document.getElementById("recordNote").value,createdAt:new Date().toISOString()});saveDB(d);document.getElementById("recordNote").value="";document.getElementById("recordRating").value=""}else addToList(activeList,{title,query:title});document.getElementById("manualTitle").value="";renderLibrary()}
+function deleteItem(k,i){const d=loadDB();d[k].splice(i,1);saveDB(d);renderLibrary()}
+function moveItem(from,i,to){const d=loadDB(),x=d[from].splice(i,1)[0];if(x){x.updatedAt=new Date().toISOString();d[to].unshift(x)}saveDB(d);renderLibrary()}
+function clearCurrentList(){const d=loadDB();if(!d[activeList].length)return alert("当前清单已经为空。");if(confirm("确定清空「"+LISTS[activeList]+"」吗？建议先导出备份。")){d[activeList]=[];saveDB(d);renderLibrary()}}
+function exportLibrary(){const blob=new Blob([JSON.stringify({app:"ESCAPE",version:2,exportedAt:new Date().toISOString(),library:loadDB()},null,2)],{type:"application/json"});downloadBlob(blob,"escape-library-backup.json")}
+function downloadBlob(blob,name){const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function importLibrary(ev){const f=ev.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result),incoming=j.library||j;if(!incoming||typeof incoming!=="object")throw Error();const d=loadDB();Object.keys(LISTS).forEach(k=>{if(Array.isArray(incoming[k])){const seen=new Set(d[k].map(x=>x.id));incoming[k].forEach(x=>{if(x&&typeof x==="object"&&!seen.has(x.id)){d[k].push({...x,id:x.id||uid()});seen.add(x.id)}})}});saveDB(d);renderLibrary();alert("片库备份导入完成。")}catch(e){alert("导入失败：文件格式不正确。")}ev.target.value=""};r.readAsText(f)}
+function addHistory(query,engine,type){const d=loadDB();d.history.unshift({id:uid(),title:query,query,engine,searchType:type,createdAt:new Date().toISOString()});d.history=d.history.slice(0,HISTORY_LIMIT);saveDB(d)}
+function rerunHistory(i){const x=loadDB().history[i];if(!x)return;document.getElementById("movieKeyword").value=x.query;document.getElementById("searchEngine").value=x.engine||"google";document.getElementById("searchType").value=x.searchType||"all";externalSearch()}
+function currentQuery(){return document.getElementById("movieKeyword").value.trim()}
+function externalQuery(){return currentQuery()+(TYPES[document.getElementById("searchType").value]||"")}
+function externalSearch(){const q=externalQuery();if(!currentQuery())return alert("请先输入影视关键词。");addHistory(currentQuery(),document.getElementById("searchEngine").value,document.getElementById("searchType").value);window.open(ENGINES[document.getElementById("searchEngine").value](q),"_blank","noopener");if(activeList==="history")renderLibrary()}
+function searchAllEngines(){if(!currentQuery())return alert("请先输入影视关键词。");const q=externalQuery();addHistory(currentQuery(),"all",document.getElementById("searchType").value);Object.keys(ENGINES).forEach((e,i)=>setTimeout(()=>window.open(ENGINES[e](q),"_blank","noopener"),i*180))}
+function searchFilmDatabases(){const k=currentQuery();if(!k)return alert("请先输入影视关键词。");addHistory(k,"database","all");[`site:imdb.com "${k}" film cast director`,`site:themoviedb.org "${k}" movie TV`,`site:justwatch.com "${k}" streaming`,`"${k}" filmography review rating`].forEach((q,i)=>setTimeout(()=>window.open(ENGINES.google(q),"_blank","noopener"),i*180))}
+function platformSearch(domain){const k=currentQuery();if(!k){document.getElementById("movieKeyword").focus();return alert("请先在影视综合搜索框输入片名或关键词。")}window.open(ENGINES[document.getElementById("searchEngine").value](`site:${domain} "${k}"`),"_blank","noopener")}
+function adultSearch(){const k=document.getElementById("adultKeyword").value.trim();if(!k)return alert("请输入影片、导演、演员或国家。");window.open(ENGINES.google(k+" film official release review classification"),"_blank","noopener")}
+function apiSettings(){return {key:localStorage.getItem("escape_tmdb_key")||"",worker:localStorage.getItem("escape_api_worker")||""}}
+function saveAPISettings(){const k=document.getElementById("tmdbKey").value.trim(),w=document.getElementById("apiWorker").value.trim();if(k)localStorage.setItem("escape_tmdb_key",k);else localStorage.removeItem("escape_tmdb_key");if(w)localStorage.setItem("escape_api_worker",w.replace(/\/+$/,""));else localStorage.removeItem("escape_api_worker");setStatus("数据源设置已保存在本设备。","apiSettingStatus");setStatus(k||w?"数据源设置已保存，可测试连接。":"尚未配置 TMDB Key 或 Worker。")}
+function clearAPISettings(){localStorage.removeItem("escape_tmdb_key");localStorage.removeItem("escape_api_worker");document.getElementById("tmdbKey").value="";document.getElementById("apiWorker").value="";setStatus("本地保存的 API 设置已清除。","apiSettingStatus");setStatus("TMDB 尚未配置。")}
+function tmdbConfig(){return apiSettings()}
+async function tmdb(path){const c=tmdbConfig();if(c.worker){const u=c.worker+"/api/tmdb"+path;const r=await fetch(u);if(!r.ok)throw Error("Worker 请求失败："+r.status);return r.json()}if(!c.key)throw Error("请先在“数据源设置”填写 TMDB API Key。");const sep=path.includes("?")?"&":"?";const url="https://api.themoviedb.org/3"+path+sep+"api_key="+encodeURIComponent(c.key)+"&language=zh-CN";const r=await fetch(url);if(!r.ok)throw Error("TMDB 请求失败："+r.status+"。请检查 API Key、网络或地区连接。");return r.json()}
+function poster(path){return path?"https://image.tmdb.org/t/p/w500"+path:""}
+function movieCard(m,type){const id=m.id,media=m.media_type||type||"movie",title=m.title||m.name||"未命名",year=(m.release_date||m.first_air_date||"").slice(0,4),overview=m.overview||"暂无简介。",img=poster(m.poster_path);return `<div class="card movie-card">${img?`<img class="poster" src="${img}" alt="${esc(title)}" loading="lazy" onerror="this.style.display='none'">`:`<div class="poster"></div>`}<div class="movie-body"><h3>${esc(title)}</h3><div class="movie-meta">${esc(year||"年份未知")} · ${media==="tv"?"剧集":"电影"} · ★ ${Number(m.vote_average||0).toFixed(1)}</div><p>${esc(overview.slice(0,125))}${overview.length>125?"…":""}</p><div class="movie-actions"><button onclick="openMovie('${id}','${media}')">详情</button><button onclick="saveMovie('${id}','${media}','watchlist')">稍后再看</button><button onclick="saveMovie('${id}','${media}','favorites')">收藏</button><button onclick="saveMovie('${id}','${media}','watched')">已看</button></div></div></div>`}
+async function searchTMDB(){const q=currentQuery();if(!q)return alert("请输入影视关键词。");lastSearch=q;addHistory(q,"TMDB","all");setStatus("正在搜索 TMDB……");const box=document.getElementById("searchResults");box.innerHTML='<div class="empty">正在获取真实影视资料……</div>';try{const data=await tmdb("/search/multi?query="+encodeURIComponent(q)+"&include_adult=false");const items=(data.results||[]).filter(x=>["movie","tv"].includes(x.media_type));box.innerHTML=items.length?items.map(x=>movieCard(x,x.media_type)).join(""):'<div class="empty">没有找到匹配结果。</div>';setStatus("搜索完成：找到 "+items.length+" 条影视结果。")}catch(e){box.innerHTML=`<div class="notice" style="grid-column:1/-1">${esc(e.message)}</div>`;setStatus(e.message)}}
+async function discover(type,kind){const box=document.getElementById("discoverResults");box.innerHTML='<div class="empty">正在加载……</div>';setStatus("正在加载发现内容……");try{let path;if(kind==="documentary")path=`/discover/movie?with_genres=99&sort_by=popularity.desc`;else path=`/${type}/${kind}`;const d=await tmdb(path);box.innerHTML=(d.results||[]).slice(0,18).map(x=>movieCard(x,type)).join("")||'<div class="empty">暂无结果。</div>';setStatus("发现内容已更新。")}catch(e){box.innerHTML=`<div class="notice" style="grid-column:1/-1">${esc(e.message)}</div>`;setStatus(e.message)}}
+async function openMovie(id,type){try{const [d,credits,similar,providers]=await Promise.all([tmdb(`/${type}/${id}`),tmdb(`/${type}/${id}/credits`),tmdb(`/${type}/${id}/similar`),tmdb(`/${type}/${id}/watch/providers`)]);const title=d.title||d.name,cast=(credits.cast||[]).slice(0,8).map(x=>x.name).join("、"),crew=(credits.crew||[]).filter(x=>x.job==="Director").map(x=>x.name).join("、");const country=providers.results||{},region=country.IT||country.US||Object.values(country)[0]||{},prov=[...(region.flatrate||[]),...(region.free||[]),...(region.ads||[]),...(region.rent||[]),...(region.buy||[])];const unique=[...new Map(prov.map(x=>[x.provider_id,x])).values()];let html=`<div style="display:flex;gap:12px;align-items:flex-start">${d.poster_path?`<img src="${poster(d.poster_path)}" style="width:105px;border-radius:9px" alt="">`:""}<div><h3>${esc(title)}</h3><p>${esc((d.release_date||d.first_air_date||"").slice(0,4))} · ★ ${Number(d.vote_average||0).toFixed(1)} · ${esc((d.genres||[]).map(x=>x.name).join(" / "))}</p><p>${esc(d.overview||"暂无简介。")}</p></div></div><p><b>导演：</b>${esc(crew||"暂无资料")}<br><b>主要演员：</b>${esc(cast||"暂无资料")}</p><p><b>观看渠道线索（地区：${esc(country.IT?"意大利":country.US?"美国":"可用地区")}）：</b>${unique.length?unique.map(x=>esc(x.provider_name)).join("、"):"TMDB 未返回平台数据"}。订阅/免费/租赁/购买分类请以 TMDB 标注及平台页面为准。</p><p><b>相似作品：</b>${(similar.results||[]).slice(0,5).map(x=>esc(x.title||x.name)).join("、")||"暂无数据"}</p><div class="card-actions"><button onclick="saveMovie('${id}','${type}','watchlist')">加入稍后再看</button><button onclick="saveMovie('${id}','${type}','favorites')">加入收藏</button><button onclick="saveMovie('${id}','${type}','watched')">标记已看</button><a href="https://www.justwatch.com/" target="_blank" rel="noopener">JustWatch 查找</a></div>`;showModal(title,html)}catch(e){alert("详情加载失败："+e.message)}}
+function showModal(title,body){let m=document.getElementById("movieModal");if(!m){m=document.createElement("div");m.id="movieModal";m.style.cssText="position:fixed;inset:0;z-index:99;background:#000b;display:flex;align-items:center;justify-content:center;padding:14px";m.innerHTML='<div style="width:min(680px,100%);max-height:85vh;overflow:auto;background:#0c1b3b;border:1px solid #2867a8;border-radius:16px;padding:16px"><div style="display:flex;justify-content:space-between;gap:10px"><h3 id="modalTitle"></h3><button class="secondary-btn" onclick="document.getElementById(\\'movieModal\\').remove()">关闭</button></div><div id="modalBody"></div></div>';document.body.appendChild(m)}document.getElementById("modalTitle").textContent=title;document.getElementById("modalBody").innerHTML=body}
+async function saveMovie(id,type,list){try{const d=await tmdb(`/${type}/${id}`);const item={tmdbId:String(id),mediaType:type,title:d.title||d.name,year:(d.release_date||d.first_air_date||"").slice(0,4),posterPath:d.poster_path,overview:d.overview||""};addToList(list,item)}catch(e){alert("保存失败："+e.message)}}
+async function testTMDB(){try{setStatus("正在测试……","apiSettingStatus");const d=await tmdb("/configuration");setStatus("连接成功。TMDB API 已返回配置数据。","apiSettingStatus");setStatus("TMDB 数据源连接正常。")}catch(e){setStatus(e.message,"apiSettingStatus");setStatus(e.message)}}
+document.getElementById("movieKeyword").addEventListener("keydown",e=>{if(e.key==="Enter")searchTMDB()});document.getElementById("manualTitle").addEventListener("keydown",e=>{if(e.key==="Enter")addManual()});document.getElementById("adultKeyword").addEventListener("keydown",e=>{if(e.key==="Enter")adultSearch()});
+(function init(){renderDirectories();showList("favorites");const c=apiSettings();document.getElementById("tmdbKey").value=c.key;document.getElementById("apiWorker").value=c.worker;if(c.key||c.worker)setStatus("已读取本设备的数据源配置。");if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));})();
 </script>
-</body>
-</html>
+</body></html>
