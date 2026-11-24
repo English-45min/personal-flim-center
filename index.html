@@ -147,7 +147,7 @@ dialog{width:min(560px,calc(100% - 28px));max-height:85vh;overflow:auto;backgrou
 const DB_KEY="escape_library_v1", OLD_FAVORITE_KEY="pfc_favorites", HISTORY_LIMIT=100;
 const LISTS={favorites:"我的收藏",watchlist:"稍后再看",watched:"已经看过",records:"观影记录",history:"搜索历史"};
 const ENGINES={
- google:q=>"https://www.google.com/search?q="+encodeURIComponent(q),
+ google:q=>"https://www.google.com/search?q="+encodeURIComponent(q)+"&ncr=1",
  bing:q=>"https://www.bing.com/search?q="+encodeURIComponent(q),
  yahoo:q=>"https://search.yahoo.com/search?p="+encodeURIComponent(q),
  ecosia:q=>"https://www.ecosia.org/search?q="+encodeURIComponent(q),
