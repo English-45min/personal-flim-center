@@ -57,6 +57,27 @@ dialog{width:min(560px,calc(100% - 28px));max-height:85vh;overflow:auto;backgrou
 @media(min-width:700px){main{padding:22px 20px 45px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.search-panel{padding:20px}}
 @media(max-width:520px){.directory-card{min-height:194px}.live-card{min-height:194px}.search-options{grid-template-columns:1fr 1fr}.search-row{flex-wrap:wrap}.search-row input{flex-basis:100%}.search-row .primary-btn{flex:1}.directory-card{min-height:182px}.directory-card h3{min-height:40px}.directory-card p{min-height:60px}}
 @media(max-width:360px){.grid{gap:7px}.card{padding:9px}.movie-card{padding:0}.search-options{grid-template-columns:1fr}.live-card{padding:10px}.live-card .card-actions{grid-template-columns:1fr}.directory-card{padding:10px}.directory-card .card-actions{flex-direction:column}.directory-card .card-actions a,.directory-card .card-actions button{width:100%}}
+
+/* 全站目录卡片布局校正：同一网格行等高，按钮底边统一 */
+.grid{grid-auto-rows:1fr;align-items:stretch}
+.directory-card,.live-card{height:100%;min-width:0;display:flex;flex-direction:column}
+.directory-card h3,.live-card h3{flex:0 0 auto;min-height:44px;align-items:flex-start;overflow-wrap:anywhere;word-break:normal}
+.directory-card p,.live-card p{flex:1 1 auto;min-height:60px;overflow-wrap:anywhere}
+.directory-card .card-actions,.live-card .card-actions{flex:0 0 auto;margin-top:auto;align-items:stretch}
+.directory-card .card-actions a,.directory-card .card-actions button,.live-card .card-actions a{min-width:0;min-height:42px;white-space:normal;overflow-wrap:anywhere;line-height:1.35}
+.platform-card .platform-label{min-height:18px}
+.live-card .live-tag{flex:0 0 auto;white-space:nowrap}
+@media(max-width:520px){
+ .grid{grid-auto-rows:1fr}
+ .directory-card,.live-card{min-height:194px}
+ .directory-card h3,.live-card h3{min-height:44px}
+ .directory-card p,.live-card p{min-height:60px}
+}
+@media(max-width:360px){
+ .directory-card .card-actions,.live-card .card-actions{display:flex;flex-direction:column}
+ .directory-card .card-actions a,.directory-card .card-actions button,.live-card .card-actions a{width:100%}
+}
+
 </style>
 </head>
 <body>
@@ -66,7 +87,7 @@ dialog{width:min(560px,calc(100% - 28px));max-height:85vh;overflow:auto;backgrou
 </nav>
 <main>
 <section id="search">
-<h2 class="section-title">影视综合搜索</h2><p class="section-desc">站内影视资料与七大搜索引擎协同工作；未配置 TMDB 时自动提供外部检索，不影响基本搜索。</p>
+<h2 class="section-title">影视综合搜索</h2><p class="section-desc">默认完整检索，不预设题材、分级、地区或年份限制；类别与资料类型可由你主动选择。</p>
 <div class="search-panel">
 <div class="search-row"><label for="movieKeyword" class="field-label" style="position:absolute;left:-10000px">影视关键词</label><input id="movieKeyword" type="search" placeholder="输入片名、演员、导演、国家、年份或题材" autocomplete="off"><button class="primary-btn" id="mainSearchBtn" type="button">搜索</button></div>
 <div id="searchHint" class="status" role="status" aria-live="polite"></div>
@@ -209,14 +230,14 @@ function renderDirectories(){
 function selectedEngine(){const k=$("searchEngine").value;return ENGINES[k]?k:"google"}
 function engineUrl(engine,query){return (ENGINES[ENGINES[engine]?engine:"google"])(query)}
 function mediaTerms(){return ({movie:" (film OR movie)",tv:" (TV series OR television series)",documentary:" documentary",animation:" animation OR animated film"})[$("mediaFilter").value]||""}
-function queryWithType(q,type=$("searchType").value){return q+mediaTerms()+(TYPE_TERMS[type]||"")}
+function queryWithType(q,type=$("searchType").value){const media=$("mediaFilter").value;const mediaTerm=media==="all"?"":mediaTerms();const typeTerm=type==="all"?"":(TYPE_TERMS[type]||"");return q+mediaTerm+typeTerm}
 function currentQuery(){return $("movieKeyword").value.trim()}
 function openSearch(url){const w=window.open(url,"_blank","noopener,noreferrer");return !!w}
 function showSearchLinks(items,message){$("searchResults").innerHTML=`<div class="notice" style="grid-column:1/-1">${esc(message)}</div>`+items.map(x=>card(x.name,x.desc||"外部检索入口。",`<a class="primary-link" href="${x.url}" target="_blank" rel="noopener noreferrer">打开检索</a>`)).join("")}
 function addHistory(query,engine,type,kind="engine",domain=""){if(!query)return;const d=loadDB();d.history.unshift({id:uid(),title:query,query,engine,searchType:type,mediaFilter:$("mediaFilter").value,kind,domain,createdAt:new Date().toISOString()});d.history=d.history.slice(0,HISTORY_LIMIT);saveDB(d);if(activeList==="history")renderLibrary()}
 function externalSearch(query=currentQuery(),engine=selectedEngine(),type=$("searchType").value,kind="engine",domain=""){
  if(!query){status("searchHint","请先输入影视关键词。","error");$("movieKeyword").focus();return}
- const q=queryWithType(query,type);const url=engineUrl(engine,domain?`site:${domain} "${query}"${mediaTerms()}${TYPE_TERMS[type]||""}`:q);
+ const q=queryWithType(query,type);const url=engineUrl(engine,domain?`site:${domain} "${query}"`:q);
  addHistory(query,engine,type,kind,domain);const opened=openSearch(url);
  status("searchHint",opened?"已打开所选搜索引擎。若浏览器拦截弹窗，可在下方结果卡片打开。":"浏览器拦截了新窗口，请点击下方备用入口。",opened?"success":"error");
  showSearchLinks([{name:({google:"Google",bing:"Bing",yahoo:"Yahoo",ecosia:"Ecosia",duck:"DuckDuckGo",brave:"Brave Search",startpage:"Startpage"})[engine],url}],opened?"所选引擎检索已触发。":"未能自动打开新窗口，使用备用链接。");
@@ -224,7 +245,7 @@ function externalSearch(query=currentQuery(),engine=selectedEngine(),type=$("sea
 function searchAllEngines(){const q=currentQuery();if(!q){status("searchHint","请先输入影视关键词。","error");return}const term=queryWithType(q);const names={google:"Google",bing:"Bing",yahoo:"Yahoo",ecosia:"Ecosia",duck:"DuckDuckGo",brave:"Brave Search",startpage:"Startpage"};const links=Object.keys(ENGINES).map(k=>({name:names[k],url:engineUrl(k,term)}));addHistory(q,"all",$("searchType").value,"all");let opened=0;links.forEach(x=>{if(openSearch(x.url))opened++});showSearchLinks(links,`已尝试打开七个搜索引擎，浏览器允许打开 ${opened}/7 个。若弹窗被拦截，可逐个使用下方入口。`);status("searchHint","七引擎搜索入口已生成。")}
 function searchFilmDatabases(){const q=currentQuery();if(!q){status("searchHint","请先输入影视关键词。","error");return}const links=[{name:"IMDb",url:"https://www.imdb.com/find/?q="+encodeURIComponent(q)},{name:"TMDB",url:"https://www.themoviedb.org/search?query="+encodeURIComponent(q)},{name:"JustWatch",url:"https://www.justwatch.com/search?q="+encodeURIComponent(q)}];addHistory(q,"database","all","database");showSearchLinks(links,"IMDb、TMDB 和 JustWatch 专项检索入口。")}
 function platformSearch(domain){const q=currentQuery();if(!q){status("searchHint","请先在影视综合搜索框输入片名或关键词。","error");$("movieKeyword").focus();return}externalSearch(q,selectedEngine(),$("searchType").value,"platform",domain)}
-function adultSearch(){const q=$("adultKeyword").value.trim();if(!q){status("adultStatus","请输入影片、导演、演员或国家。","error");return}const term=`${q} film official release review classification`;addHistory(q,selectedEngine(),"all","adult");const url=engineUrl(selectedEngine(),term);const opened=openSearch(url);status("adultStatus",opened?"已打开所选搜索引擎。":"浏览器拦截了弹窗，请使用搜索结果入口。");showSearchLinks([{name:"成人分级影片资料检索",url}],"仅检索影片资料、分级与官方发行信息，不提供盗版资源。")}
+function adultSearch(){const q=$("adultKeyword").value.trim();if(!q){status("adultStatus","请输入影片、导演、演员或国家。","error");return}const term=q;addHistory(q,selectedEngine(),"all","adult");const url=engineUrl(selectedEngine(),term);const opened=openSearch(url);status("adultStatus",opened?"已打开所选搜索引擎。":"浏览器拦截了弹窗，请使用搜索结果入口。");showSearchLinks([{name:"成人分级影片资料检索",url}],"仅检索影片资料、分级与官方发行信息，不提供盗版资源。")}
 function askConfirm(title,message){return new Promise(resolve=>{const d=$("confirmDialog");$("dialogTitle").textContent=title;$("dialogMessage").textContent=message;const done=v=>{d.close();$("dialogOk").removeEventListener("click",yes);$("dialogCancel").removeEventListener("click",no);resolve(v)};const yes=()=>done(true),no=()=>done(false);$("dialogOk").addEventListener("click",yes);$("dialogCancel").addEventListener("click",no);d.showModal()})}
 
 function normalizeItem(x){if(typeof x==="string")return {id:uid(),title:x,query:x,createdAt:new Date().toISOString()};if(!x||typeof x!=="object")return null;const title=x.title||x.name||x.query||"";return title?{...x,id:x.id||uid(),title,query:x.query||title}:null}
@@ -309,7 +330,7 @@ async function tmdb(path){const c=apiSettings();let url,headers={accept:"applica
 function poster(p){return p?"https://image.tmdb.org/t/p/w500"+p:""}
 function movieCard(m,type){const id=m.id,media=m.media_type||type||"movie",title=m.title||m.name||"未命名",year=(m.release_date||m.first_air_date||"").slice(0,4),overview=m.overview||"暂无简介。",img=poster(m.poster_path);return `<article class="card movie-card">${img?`<img class="poster" src="${img}" alt="${esc(title)}" loading="lazy">`:`<div class="poster"></div>`}<div class="movie-body"><h3>${esc(title)}</h3><div class="movie-meta">${esc(year||"年份未知")} · ${media==="tv"?"剧集":"电影"} · ★ ${Number(m.vote_average||0).toFixed(1)}</div><p>${esc(overview.slice(0,125))}${overview.length>125?"…":""}</p><div class="movie-actions"><button type="button" data-detail="${id}|${media}">详情</button><button type="button" data-save="${id}|${media}|favorites">收藏</button><button type="button" data-save="${id}|${media}|watchlist">稍后再看</button><button type="button" data-save="${id}|${media}|watched">已看</button></div></div></article>`}
 function renderFallback(query,message){const links=Object.keys(ENGINES).map(k=>({name:k.toUpperCase(),url:engineUrl(k,query)}));showSearchLinks(links,message)}
-async function searchTMDB(){const q=currentQuery();if(!q){status("searchHint","请输入影视关键词。","error");$("movieKeyword").focus();return}const box=$("searchResults");box.innerHTML='<div class="empty">正在检索影视资料……</div>';if(!apiSettings().key&&!apiSettings().worker){status("tmdbStatus","未配置 TMDB，已自动降级为所选搜索引擎。");externalSearch(q);return}addHistory(q,"TMDB","all","tmdb");try{const data=await tmdb("/search/multi?query="+encodeURIComponent(q)+"&include_adult=false");let items=(data.results||[]).filter(x=>["movie","tv"].includes(x.media_type));const f=$("mediaFilter").value;if(f==="movie"||f==="tv")items=items.filter(x=>x.media_type===f);else if(f==="documentary")items=items.filter(x=>x.media_type==="movie"&&(x.genre_ids||[]).includes(99));else if(f==="animation")items=items.filter(x=>(x.genre_ids||[]).includes(16));box.innerHTML=items.length?items.map(x=>movieCard(x,x.media_type)).join(""):'<div class="empty">没有找到匹配结果。可尝试外部搜索引擎。</div>';status("tmdbStatus","TMDB 搜索完成："+items.length+" 条结果。","success")}catch(e){status("tmdbStatus","TMDB 不可用，已提供外部搜索备用入口："+e.message,"error");renderFallback(query,"TMDB 请求失败。可继续使用以下外部检索入口。")}}
+async function searchTMDB(){const q=currentQuery();if(!q){status("searchHint","请输入影视关键词。","error");$("movieKeyword").focus();return}const box=$("searchResults");box.innerHTML='<div class="empty">正在检索影视资料……</div>';if(!apiSettings().key&&!apiSettings().worker){status("tmdbStatus","未配置 TMDB，已自动降级为所选搜索引擎。");externalSearch(q);return}addHistory(q,"TMDB","all","tmdb");try{const data=await tmdb("/search/multi?query="+encodeURIComponent(q)+"&include_adult=true");let items=(data.results||[]).filter(x=>["movie","tv"].includes(x.media_type));const f=$("mediaFilter").value;if(f==="movie"||f==="tv")items=items.filter(x=>x.media_type===f);else if(f==="documentary")items=items.filter(x=>x.media_type==="movie"&&(x.genre_ids||[]).includes(99));else if(f==="animation")items=items.filter(x=>(x.genre_ids||[]).includes(16));box.innerHTML=items.length?items.map(x=>movieCard(x,x.media_type)).join(""):'<div class="empty">没有找到匹配结果。可尝试外部搜索引擎。</div>';status("tmdbStatus","TMDB 搜索完成："+items.length+" 条结果。","success")}catch(e){status("tmdbStatus","TMDB 不可用，已提供外部搜索备用入口："+e.message,"error");renderFallback(query,"TMDB 请求失败。可继续使用以下外部检索入口。")}}
 async function discover(type,kind){const box=$("discoverResults");box.innerHTML='<div class="empty">正在加载……</div>';try{const path=kind==="documentary"?"/discover/movie?with_genres=99&sort_by=popularity.desc":`/${type}/${kind}`;const d=await tmdb(path);box.innerHTML=(d.results||[]).slice(0,18).map(x=>movieCard(x,type)).join("")||'<div class="empty">暂无结果。</div>'}catch(e){box.innerHTML=`<div class="notice" style="grid-column:1/-1">影视发现需要有效 TMDB Key 或 Worker：${esc(e.message)}</div>`}}
 async function testTMDB(){try{await tmdb("/configuration");status("apiSettingStatus","TMDB 连接成功。","success");status("tmdbStatus","TMDB 数据源连接正常。","success")}catch(e){status("apiSettingStatus","连接失败："+e.message,"error")}}
 async function openMovie(id,type){
