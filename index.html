@@ -29,31 +29,33 @@ dialog{width:min(560px,calc(100% - 28px));max-height:85vh;overflow:auto;backgrou
 [hidden]{display:none!important}footer{padding:22px 15px 35px;text-align:center;color:#8da9ca;font-size:11px;border-top:1px solid var(--line)}
 /* 片库重新搜索按钮 */
 .library-rerun{background:linear-gradient(110deg,#1476e8,#39d9f4)!important;border-color:#35cafa!important;color:#04132f!important;font-weight:850}
-/* 目录卡片统一排版：标题、简介预留空间，按钮统一置底 */
-.directory-card{display:flex;flex-direction:column;min-height:174px;padding:13px}
-.directory-card h3{display:flex;align-items:flex-start;min-height:40px;margin:0 0 7px;font-size:14px;line-height:1.4;letter-spacing:.1px}
-.directory-card p{flex:1;min-height:54px;margin:0 0 12px;line-height:1.6}
-.directory-card .card-actions{display:flex;gap:7px;margin-top:auto}
-.directory-card .card-actions a,.directory-card .card-actions button{min-height:38px;padding:8px 9px;text-align:center;white-space:normal;line-height:1.35}
+/* 目录卡片统一排版：同一行卡片等高，按钮基线一致 */
+.grid{align-items:stretch}
+.directory-card{display:flex;flex-direction:column;align-self:stretch;height:100%;min-height:190px;padding:13px}
+.directory-card .platform-label{display:flex;align-items:center;min-height:18px;margin:0 0 3px}
+.directory-card h3{display:flex;align-items:flex-start;min-height:42px;margin:0 0 7px;font-size:14px;line-height:1.4;letter-spacing:.1px;overflow-wrap:anywhere}
+.directory-card p{flex:1 1 auto;min-height:60px;margin:0 0 12px;line-height:1.6}
+.directory-card .card-actions{display:flex;align-items:stretch;gap:7px;margin-top:auto;min-height:42px}
+.directory-card .card-actions a,.directory-card .card-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:8px 9px;text-align:center;white-space:normal;line-height:1.35;overflow-wrap:anywhere}
 .directory-card .card-actions a.primary-link{font-weight:850}
 .news-card h3{font-size:15px;letter-spacing:.2px}
-.news-card .card-actions a{flex:1}
+.news-card .card-actions a{flex:1 1 0}
 .news-card .card-actions a:first-child{flex:0 0 auto;min-width:88px}
 .news-card .card-actions a:last-child{flex:1}
 .news-full-name{color:#7fa9d5;font-size:10px;font-weight:500;margin-left:5px;letter-spacing:0}
-.platform-card .card-actions button,.platform-card .card-actions a{flex:1}
-.platform-card .platform-label{min-height:16px}
-/* BBC / Sky 官方直播卡片 */
-.live-card{display:flex;flex-direction:column;min-height:174px;padding:13px;border-color:#2865a0;background:radial-gradient(ellipse at 100% 0%,#174b83 0,transparent 55%),linear-gradient(145deg,#102b55,#081734)}
-.live-card h3{display:flex;align-items:center;gap:7px;font-size:14px}
-.live-tag{display:inline-flex;align-items:center;gap:5px;padding:2px 7px;border-radius:20px;background:#54202b;color:#ffb7c0;font-size:9px;font-weight:800;letter-spacing:.4px}
+.platform-card .card-actions button,.platform-card .card-actions a{flex:1 1 0;min-width:0}
+.platform-card .platform-label{min-height:18px}
+/* BBC / Sky 官方直播卡片：标题与操作区固定高度 */
+.live-card{display:flex;flex-direction:column;align-self:stretch;height:100%;min-height:190px;padding:13px;border-color:#2865a0;background:radial-gradient(ellipse at 100% 0%,#174b83 0,transparent 55%),linear-gradient(145deg,#102b55,#081734)}
+.live-card h3{display:flex;align-items:center;gap:7px;min-height:42px;margin:0 0 7px;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.live-tag{display:inline-flex;flex:0 0 auto;align-items:center;gap:5px;padding:2px 7px;border-radius:20px;background:#54202b;color:#ffb7c0;font-size:9px;font-weight:800;letter-spacing:.4px}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#ff5367;box-shadow:0 0 7px #ff5367}
-.live-card p{flex:1;min-height:38px}
-.live-card .card-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:auto}
-.live-card .card-actions a{min-height:36px;padding:8px 5px;text-align:center;white-space:normal}
+.live-card p{flex:1 1 auto;min-height:54px;margin:0 0 12px}
+.live-card .card-actions{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:7px;margin-top:auto;min-height:42px}
+.live-card .card-actions a{display:flex;align-items:center;justify-content:center;min-height:42px;padding:8px 5px;text-align:center;white-space:normal;line-height:1.35;overflow-wrap:anywhere}
 .live-card .card-actions a.primary-link{background:linear-gradient(110deg,#1476e8,#39d9f4);border-color:#35cafa;color:#04132f;font-weight:850}
 @media(min-width:700px){main{padding:22px 20px 45px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.search-panel{padding:20px}}
-@media(max-width:520px){.search-options{grid-template-columns:1fr 1fr}.search-row{flex-wrap:wrap}.search-row input{flex-basis:100%}.search-row .primary-btn{flex:1}.directory-card{min-height:182px}.directory-card h3{min-height:40px}.directory-card p{min-height:60px}}
+@media(max-width:520px){.directory-card{min-height:194px}.live-card{min-height:194px}.search-options{grid-template-columns:1fr 1fr}.search-row{flex-wrap:wrap}.search-row input{flex-basis:100%}.search-row .primary-btn{flex:1}.directory-card{min-height:182px}.directory-card h3{min-height:40px}.directory-card p{min-height:60px}}
 @media(max-width:360px){.grid{gap:7px}.card{padding:9px}.movie-card{padding:0}.search-options{grid-template-columns:1fr}.live-card{padding:10px}.live-card .card-actions{grid-template-columns:1fr}.directory-card{padding:10px}.directory-card .card-actions{flex-direction:column}.directory-card .card-actions a,.directory-card .card-actions button{width:100%}}
 </style>
 </head>
